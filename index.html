@@ -62,6 +62,8 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
 .consultivo-tab-btn.active{background:#155fc4;color:#fff;box-shadow:0 10px 22px rgba(21,95,196,.20)}
 .consultivo-tab-panel{display:none}
 .consultivo-tab-panel.active{display:block}
+#consultivo.consultivo-ranking-mode .consultivo-entry-layout,
+#consultivo.consultivo-ranking-mode .consultivo-kpis{display:none}
 .consultivo-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:8px;margin-bottom:8px}
 .consultivo-grid.consultivo-grid-single{grid-template-columns:1fr}
 .consultivo-ranking-layout{display:grid;grid-template-columns:minmax(280px,.72fr) minmax(0,1.28fr);gap:8px}
@@ -161,14 +163,14 @@ tr:last-child td{border-bottom:0}
     </div>
 
     <div class="consultivo-entry-layout">
-    <section class="filters consultivo-filter-panel">
-      <div class="section-title-line consultivo-filter-title"><h2>Buscar</h2></div>
-      <div class="filter-card"><label>Equipe</label><select id="consultivoFiltroEquipe"><option value="">Todas</option></select></div>
-      <div class="filter-card"><label>Status</label><select id="consultivoFiltroStatus"><option value="">Todos</option></select></div>
-      <div class="filter-card"><label>Serviço</label><select id="consultivoFiltroTipo"><option value="">Todos</option></select></div>
-      <div class="filter-card"><label>Início</label><input id="consultivoDataInicio" type="date"></div>
-      <div class="filter-card"><label>Fim</label><input id="consultivoDataFim" type="date"></div>
-    </section>
+      <section class="filters consultivo-filter-panel">
+        <div class="section-title-line consultivo-filter-title"><h2>Buscar</h2></div>
+        <div class="filter-card"><label>Equipe</label><select id="consultivoFiltroEquipe"><option value="">Todas</option></select></div>
+        <div class="filter-card"><label>Status</label><select id="consultivoFiltroStatus"><option value="">Todos</option></select></div>
+        <div class="filter-card"><label>Serviço</label><select id="consultivoFiltroTipo"><option value="">Todos</option></select></div>
+        <div class="filter-card"><label>Início</label><input id="consultivoDataInicio" type="date"></div>
+        <div class="filter-card"><label>Fim</label><input id="consultivoDataFim" type="date"></div>
+      </section>
 
       <section class="card consultivo-cadastro-card"><div class="section-title-line"><h2 id="consultivoFormTitulo">Registrar Indicação</h2></div><div class="consultivo-form-note" id="consultivoFormNota">Selecione a equipe para carregar as referências de técnicos. Depois informe contrato, serviço, datas, status e valor do lançamento.</div>
         <form id="consultivoForm" class="consultivo-form">
@@ -203,35 +205,35 @@ tr:last-child td{border-bottom:0}
     </nav>
 
     <div class="consultivo-tab-panel active" id="consultivoTabLancamentos">
-    <section class="card consultivo-table">
-      <div class="section-title-line"><h2>Lançamentos</h2><span class="section-caption"><span id="consultivoTotalTabela">0</span> registros exibidos</span><button id="consultivoExportExcel" class="secondary" type="button">Exportar Excel</button></div>
-      <div class="consultivo-table-tools">
-        <div class="consultivo-table-filter">
-          <label for="consultivoFiltroTabelaTecnico">Referência em Lançamentos</label>
-          <select id="consultivoFiltroTabelaTecnico"><option value="">Todos os técnicos</option></select>
+      <section class="card consultivo-table">
+        <div class="section-title-line"><h2>Lançamentos</h2><span class="section-caption"><span id="consultivoTotalTabela">0</span> registros exibidos</span><button id="consultivoExportExcel" class="secondary" type="button">Exportar Excel</button></div>
+        <div class="consultivo-table-tools">
+          <div class="consultivo-table-filter">
+            <label for="consultivoFiltroTabelaTecnico">Referência em Lançamentos</label>
+            <select id="consultivoFiltroTabelaTecnico"><option value="">Todos os técnicos</option></select>
+          </div>
+          <div class="consultivo-table-filter">
+            <label for="consultivoFiltroTabelaStatus">Filtrar lançamentos por status</label>
+            <select id="consultivoFiltroTabelaStatus"><option value="">Todos</option></select>
+          </div>
         </div>
-        <div class="consultivo-table-filter">
-          <label for="consultivoFiltroTabelaStatus">Filtrar lançamentos por status</label>
-          <select id="consultivoFiltroTabelaStatus"><option value="">Todos</option></select>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Técnico</th><th>Equipe</th><th>Contrato</th><th>Indicação</th><th>Instalação</th><th>Serviço</th><th>Status</th><th>Qtd.</th><th>Valor</th><th>Observação</th><th>Ações</th></tr></thead>
+            <tbody id="consultivoTabela"><tr><td colspan="11"><div class="empty">Sem lançamentos.</div></td></tr></tbody>
+          </table>
         </div>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Técnico</th><th>Equipe</th><th>Contrato</th><th>Indicação</th><th>Instalação</th><th>Serviço</th><th>Status</th><th>Qtd.</th><th>Valor</th><th>Observação</th><th>Ações</th></tr></thead>
-          <tbody id="consultivoTabela"><tr><td colspan="11"><div class="empty">Sem lançamentos.</div></td></tr></tbody>
-        </table>
-      </div>
-    </section>
+      </section>
     </div>
 
     <div class="consultivo-tab-panel" id="consultivoTabRanking">
       <div class="consultivo-ranking-layout">
         <section class="card ranking-champion-card">
-          <div class="section-title-line"><h2>1º Lugar</h2><span class="section-caption">Maior valor instalado</span></div>
+          <div class="section-title-line"><h2>1º Lugar</h2><span class="section-caption">Mais indicações instaladas</span></div>
           <div id="consultivoCampeaoRanking" class="ranking-champion"><div class="empty">Sem dados.</div></div>
         </section>
         <section class="card">
-          <div class="section-title-line"><h2>Ranking</h2><span class="section-caption">Conforme os filtros atuais</span></div>
+          <div class="section-title-line"><h2>Ranking</h2><span class="section-caption">Base completa, sem filtros</span></div>
           <div id="consultivoRanking" class="rank-list"><div class="empty">Sem dados.</div></div>
         </section>
       </div>
@@ -651,17 +653,18 @@ tr:last-child td{border-bottom:0}
     });
     return [...map.entries()].sort((a,b)=>b[1]-a[1]||String(a[0]).localeCompare(String(b[0]),"pt-BR"));
   }
-  function consultivoTecnicoMetricas(){
+  function consultivoTecnicoMetricas(usarBaseCompleta=false){
     const map=new Map();
-    const equipeFiltro=$("consultivoFiltroEquipe")?.value||"";
-    const tecnicoFiltro=$("consultivoFiltroTabelaTecnico")?.value||"";
+    const equipeFiltro=usarBaseCompleta?"":($("consultivoFiltroEquipe")?.value||"");
+    const tecnicoFiltro=usarBaseCompleta?"":($("consultivoFiltroTabelaTecnico")?.value||"");
     consultivoLoad().tecnicos.forEach(nome=>{
       const nomeDash=consultivoNomeDashboard(nome);
       if(tecnicoFiltro&&nomeDash!==tecnicoFiltro) return;
       if(equipeFiltro&&consultivoEquipeTecnico(nomeDash)!==equipeFiltro) return;
       map.set(nomeDash,{nome:nomeDash,qtd:0,instaladas:0,pendentes:0,naoConcluidos:0,valor:0});
     });
-    consultivoFiltrado.forEach(r=>{
+    const origem=usarBaseCompleta?(consultivoLoad().records||[]):consultivoFiltrado;
+    origem.forEach(r=>{
       const nome=consultivoNomeDashboard(r.tecnico);
       if(!map.has(nome)) map.set(nome,{nome,qtd:0,instaladas:0,pendentes:0,naoConcluidos:0,valor:0});
       const item=map.get(nome);
@@ -672,18 +675,18 @@ tr:last-child td{border-bottom:0}
       if(consultivoNaoConcluido(r)) item.naoConcluidos+=qtd;
       item.valor+=consultivoValorProdutivo(r);
     });
-    return [...map.values()].sort((a,b)=>b.valor-a.valor||b.instaladas-a.instaladas||b.qtd-a.qtd||String(a.nome).localeCompare(String(b.nome),"pt-BR"));
+    return [...map.values()].sort((a,b)=>b.instaladas-a.instaladas||b.valor-a.valor||b.qtd-a.qtd||String(a.nome).localeCompare(String(b.nome),"pt-BR"));
   }
   function consultivoRenderRanking(){
     const el=$("consultivoRanking");
     const campeao=$("consultivoCampeaoRanking");
-    const data=consultivoTecnicoMetricas();
+    const data=consultivoTecnicoMetricas(true);
     const comMovimento=data.filter(d=>d.qtd>0||d.instaladas>0||d.valor>0);
     if(campeao){
       if(comMovimento.length){
         const d=comMovimento[0];
         const conversao=d.qtd?Math.round(d.instaladas/d.qtd*100):0;
-        campeao.innerHTML=`<span class="ranking-trophy" aria-hidden="true">&#127942;</span><strong>${consultivoEsc(d.nome)}</strong><span>${consultivoEsc(consultivoEquipeTecnico(d.nome))}</span><div class="champion-value">${consultivoMoney.format(d.valor)}</div><span>${consultivoInt.format(d.instaladas)} instaladas · ${conversao}% de conversão</span>`;
+        campeao.innerHTML=`<span class="ranking-trophy" aria-hidden="true">&#127942;</span><strong>${consultivoEsc(d.nome)}</strong><span>${consultivoEsc(consultivoEquipeTecnico(d.nome))}</span><div class="champion-value">${consultivoInt.format(d.instaladas)} instaladas</div><span>${conversao}% de conversão · ${consultivoMoney.format(d.valor)}</span>`;
       }else{
         campeao.innerHTML='<div class="empty">Sem dados.</div>';
       }
@@ -1037,6 +1040,7 @@ tr:last-child td{border-bottom:0}
   }
   function consultivoAtivarAba(targetId){
     if(!targetId) return;
+    $("consultivo")?.classList.toggle("consultivo-ranking-mode",targetId==="consultivoTabRanking");
     document.querySelectorAll("[data-consultivo-target]").forEach(btn=>btn.classList.toggle("active",btn.dataset.consultivoTarget===targetId));
     document.querySelectorAll(".consultivo-tab-panel").forEach(panel=>panel.classList.toggle("active",panel.id===targetId));
     if(targetId==="consultivoTabRanking"){
