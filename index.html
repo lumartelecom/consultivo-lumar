@@ -38,7 +38,7 @@
     .hero p{margin:0;color:rgba(255,255,255,.78);font-size:12px;font-weight:650}
     .hero-logo{width:68px;height:68px;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.28);box-shadow:0 10px 24px rgba(0,0,0,.18);background:#06255f;flex:0 0 auto}
     .hero-logo img{width:100%;height:100%;object-fit:cover;display:block}
-    .filters{position:sticky;top:0;z-index:10;display:grid;grid-template-columns:minmax(220px,1.35fr) repeat(7,minmax(112px,1fr));gap:8px;margin-bottom:12px;padding:10px;background:rgba(255,255,255,.96);border:1px solid var(--border);border-radius:8px;box-shadow:0 8px 22px rgba(18,38,63,.07);backdrop-filter:blur(8px)}
+    .filters{position:sticky;top:0;z-index:10;display:grid;grid-template-columns:minmax(150px,1.25fr) repeat(7,minmax(88px,1fr));gap:8px;margin-bottom:12px;padding:10px;background:rgba(255,255,255,.96);border:1px solid var(--border);border-radius:8px;box-shadow:0 8px 22px rgba(18,38,63,.07);backdrop-filter:blur(8px)}
     .filter-card{display:grid;gap:5px;min-width:0}
     label,.filter-card span{font-size:10px;font-weight:850;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
     input,select,textarea{width:100%;min-width:0;border:1px solid var(--border-strong);border-radius:7px;padding:7px 9px;background:#fff;color:var(--text);outline:none;font-size:12px;font-weight:700}
@@ -115,9 +115,9 @@
     .toast-item.ok{border-left:4px solid var(--green)}
     .toast-item.warn{border-left:4px solid var(--amber)}
     .toast-item.err{border-left:4px solid var(--red)}
-    @media(max-width:1180px){
-      .filters{position:static;grid-template-columns:repeat(4,minmax(0,1fr))}
-      .kpis{grid-template-columns:repeat(3,minmax(0,1fr))}
+    @media(max-width:900px){
+      .filters{position:static;grid-template-columns:repeat(2,minmax(0,1fr))}
+      .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
       .grid-main{grid-template-columns:1fr}
     }
     @media(max-width:760px){
@@ -146,7 +146,7 @@
     </section>
 
     <section class="filters" aria-label="Filtros do Consultivo">
-      <div class="filter-card"><span>Operação</span><select id="filterOperation"><option value="">Todos</option><option value="Manutenção">Manutenção</option><option value="Instalação">Instalação</option></select></div>
+      <div class="filter-card"><span>Equipe</span><select id="filterOperation"><option value="">Todos</option><option value="Manutenção">Manutenção</option><option value="Instalação">Instalação</option></select></div>
       <div class="filter-card"><span>Técnico</span><select id="filterTech"></select></div>
       <div class="filter-card"><span>Status</span><select id="filterStatus"></select></div>
       <div class="filter-card"><span>Serviço</span><select id="filterType"></select></div>
@@ -208,7 +208,7 @@
   <datalist id="techList"></datalist>
   <div id="toast" class="toast" aria-live="polite"></div>
 
-  <script id="seedData" type="application/json">{"records":[{"id":"c1","tecnico":"KLEYTON APOLINARIO DA SILVA","contrato":"1657501","dataIndicacao":"2026-06-12","dataInstalacao":"2026-06-15","valor":8,"tipo":"MIGRAÇÃO","quantidade":1,"status":"INSTALADO","observacao":""},{"id":"c2","tecnico":"KLEYTON APOLINARIO DA SILVA","contrato":"2267413","dataIndicacao":"2026-06-15","dataInstalacao":"2026-06-16","valor":8,"tipo":"MIGRAÇÃO","quantidade":1,"status":"PENDENTE","observacao":""},{"id":"c3","tecnico":"LAILSON SILVA OLIVEIRA","contrato":"1456948","dataIndicacao":"2026-06-11","dataInstalacao":"2026-06-12","valor":8,"tipo":"MIGRAÇÃO","quantidade":1,"status":"INSTALADO","observacao":""},{"id":"c4","tecnico":"JOSE FRANCISCO SOARES DE OLIVEIRA","contrato":"2039380","dataIndicacao":"2026-06-09","dataInstalacao":"2026-06-11","valor":8,"tipo":"MIGRAÇÃO","quantidade":1,"status":"INSTALADO","observacao":""},{"id":"c5","tecnico":"ALEX DA SILVA EMIDIO","contrato":"1998007","dataIndicacao":"2026-06-10","dataInstalacao":"2026-06-10","valor":8,"tipo":"MIGRAÇÃO","quantidade":1,"status":"INSTALADO","observacao":""}],"tecnicos":["ALEX DA SILVA EMIDIO","IZIDORO PEREIRA DA CUNHA NETO","JOSE FRANCISCO SOARES DE OLIVEIRA","KLEYTON APOLINARIO DA SILVA","LAILSON SILVA OLIVEIRA","MATEUS LIMA DOS REIS"],"tipos":["INDICAÇÃO","INSTALAÇÃO","MIGRAÇÃO","MUDANÇA DE PACOTE","OUTRO","UPGRADE"],"statuses":["CANCELADO","INSTALADO","PENDENTE"]}</script>
+  <script id="seedData" type="application/json">{"records":[{"id":"c1","tecnico":"KLEYTON APOLINARIO DA SILVA","contrato":"1657501","dataIndicacao":"2026-06-12","dataInstalacao":"2026-06-15","valor":8,"tipo":"MIGRAÇÃO","quantidade":1,"status":"INSTALADO","observacao":""},{"id":"c2","tecnico":"KLEYTON APOLINARIO DA SILVA","contrato":"2267413","dataIndicacao":"2026-06-15","dataInstalacao":"2026-06-16","valor":8,"tipo":"MIGRAÇÃO","quantidade":1,"status":"PENDENTE","observacao":""},{"id":"c3","tecnico":"LAILSON SILVA OLIVEIRA","contrato":"1456948","dataIndicacao":"2026-06-11","dataInstalacao":"2026-06-12","valor":8,"tipo":"MIGRAÇÃO","quantidade":1,"status":"INSTALADO","observacao":""},{"id":"c4","tecnico":"JOSE FRANCISCO SOARES DE OLIVEIRA","contrato":"2039380","dataIndicacao":"2026-06-09","dataInstalacao":"2026-06-11","valor":8,"tipo":"MIGRAÇÃO","quantidade":1,"status":"INSTALADO","observacao":""},{"id":"c5","tecnico":"ALEX DA SILVA EMIDIO","contrato":"1998007","dataIndicacao":"2026-06-10","dataInstalacao":"2026-06-10","valor":8,"tipo":"MIGRAÇÃO","quantidade":1,"status":"INSTALADO","observacao":""}],"tecnicos":["ALEX DA SILVA EMIDIO","IZIDORO PEREIRA DA CUNHA NETO","JOSE FRANCISCO SOARES DE OLIVEIRA","KLEYTON APOLINARIO DA SILVA","LAILSON SILVA OLIVEIRA","MATEUS LIMA DOS REIS"],"tipos":["MIGRAÇÃO","INSTALAÇÃO MESH","PONTO ULTRA","MUDANÇA DE PACOTE"],"statuses":["CANCELADO","INSTALADO","PENDENTE"]}</script>
   <script>
     (function(){
       "use strict";
@@ -244,12 +244,10 @@
       }
       function defaultServices(){
         return [
-          { tipo:"Instalação Mesh", valor:54.30 },
           { tipo:"Migração", valor:8.00 },
-          { tipo:"Mudança de Pacote", valor:0 },
-          { tipo:"Instalação Ponto TV", valor:104.71 },
-          { tipo:"Ponto Ultra", valor:0 },
-          { tipo:"Outro", valor:0 }
+          { tipo:"Instalação Mesh", valor:54.30 },
+          { tipo:"Ponto Ultra", valor:115.57 },
+          { tipo:"Mudança De Pacote", valor:8.00 }
         ];
       }
       function serviceName(value){
@@ -258,7 +256,7 @@
         if(found) return found.tipo;
         if(n === "migracao") return "Migração";
         if(n.indexOf("mesh") >= 0) return "Instalação Mesh";
-        if(n.indexOf("mudanca de pacote") >= 0) return "Mudança de Pacote";
+        if(n.indexOf("mudanca de pacote") >= 0) return "Mudança De Pacote";
         if(n.indexOf("ponto ultra") >= 0 || n.indexOf("ultra") >= 0) return "Ponto Ultra";
         if(n.indexOf("ponto tv") >= 0 || n === "tv") return "Instalação Ponto TV";
         if(n === "indicacao") return "Indicação";
@@ -329,6 +327,13 @@
       function isPending(record){ return statusCategory(record.status) === "Pendente"; }
       function installedQty(record){ return isInstalled(record) ? qty(record) : 0; }
       function installedValue(record){ return isInstalled(record) ? value(record) : 0; }
+      function recordValue(record, type){
+        var raw = record.valor;
+        if(raw == null || raw === "") raw = record["Valor"];
+        if(raw == null || raw === "") raw = record["VALOR"];
+        if(raw == null || raw === "") raw = serviceValue(type);
+        return Math.max(0, Number(String(raw).replace(",", ".")) || 0);
+      }
       function normalizeRecord(record, index){
         var type = serviceName(record.tipo || record["Tipo de Serviço"] || record["TIPO DE SERVIÇO"] || "");
         return {
@@ -337,7 +342,7 @@
           contrato: String(record.contrato || record["Contrato"] || record["CONTRATO"] || "").trim(),
           dataIndicacao: dateValue(record.dataIndicacao || record["Data da Indicação"] || record["DATA DA INDICAÇÃO"] || ""),
           dataInstalacao: dateValue(record.dataInstalacao || record["Data da Instalação"] || record["DATA DA INSTALAÇÃO"] || ""),
-          valor: Math.max(0, Number(String(record.valor != null ? record.valor : (record["Valor"] != null ? record["Valor"] : (record["VALOR"] != null ? record["VALOR"] : serviceValue(type)))).replace(",", ".")) || 0),
+          valor: recordValue(record, type),
           tipo: type,
           quantidade: Math.max(0, Number(String(record.quantidade != null ? record.quantidade : (record["Quantidade"] != null ? record["Quantidade"] : (record["QUANTIDADE"] != null ? record["QUANTIDADE"] : 1))).replace(",", ".")) || 0),
           status: statusName(record.status || record["Status"] || record["STATUS"] || ""),
@@ -361,7 +366,7 @@
         }
         state.records = (state.records || []).map(normalizeRecord).filter(function(record){ return record.tecnico || record.contrato || record.tipo || record.status; });
         state.tecnicos = uniq([].concat(initial.tecnicos || [], state.tecnicos || [], state.records.map(function(record){ return record.tecnico; })).map(canonicalTech));
-        state.tipos = uniq([].concat(defaultServices().map(function(item){ return item.tipo; }), state.tipos || [], state.records.map(function(record){ return record.tipo; })).map(serviceName));
+        state.tipos = defaultServices().map(function(item){ return item.tipo; });
         state.statuses = uniq([].concat(defaultStatuses(), state.statuses || [], state.records.map(function(record){ return record.status; })).map(statusName));
         state.__schemaVersion = 4;
         save();
@@ -576,7 +581,7 @@
         if(index >= 0) data.records.splice(index, 1, record);
         else data.records.push(record);
         data.tecnicos = uniq([].concat(data.tecnicos, [record.tecnico]).map(canonicalTech));
-        data.tipos = uniq([].concat(data.tipos, [record.tipo]).map(serviceName));
+        data.tipos = defaultServices().map(function(item){ return item.tipo; });
         data.statuses = uniq([].concat(data.statuses, [record.status]).map(statusName));
         save();
         syncLists();
@@ -638,7 +643,7 @@
           if(!Array.isArray(rows)) throw new Error("Arquivo sem registros válidos.");
           state.records = rows.map(normalizeRecord).filter(function(record){ return record.tecnico || record.contrato; });
           state.tecnicos = uniq([].concat(seed().tecnicos || [], state.records.map(function(record){ return record.tecnico; })).map(canonicalTech));
-          state.tipos = uniq([].concat(defaultServices().map(function(item){ return item.tipo; }), state.records.map(function(record){ return record.tipo; })).map(serviceName));
+          state.tipos = defaultServices().map(function(item){ return item.tipo; });
           state.statuses = uniq([].concat(defaultStatuses(), state.records.map(function(record){ return record.status; })).map(statusName));
           save();
           syncLists();
@@ -672,7 +677,7 @@
         byId("clearFilters").addEventListener("click", clearFilters);
         byId("type").addEventListener("change", function(){
           var newValue = serviceValue(byId("type").value);
-          if(newValue > 0 && !Number(byId("value").value)) byId("value").value = newValue.toFixed(2);
+          if(newValue > 0) byId("value").value = newValue.toFixed(2);
         });
         byId("dateInstall").addEventListener("change", function(){
           if(byId("dateInstall").value && statusCategory(byId("status").value) === "Pendente") byId("status").value = "Instalado";
