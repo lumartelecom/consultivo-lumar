@@ -26,45 +26,56 @@
     *{box-sizing:border-box}
     body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;font-size:14px}
     button,input,select,textarea{font:inherit}
-    button{border:1px solid transparent;border-radius:7px;background:var(--blue);color:#fff;font-weight:800;padding:9px 13px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:38px}
+    button{border:1px solid transparent;border-radius:7px;background:var(--blue);color:#fff;font-weight:800;padding:8px 12px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:36px}
     button:hover{filter:brightness(.97)}
     button.secondary{background:#eef5ff;color:#155fc4;border-color:#bfdbfe}
     button.success{background:var(--green)}
     button.danger{background:#fee2e2;color:#b91c1c;border-color:#fecaca}
     button.ghost{background:#fff;color:#334155;border-color:var(--border)}
-    .container{max-width:1380px;margin:0 auto;padding:18px 28px 42px}
-    .hero{display:flex;align-items:center;justify-content:space-between;gap:18px;background:linear-gradient(135deg,#10213a,#155fc4);color:#fff;border-radius:14px;padding:20px 22px;box-shadow:var(--shadow);margin-bottom:14px}
-    .hero h2{margin:0 0 6px;font-size:18px;letter-spacing:.06em;text-transform:uppercase}
-    .hero p{margin:0;color:rgba(255,255,255,.78);font-size:13px;font-weight:650}
-    .hero-logo{width:112px;height:112px;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.28);box-shadow:0 14px 34px rgba(0,0,0,.20);background:#06255f;flex:0 0 auto}
+    .container{max-width:1380px;margin:0 auto;padding:14px 28px 34px}
+    .hero{display:flex;align-items:center;justify-content:space-between;gap:14px;background:linear-gradient(135deg,#10213a,#155fc4);color:#fff;border-radius:10px;padding:12px 16px;box-shadow:var(--shadow);margin-bottom:10px}
+    .hero h2{margin:0 0 4px;font-size:16px;letter-spacing:.06em;text-transform:uppercase}
+    .hero p{margin:0;color:rgba(255,255,255,.78);font-size:12px;font-weight:650}
+    .hero-logo{width:68px;height:68px;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.28);box-shadow:0 10px 24px rgba(0,0,0,.18);background:#06255f;flex:0 0 auto}
     .hero-logo img{width:100%;height:100%;object-fit:cover;display:block}
-    .filters{display:grid;grid-template-columns:minmax(240px,1.4fr) repeat(7,minmax(118px,1fr));gap:10px;margin-bottom:14px;padding:12px;background:rgba(255,255,255,.82);border:1px solid var(--border);border-radius:10px;box-shadow:var(--shadow)}
+    .filters{position:sticky;top:0;z-index:10;display:grid;grid-template-columns:minmax(220px,1.35fr) repeat(7,minmax(112px,1fr));gap:8px;margin-bottom:12px;padding:10px;background:rgba(255,255,255,.96);border:1px solid var(--border);border-radius:8px;box-shadow:0 8px 22px rgba(18,38,63,.07);backdrop-filter:blur(8px)}
     .filter-card{display:grid;gap:5px;min-width:0}
     label,.filter-card span{font-size:10px;font-weight:850;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
-    input,select,textarea{width:100%;min-width:0;border:1px solid var(--border-strong);border-radius:7px;padding:8px 10px;background:#fff;color:var(--text);outline:none;font-size:12px;font-weight:700}
+    input,select,textarea{width:100%;min-width:0;border:1px solid var(--border-strong);border-radius:7px;padding:7px 9px;background:#fff;color:var(--text);outline:none;font-size:12px;font-weight:700}
     input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(21,95,196,.11)}
     textarea{min-height:70px;resize:vertical}
-    .kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin-bottom:14px}
-    .kpi-card{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--blue);border-radius:10px;padding:15px 16px;box-shadow:var(--shadow);min-width:0;position:relative;overflow:hidden}
-    .kpi-card:nth-child(1){border-top-color:var(--violet)}
-    .kpi-card:nth-child(2){border-top-color:var(--cyan)}
-    .kpi-card:nth-child(3){border-top-color:var(--green)}
-    .kpi-card:nth-child(4){border-top-color:var(--amber)}
+    .kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-bottom:14px}
+    .kpi-card{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--blue);border-radius:8px;padding:12px 14px;box-shadow:0 8px 22px rgba(18,38,63,.06);min-width:0;position:relative;overflow:hidden}
+    .kpi-card:nth-child(1){border-top-color:var(--cyan)}
+    .kpi-card:nth-child(2){border-top-color:var(--green)}
+    .kpi-card:nth-child(3){border-top-color:var(--amber)}
+    .kpi-card:nth-child(4){border-top-color:var(--blue)}
     .kpi-card:nth-child(5){border-top-color:var(--violet)}
-    .kpi-card:nth-child(6){border-top-color:var(--blue)}
-    .kpi-label{font-size:10px;font-weight:850;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:8px}
-    .kpi-value{font-size:25px;font-weight:850;line-height:1;color:var(--text);font-family:Consolas,Menlo,monospace}
-    .kpi-sub{font-size:11px;color:var(--muted);margin-top:7px;font-weight:650}
-    .grid-main{display:grid;grid-template-columns:1.05fr .95fr;gap:14px;margin-bottom:14px}
-    .card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 20px;box-shadow:var(--shadow);min-width:0}
+    .kpi-label{font-size:10px;font-weight:850;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:7px}
+    .kpi-value{font-size:23px;font-weight:850;line-height:1;color:var(--text);font-family:Consolas,Menlo,monospace}
+    .kpi-sub{font-size:11px;color:var(--muted);margin-top:6px;font-weight:650}
+    .grid-main{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(320px,.65fr);gap:14px;margin-bottom:14px;align-items:start}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 18px;box-shadow:var(--shadow);min-width:0}
     .section-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;flex-wrap:wrap}
     .section-title h2{margin:0;font-size:13px;color:var(--muted);font-weight:850;text-transform:uppercase;letter-spacing:.07em}
     .section-title small{color:var(--muted);font-weight:700}
     .rank-list{display:grid;gap:8px}
-    .rank-item{display:grid;grid-template-columns:38px minmax(0,1fr);gap:10px;align-items:center;border:1px solid var(--border);border-radius:8px;background:linear-gradient(180deg,#fff,#f9fbff);padding:9px 11px}
+    .rank-item{display:grid;grid-template-columns:34px minmax(0,1fr);gap:10px;align-items:start;border:1px solid var(--border);border-radius:8px;background:linear-gradient(180deg,#fff,#f9fbff);padding:10px 11px}
     .rank-pos{display:inline-flex;width:30px;height:30px;border-radius:999px;align-items:center;justify-content:center;background:#e6f0ff;color:#17375f;font-weight:900;font-size:12px}
     .rank-item strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-    .rank-item small{display:block;margin-top:2px;color:var(--muted);font-size:11px;font-weight:700;white-space:nowrap}
+    .rank-body{min-width:0}
+    .rank-head{display:flex;align-items:center;gap:7px;min-width:0}
+    .rank-head strong{min-width:0}
+    .rank-medal{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:999px;font-size:14px;line-height:1;flex:0 0 auto}
+    .rank-medal-1{background:#fff7d6;border:1px solid #f6d365}
+    .rank-medal-2{background:#f4f7fb;border:1px solid #cbd5e1}
+    .rank-medal-3{background:#fff0df;border:1px solid #d9a06b}
+    .rank-item small{display:block;margin-top:5px;color:var(--muted);font-size:11px;font-weight:700;line-height:1.35}
+    .rank-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:6px}
+    .rank-metrics span{border:1px solid #e5edf7;border-radius:7px;background:#fff;padding:6px 7px;color:var(--muted);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+    .rank-metrics b{display:block;color:#10213a;font-size:12px;margin-bottom:2px;font-family:Consolas,Menlo,monospace}
+    .rank-bar{height:7px;border-radius:999px;background:#e9f0f8;overflow:hidden;margin-top:8px}
+    .rank-bar span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--cyan),var(--green))}
     .rank-zero{opacity:.62}
     .rank-zero .rank-pos{background:#f1f5f9;color:#64748b}
     .form-card{border-left:4px solid var(--green)}
@@ -79,10 +90,10 @@
     body.editing .form-card{border-left-color:var(--amber);box-shadow:0 0 0 3px rgba(217,119,6,.08),var(--shadow)}
     .table-tools{display:flex;align-items:end;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}
     .table-filter{display:grid;gap:5px;min-width:220px;max-width:360px;flex:1}
-    .table-wrap{border:1px solid var(--border);border-radius:10px;background:#fff;overflow:auto}
-    table{width:100%;border-collapse:collapse;font-size:12px;min-width:980px}
-    th{background:var(--navy);color:rgba(255,255,255,.88);padding:10px 9px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.07em;white-space:nowrap;position:sticky;top:0;z-index:1}
-    td{padding:9px;border-bottom:1px solid #edf2f8;vertical-align:middle}
+    .table-wrap{border:1px solid var(--border);border-radius:8px;background:#fff;overflow:auto}
+    table{width:100%;border-collapse:collapse;font-size:11px;min-width:940px}
+    th{background:var(--navy);color:rgba(255,255,255,.88);padding:8px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.07em;white-space:nowrap;position:sticky;top:0;z-index:1}
+    td{padding:7px 8px;border-bottom:1px solid #edf2f8;vertical-align:middle}
     tbody tr:hover{background:#f5f8ff}
     .tech-name{font-weight:850;color:#10213a}
     .status-pill{display:inline-flex;align-items:center;border-radius:999px;padding:4px 7px;font-size:9px;font-weight:900;border:1px solid #d9e2ee;background:#eef5ff;color:#17375f;line-height:1.15}
@@ -105,15 +116,16 @@
     .toast-item.warn{border-left:4px solid var(--amber)}
     .toast-item.err{border-left:4px solid var(--red)}
     @media(max-width:1180px){
-      .filters{grid-template-columns:repeat(3,minmax(0,1fr))}
+      .filters{position:static;grid-template-columns:repeat(4,minmax(0,1fr))}
       .kpis{grid-template-columns:repeat(3,minmax(0,1fr))}
       .grid-main{grid-template-columns:1fr}
     }
     @media(max-width:760px){
       .container{padding-left:14px;padding-right:14px}
       .hero{align-items:flex-start;padding:16px}
-      .hero-logo{width:82px;height:82px}
+      .hero-logo{width:58px;height:58px}
       .filters,.kpis,.form-grid{grid-template-columns:1fr}
+      .rank-metrics{grid-template-columns:1fr}
       .span-2,.span-4{grid-column:1/-1}
       .form-actions{flex-direction:column;align-items:stretch}
       .form-actions button{width:100%}
@@ -134,7 +146,7 @@
     </section>
 
     <section class="filters" aria-label="Filtros do Consultivo">
-      <div class="filter-card"><span>Buscar</span><input id="search" placeholder="Técnico, contrato, serviço ou observação"></div>
+      <div class="filter-card"><span>Operação</span><select id="filterOperation"><option value="">Todos</option><option value="Manutenção">Manutenção</option><option value="Instalação">Instalação</option></select></div>
       <div class="filter-card"><span>Técnico</span><select id="filterTech"></select></div>
       <div class="filter-card"><span>Status</span><select id="filterStatus"></select></div>
       <div class="filter-card"><span>Serviço</span><select id="filterType"></select></div>
@@ -145,23 +157,17 @@
     </section>
 
     <section class="kpis">
-      <div class="kpi-card"><div class="kpi-label">Registros</div><div class="kpi-value" id="kpiRecords">0</div><div class="kpi-sub">linhas filtradas</div></div>
-      <div class="kpi-card"><div class="kpi-label">Indicações</div><div class="kpi-value" id="kpiQty">0</div><div class="kpi-sub">quantidade total</div></div>
-      <div class="kpi-card"><div class="kpi-label">Instalados</div><div class="kpi-value" id="kpiInstalled">0</div><div class="kpi-sub">quantidade instalada</div></div>
+      <div class="kpi-card"><div class="kpi-label">Indicações</div><div class="kpi-value" id="kpiQty">0</div><div class="kpi-sub">total filtrado</div></div>
+      <div class="kpi-card"><div class="kpi-label">Ofertas convertidas</div><div class="kpi-value" id="kpiInstalled">0</div><div class="kpi-sub">instalações concluídas</div></div>
       <div class="kpi-card"><div class="kpi-label">Pendentes</div><div class="kpi-value" id="kpiPending">0</div><div class="kpi-sub">em aberto</div></div>
-      <div class="kpi-card"><div class="kpi-label">Valor</div><div class="kpi-value" id="kpiValue">R$ 0</div><div class="kpi-sub">somente instalados</div></div>
-      <div class="kpi-card"><div class="kpi-label">Conversão</div><div class="kpi-value" id="kpiConversion">0%</div><div class="kpi-sub">instalados / indicados</div></div>
+      <div class="kpi-card"><div class="kpi-label">Conversão</div><div class="kpi-value" id="kpiConversion">0%</div><div class="kpi-sub">convertidas / indicações</div></div>
+      <div class="kpi-card"><div class="kpi-label">Valor gerado</div><div class="kpi-value" id="kpiValue">R$ 0</div><div class="kpi-sub">somente convertidas</div></div>
     </section>
 
     <div class="grid-main">
-      <section class="card">
-        <div class="section-title"><h2>Ganhos por Técnico</h2><small>Valores instalados</small></div>
-        <div id="ranking" class="rank-list"><div class="empty">Sem dados.</div></div>
-      </section>
-
       <section class="card form-card">
-        <div class="section-title"><h2 id="formTitle">Nova Indicação</h2><small id="formMode">Cadastro diário</small></div>
-        <div class="form-note" id="formNote">Cadastre uma nova indicação preenchendo técnico, contrato, data, tipo e status. Se o contrato já existir, o sistema avisará antes de salvar.</div>
+        <div class="section-title"><h2 id="formTitle">Nova Oferta</h2><small id="formMode">Cadastro diário</small></div>
+        <div class="form-note" id="formNote">Cadastre uma nova oferta preenchendo técnico, contrato, data, tipo e status. Se o contrato já existir, o sistema avisará antes de salvar.</div>
         <form id="form" class="form-grid">
           <input id="recordId" type="hidden">
           <label class="span-2">Técnico<input id="tech" list="techList" placeholder="Nome do técnico" required></label>
@@ -173,8 +179,13 @@
           <label>Quantidade<input id="quantity" type="number" step="1" min="0" value="1"></label>
           <label>Valor<input id="value" type="number" step="0.01" min="0" value="8"></label>
           <label class="span-4">Observação<textarea id="note" placeholder="Detalhes importantes da indicação"></textarea></label>
-          <div class="span-4 form-actions"><button class="secondary" id="cancelEdit" type="button">Cancelar edição</button><button class="success" id="saveButton" type="submit">Cadastrar indicação</button></div>
+          <div class="span-4 form-actions"><button class="secondary" id="cancelEdit" type="button">Cancelar edição</button><button class="success" id="saveButton" type="submit">Cadastrar oferta</button></div>
         </form>
+      </section>
+
+      <section class="card">
+        <div class="section-title"><h2>Ranking de Técnicos</h2><small>Vendas, instalações e valor</small></div>
+        <div id="ranking" class="rank-list"><div class="empty">Sem dados.</div></div>
       </section>
     </div>
 
@@ -259,6 +270,11 @@
         var formatted = serviceName(value);
         var found = defaultServices().find(function(item){ return item.tipo === formatted; });
         return found ? found.valor : 0;
+      }
+      function operationArea(record){
+        var service = norm(serviceName(record && record.tipo));
+        if(service.indexOf("instalacao") >= 0 || service.indexOf("mesh") >= 0 || service.indexOf("ponto") >= 0) return "Instalação";
+        return "Manutenção";
       }
       function defaultStatuses(){
         return [
@@ -375,7 +391,7 @@
       }
       function applyFilters(){
         var data = load();
-        var query = norm(byId("search").value);
+        var operation = byId("filterOperation").value;
         var tech = byId("filterTech").value;
         var tableTech = byId("tableTech").value;
         var status = byId("filterStatus").value;
@@ -389,8 +405,7 @@
           var category = statusCategory(record.status);
           var service = serviceName(record.tipo);
           var date = record.dataIndicacao || record.dataInstalacao || "";
-          var hay = norm([name, record.contrato, service, record.status, record.observacao].join(" "));
-          return (!query || hay.indexOf(query) >= 0)
+          return (!operation || operationArea(record) === operation)
             && (!tech || name === tech)
             && (!tableTech || name === tableTech)
             && (!status || category === status)
@@ -414,7 +429,6 @@
         var installed = filtered.reduce(function(sum, record){ return sum + installedQty(record); }, 0);
         var pending = filtered.filter(isPending).length;
         var totalValue = filtered.reduce(function(sum, record){ return sum + installedValue(record); }, 0);
-        byId("kpiRecords").textContent = integer.format(total);
         byId("kpiQty").textContent = integer.format(totalQty);
         byId("kpiInstalled").textContent = integer.format(installed);
         byId("kpiPending").textContent = integer.format(pending);
@@ -424,22 +438,31 @@
       }
       function technicianMetrics(){
         var map = new Map();
-        load().tecnicos.forEach(function(name){ map.set(canonicalTech(name), { nome:canonicalTech(name), qtd:0, instaladas:0, valor:0 }); });
+        load().tecnicos.forEach(function(name){ map.set(canonicalTech(name), { nome:canonicalTech(name), vendas:0, instaladas:0, valor:0 }); });
         filtered.forEach(function(record){
           var name = canonicalTech(record.tecnico);
-          if(!map.has(name)) map.set(name, { nome:name, qtd:0, instaladas:0, valor:0 });
+          if(!map.has(name)) map.set(name, { nome:name, vendas:0, instaladas:0, valor:0 });
           var item = map.get(name);
-          item.qtd += qty(record) || 1;
+          item.vendas += qty(record) || 1;
           item.instaladas += installedQty(record);
           item.valor += installedValue(record);
         });
-        return Array.from(map.values()).sort(function(a,b){ return b.instaladas - a.instaladas || b.valor - a.valor || b.qtd - a.qtd || a.nome.localeCompare(b.nome, "pt-BR"); });
+        return Array.from(map.values()).sort(function(a,b){
+          var conversionA = a.vendas ? a.instaladas / a.vendas : 0;
+          var conversionB = b.vendas ? b.instaladas / b.vendas : 0;
+          return b.vendas - a.vendas || b.instaladas - a.instaladas || b.valor - a.valor || conversionB - conversionA || a.nome.localeCompare(b.nome, "pt-BR");
+        });
       }
       function renderRanking(){
         var el = byId("ranking");
-        var rows = technicianMetrics();
+        var rows = technicianMetrics().slice(0, 3);
         el.innerHTML = rows.length ? rows.map(function(item, index){
-          return "<div class=\"rank-item " + (item.instaladas === 0 ? "rank-zero" : "") + "\"><span class=\"rank-pos\">" + (index + 1) + "</span><div><strong>" + esc(item.nome) + "</strong><small>" + integer.format(item.instaladas) + " instaladas / " + integer.format(item.qtd) + " indicações · " + money.format(item.valor) + "</small></div></div>";
+          var conversion = item.vendas ? Math.round(item.instaladas / item.vendas * 100) : 0;
+          var bar = Math.max(0, Math.min(100, conversion));
+          var medals = ["🥇","🥈","🥉"];
+          var labels = ["Primeiro lugar","Segundo lugar","Terceiro lugar"];
+          var medal = "<span class=\"rank-medal rank-medal-" + (index + 1) + "\" title=\"" + labels[index] + "\" aria-label=\"" + labels[index] + "\">" + medals[index] + "</span>";
+          return "<div class=\"rank-item " + (item.instaladas === 0 ? "rank-zero" : "") + "\"><span class=\"rank-pos\">" + (index + 1) + "</span><div class=\"rank-body\"><div class=\"rank-head\"><strong>" + esc(item.nome) + "</strong>" + medal + "</div><div class=\"rank-metrics\"><span><b>" + integer.format(item.vendas) + "</b>vendas</span><span><b>" + integer.format(item.instaladas) + "</b>instalações</span><span><b>" + money.format(item.valor) + "</b>valor</span></div><div class=\"rank-bar\" aria-label=\"Conversão de " + conversion + "%\"><span style=\"width:" + bar + "%\"></span></div></div></div>";
         }).join("") : "<div class=\"empty\">Sem técnicos cadastrados.</div>";
       }
       function rowHtml(record){
@@ -473,10 +496,10 @@
       }
       function setEditMode(active, record){
         document.body.classList.toggle("editing", !!active);
-        byId("formTitle").textContent = active ? "Editar Indicação" : "Nova Indicação";
+        byId("formTitle").textContent = active ? "Editar Oferta" : "Nova Oferta";
         byId("formMode").textContent = active ? (record && record.contrato ? "Editando contrato " + record.contrato : "Editando lançamento") : "Cadastro diário";
-        byId("formNote").textContent = active ? "Altere os dados necessários e clique em Salvar edição. O registro será atualizado na tabela abaixo." : "Cadastre uma nova indicação preenchendo técnico, contrato, data, tipo e status. Se o contrato já existir, o sistema avisará antes de salvar.";
-        byId("saveButton").textContent = active ? "Salvar edição" : "Cadastrar indicação";
+        byId("formNote").textContent = active ? "Altere os dados necessários e clique em Salvar edição. O registro será atualizado na tabela abaixo." : "Cadastre uma nova oferta preenchendo técnico, contrato, data, tipo e status. Se o contrato já existir, o sistema avisará antes de salvar.";
+        byId("saveButton").textContent = active ? "Salvar edição" : "Cadastrar oferta";
       }
       function resetForm(){
         ["recordId","tech","contract","dateInstall","note"].forEach(function(id){ byId(id).value = ""; });
@@ -562,7 +585,7 @@
         toast(index >= 0 ? "Registro atualizado." : "Registro cadastrado.", "ok");
       }
       function clearFilters(){
-        ["search","filterTech","filterStatus","filterType","filterMonth","filterStart","filterEnd","tableTech","tableStatus"].forEach(function(id){ byId(id).value = ""; });
+        ["filterOperation","filterTech","filterStatus","filterType","filterMonth","filterStart","filterEnd","tableTech","tableStatus"].forEach(function(id){ byId(id).value = ""; });
         applyFilters();
         toast("Filtros limpos.", "ok");
       }
@@ -645,7 +668,7 @@
         setTimeout(function(){ item.remove(); }, 3800);
       }
       function bind(){
-        ["search","filterTech","filterStatus","filterType","filterMonth","filterStart","filterEnd","tableTech","tableStatus"].forEach(function(id){ byId(id).addEventListener("input", applyFilters); });
+        ["filterOperation","filterTech","filterStatus","filterType","filterMonth","filterStart","filterEnd","tableTech","tableStatus"].forEach(function(id){ byId(id).addEventListener("input", applyFilters); });
         byId("clearFilters").addEventListener("click", clearFilters);
         byId("type").addEventListener("change", function(){
           var newValue = serviceValue(byId("type").value);
