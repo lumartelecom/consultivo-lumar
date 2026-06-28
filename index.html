@@ -85,6 +85,7 @@
     .rank-title{min-width:0}
     .rank-title strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#10213a;font-size:17px;line-height:1.15}
     .rank-label{color:var(--muted);font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+    .rank-team{display:inline-flex;margin-top:7px;border:1px solid #d6e4f5;border-radius:999px;background:#eef6ff;color:#155fc4;padding:4px 9px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.04em}
     .rank-medal{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:999px;font-size:22px;line-height:1;justify-self:end;background:#fff;border:1px solid #dce6f3;box-shadow:0 10px 18px rgba(15,31,53,.08)}
     .rank-medal-1{background:#fff7d6;border-color:#f6d365}
     .rank-medal-2{background:#f4f7fb;border-color:#cbd5e1}
@@ -324,6 +325,7 @@
         if(n.indexOf("matheus henrique") >= 0) return "Matheus Henrique";
         if(n.indexOf("alex da silva") >= 0 || n.indexOf("emidio") >= 0) return "Alex Emidio";
         if(n.indexOf("mateus") >= 0 && n.indexOf("reis") >= 0) return "Mateus Reis";
+        if(n === "francisco de" || n.indexOf("francisco de ") === 0) return "Diassis";
         if(n.indexOf("jose francisco") >= 0 || n.indexOf("soares de oliveira") >= 0) return "José Francisco";
         return titleCase(name);
       }
@@ -354,10 +356,15 @@
           "Julio Cesar"
         ];
       }
+      function installationTeamNames(){
+        return installationTechnicians().concat([
+          "Francisco De"
+        ]);
+      }
       function technicianTeam(name){
         var raw = norm(name);
         var canonical = norm(canonicalTech(name));
-        var isInstallation = installationTechnicians().some(function(item){
+        var isInstallation = installationTeamNames().some(function(item){
           var teamName = norm(item);
           return raw === teamName || canonical === teamName;
         });
@@ -666,10 +673,10 @@
       }
       function technicianMetrics(){
         var map = new Map();
-        load().tecnicos.forEach(function(name){ map.set(canonicalTech(name), { nome:canonicalTech(name), vendas:0, instaladas:0, valor:0 }); });
         filtered.forEach(function(record){
           var name = canonicalTech(record.tecnico);
-          if(!map.has(name)) map.set(name, { nome:name, vendas:0, instaladas:0, valor:0 });
+          if(!name) return;
+          if(!map.has(name)) map.set(name, { nome:name, equipe:technicianTeam(record.tecnico), vendas:0, instaladas:0, valor:0 });
           var item = map.get(name);
           item.vendas += qty(record) || 1;
           item.instaladas += installedQty(record);
@@ -691,7 +698,7 @@
           var medals = ["&#129351;","&#129352;","&#129353;"];
           var labels = ["Campeão do ranking","Vice-líder","Terceiro lugar"];
           return "<article class=\"rank-item " + classes[index] + (item.instaladas === 0 ? " rank-zero" : "") + "\">"
-            + "<div class=\"rank-podium\"><span class=\"rank-pos\">" + (index + 1) + "</span><div class=\"rank-title\"><div class=\"rank-label\">" + labels[index] + "</div><strong>" + esc(item.nome) + "</strong></div><span class=\"rank-medal rank-medal-" + (index + 1) + "\" title=\"" + labels[index] + "\" aria-label=\"" + labels[index] + "\">" + medals[index] + "</span></div>"
+            + "<div class=\"rank-podium\"><span class=\"rank-pos\">" + (index + 1) + "</span><div class=\"rank-title\"><div class=\"rank-label\">" + labels[index] + "</div><strong>" + esc(item.nome) + "</strong><span class=\"rank-team\">Equipe: " + esc(item.equipe) + "</span></div><span class=\"rank-medal rank-medal-" + (index + 1) + "\" title=\"" + labels[index] + "\" aria-label=\"" + labels[index] + "\">" + medals[index] + "</span></div>"
             + "<div class=\"rank-metrics\"><span class=\"rank-metric\"><b>" + integer.format(item.vendas) + "</b>ofertas</span><span class=\"rank-metric\"><b>" + integer.format(item.instaladas) + "</b>instalações</span><span class=\"rank-metric\"><b>" + money.format(item.valor) + "</b>valor</span></div>"
             + "<div class=\"rank-bar\" aria-label=\"Conversão de " + conversion + "%\"><span style=\"width:" + bar + "%\"></span></div>"
             + "</article>";
@@ -718,7 +725,7 @@
           toast("Sem dados para baixar o ranking.", "warn");
           return;
         }
-        var width = 1200, height = 760, scale = 2;
+        var width = 1200, height = 805, scale = 2;
         var canvas = document.createElement("canvas");
         canvas.width = width * scale;
         canvas.height = height * scale;
@@ -745,7 +752,7 @@
         var labels = ["CAMPEÃO DO RANKING", "VICE-LÍDER", "TERCEIRO LUGAR"];
         var stripe = ["#f59e0b", "#94a3b8", "#c27732"];
         var circle = ["#fff0b8", "#eef3f9", "#fff1e4"];
-        var cardY = 165, cardH = 160, gap = 18;
+        var cardY = 165, cardH = 174, gap = 18;
         rows.forEach(function(item, index){
           var y = cardY + index * (cardH + gap);
           var conversion = item.vendas ? Math.round(item.instaladas / item.vendas * 100) : 0;
@@ -778,12 +785,20 @@
 
           ctx.fillStyle = "#60708a";
           ctx.font = "900 13px Arial, sans-serif";
-          ctx.fillText(labels[index], 128, y + 34);
+          ctx.fillText(labels[index], 128, y + 30);
           ctx.fillStyle = "#10213a";
           ctx.font = "900 26px Arial, sans-serif";
-          ctx.fillText(canvasText(ctx, canonicalTech(item.nome), 520), 128, y + 66);
+          ctx.fillText(canvasText(ctx, canonicalTech(item.nome), 520), 128, y + 61);
+          roundRect(ctx, 128, y + 74, 190, 24, 12);
+          ctx.fillStyle = "#eef6ff";
+          ctx.fill();
+          ctx.strokeStyle = "#d6e4f5";
+          ctx.stroke();
+          ctx.fillStyle = "#155fc4";
+          ctx.font = "900 11px Arial, sans-serif";
+          ctx.fillText("EQUIPE: " + item.equipe.toLocaleUpperCase("pt-BR"), 140, y + 90);
 
-          var metricY = y + 92;
+          var metricY = y + 104;
           var metricW = 280;
           var metricGap = 18;
           [
@@ -805,11 +820,11 @@
             ctx.fillText(metric.label, x + 14, metricY + 40);
           });
 
-          roundRect(ctx, 128, y + 146, width - 210, 9, 5);
+          roundRect(ctx, 128, y + 160, width - 210, 9, 5);
           ctx.fillStyle = "#e9f0f8";
           ctx.fill();
-          roundRect(ctx, 128, y + 146, (width - 210) * bar / 100, 9, 5);
-          var grad = ctx.createLinearGradient(128, y + 146, width - 82, y + 146);
+          roundRect(ctx, 128, y + 160, (width - 210) * bar / 100, 9, 5);
+          var grad = ctx.createLinearGradient(128, y + 160, width - 82, y + 160);
           grad.addColorStop(0, "#23c6df");
           grad.addColorStop(1, "#16a34a");
           ctx.fillStyle = grad;
