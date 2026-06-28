@@ -34,6 +34,7 @@
     button.ghost{background:#fff;color:#334155;border-color:var(--border)}
     .container{max-width:1380px;margin:0 auto;padding:14px 28px 34px}
     .hero{display:flex;align-items:center;justify-content:space-between;gap:14px;background:linear-gradient(135deg,#10213a,#155fc4);color:#fff;border-radius:10px;padding:12px 16px;box-shadow:var(--shadow);margin-bottom:10px}
+    .hero > div:first-child{min-width:0}
     .hero h2{margin:0 0 4px;font-size:16px;letter-spacing:.06em;text-transform:uppercase}
     .hero p{margin:0;color:rgba(255,255,255,.78);font-size:12px;font-weight:650}
     .hero-logo{width:68px;height:68px;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.28);box-shadow:0 10px 24px rgba(0,0,0,.18);background:#06255f;flex:0 0 auto}
@@ -186,33 +187,104 @@
       .grid-main{grid-template-columns:1fr}
     }
     @media(max-width:760px){
-      .container{padding-left:14px;padding-right:14px}
-      .hero{align-items:flex-start;padding:16px}
-      .hero-logo{width:58px;height:58px}
-      .filters,.kpis,.form-grid{grid-template-columns:1fr}
-      .rank-metrics{grid-template-columns:1fr}
-      .rank-list{padding:12px}
-      .rank-item{padding:12px 12px 12px 14px}
+      body{background:#eef4fb;font-size:13px}
+      button{min-height:42px;padding:9px 12px}
+      input,select,textarea{min-height:42px;font-size:13px;padding:9px 10px}
+      .container{width:100%;max-width:none;padding:10px 10px 76px}
+      .hero{position:relative;align-items:center;min-height:78px;padding:12px 140px 12px 12px;border-radius:8px;margin-bottom:10px;gap:10px}
+      .hero h2{font-size:14px;margin-bottom:3px}
+      .hero p{font-size:11px;line-height:1.25}
+      .hero-logo{position:absolute;right:82px;top:15px;width:48px;height:48px;border-radius:8px}
+      .filters{display:none}
+      .filter-card:nth-child(2),.filter-card:nth-child(4),.filter-card:nth-child(8){grid-column:1/-1}
+      .kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:12px}
+      .kpi-card{padding:10px;min-height:78px}
+      .kpi-label{font-size:8px;letter-spacing:.02em}
+      .kpi-value{font-size:21px}
+      .kpi-sub{font-size:9px}
+      .action-strip{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+      .tab-action{width:100%;min-height:42px}
+      .tab-action:first-child{grid-column:1/-1}
+      .card{border-radius:8px;padding:12px;box-shadow:0 8px 22px rgba(18,38,63,.07)}
+      .section-title{align-items:flex-start;gap:8px;margin-bottom:10px}
+      .section-title h2{font-size:12px}
+      .section-actions{width:100%;justify-content:space-between}
+      .section-actions button{min-height:38px}
+      .form-grid{grid-template-columns:1fr;gap:9px}
+      .form-note{font-size:11px;padding:9px 10px;margin-bottom:10px}
+      .rank-metrics{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+      .rank-list{padding:10px}
+      .rank-item{padding:11px 10px 11px 13px}
       .rank-podium{grid-template-columns:36px minmax(0,1fr) 34px;gap:8px}
       .rank-pos{width:32px;height:32px;font-size:13px}
       .rank-medal{width:32px;height:32px;font-size:19px}
       .rank-title strong{font-size:15px}
+      .rank-team{font-size:9px;padding:4px 7px}
+      .rank-metric{padding:8px 7px;font-size:8px;letter-spacing:.02em}
+      .rank-metric b{font-size:15px}
       .ranking-panel .modal-title{align-items:flex-start}
+      .ranking-panel,.share-panel{width:100%;border-radius:0}
+      .ranking-panel .modal-title,.share-panel .modal-title{padding:14px 12px}
       .modal-actions{width:100%;justify-content:space-between}
       .share-summary{grid-template-columns:1fr}
+      .share-content{padding:10px;gap:10px}
+      .team-share-head{display:grid;padding:10px}
       .tech-share{grid-template-columns:1fr;gap:5px}
       .tech-share-count,.tech-share-percent{text-align:left}
       .span-2,.span-4{grid-column:1/-1}
-      .action-strip{display:grid;gap:8px}
-      .tab-action{width:100%}
-      .modal{padding:10px}
-      .modal-panel{max-height:calc(100vh - 20px)}
+      .modal{padding:0;place-items:end}
+      .modal-backdrop{background:rgba(8,22,40,.48)}
+      .modal-panel{width:100%;height:100dvh;max-height:100dvh;border-radius:0;overflow:auto;transform:translateY(18px)}
+      .modal-title{position:sticky;top:0;z-index:2;background:#fff;padding-bottom:10px}
+      .modal-close{width:42px;height:42px;font-size:22px}
       .form-actions{flex-direction:column;align-items:stretch}
       .form-actions button{width:100%}
       .desktop-table{display:none}
       .mobile-cards{display:grid}
-      .table-tools{display:grid}
-      .contract-search{grid-template-columns:1fr;min-width:0;max-width:none}
+      .launches-card{padding:10px;overflow:hidden}
+      .launches-title{display:grid;grid-template-columns:1fr;align-items:center;margin-bottom:9px;gap:6px}
+      .launches-title h2{white-space:nowrap;font-size:11px}
+      .launches-actions{width:100%;display:flex;justify-content:flex-start;align-items:center;gap:8px;flex-wrap:nowrap}
+      .launches-actions small{font-size:9px;white-space:nowrap;color:var(--muted);overflow:hidden;text-overflow:ellipsis}
+      .launches-actions button{min-height:34px;padding:7px 8px;font-size:0;white-space:nowrap}
+      .launches-actions button:after{content:"Exportar";font-size:10px}
+      .table-tools{display:grid;grid-template-columns:1fr;gap:7px;align-items:end;margin-bottom:9px}
+      .table-filter{min-width:0;max-width:none;width:100%}
+      .table-filter label,.contract-search label{font-size:0;letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+      .table-filter label span,.contract-search label span{display:none}
+      .table-filter label:before,.contract-search label:before{content:attr(data-mobile-label);display:block;font-size:9px;font-weight:850;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+      .table-filter select,.contract-search input{min-height:38px;font-size:12px;padding:8px 9px}
+      .contract-search{grid-column:1/-1;grid-template-columns:1fr;gap:7px;min-width:0;max-width:none;width:100%}
+      .contract-search label{min-width:0}
+      .contract-search button{width:100%;min-height:38px;padding:7px 6px;font-size:11px;white-space:nowrap}
+      .mobile-cards{gap:8px}
+      .launch-card{border-radius:8px;padding:10px;box-shadow:0 7px 18px rgba(18,38,63,.07)}
+      .launch-head{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;margin-bottom:7px}
+      .launch-head strong{font-size:12px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+      .launch-head .status-pill{max-width:112px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+      .launch-grid{grid-template-columns:1fr 1fr;gap:6px;margin:8px 0}
+      .launch-grid div{min-width:0}
+      .launch-grid span{font-size:8px;letter-spacing:.04em;white-space:nowrap}
+      .launch-grid b{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+      .launch-card p{margin:6px 0 8px;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+      .launch-card .row-actions button{min-height:34px;padding:7px 10px;font-size:11px}
+      .toast{left:10px;right:10px;bottom:10px}
+      .toast-item{max-width:none;width:100%}
+    }
+    @media(max-width:420px){
+      .container{padding-left:8px;padding-right:8px}
+      .hero p{display:none}
+      .filters{grid-template-columns:1fr}
+      .filter-card{grid-column:1/-1}
+      .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .kpi-card{min-height:72px;padding:9px}
+      .kpi-value{font-size:19px}
+      .action-strip{grid-template-columns:1fr}
+      .tab-action:first-child{grid-column:auto}
+      .rank-metrics{grid-template-columns:1fr}
+      .launches-actions small{display:none}
+      .contract-search{grid-template-columns:1fr}
+      .launch-grid{grid-template-columns:1fr}
     }
   </style>
 </head>
@@ -313,12 +385,12 @@
       </section>
     </div>
 
-    <section class="card">
-      <div class="section-title"><h2>Lançamentos</h2><div class="section-actions"><small><span id="tableTotal">0</span> registros exibidos</small><button id="exportXlsx" class="secondary" type="button">Exportar planilha</button></div></div>
-      <div class="table-tools">
-        <div class="table-filter"><label for="tableTech">Filtrar lançamentos por técnico</label><select id="tableTech"></select></div>
-        <div class="contract-search"><label for="tableContract">Buscar por contrato<input id="tableContract" inputmode="numeric" placeholder="Digite o contrato"></label><button id="searchContract" class="success" type="button">Buscar</button></div>
-        <div class="table-filter"><label for="tableStatus">Filtrar lançamentos por status</label><select id="tableStatus"></select></div>
+    <section class="card launches-card">
+      <div class="section-title launches-title"><h2>Lançamentos</h2><div class="section-actions launches-actions"><small><span id="tableTotal">0</span> registros exibidos</small><button id="exportXlsx" class="secondary" type="button">Exportar planilha</button></div></div>
+      <div class="table-tools launches-tools">
+        <div class="table-filter"><label for="tableTech" data-mobile-label="Técnico"><span>Filtrar lançamentos por técnico</span></label><select id="tableTech"></select></div>
+        <div class="contract-search"><label for="tableContract" data-mobile-label="Contrato"><span>Buscar por contrato</span><input id="tableContract" inputmode="numeric" placeholder="Digite o contrato"></label><button id="searchContract" class="success" type="button">Buscar</button></div>
+        <div class="table-filter"><label for="tableStatus" data-mobile-label="Status"><span>Filtrar lançamentos por status</span></label><select id="tableStatus"></select></div>
       </div>
       <div class="table-wrap desktop-table">
         <table>
