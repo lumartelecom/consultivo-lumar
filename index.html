@@ -337,7 +337,8 @@
         <div class="form-note" id="formNote">Cadastre uma nova oferta preenchendo os campos técnico, contrato, data, tipo e status. Se o contrato já existir, o sistema avisará antes de salvar.</div>
         <form id="form" class="form-grid">
           <input id="recordId" type="hidden">
-          <label class="span-2">Técnico<input id="tech" list="techList" placeholder="Nome do técnico" required></label>
+          <label>Equipe<select id="offerTeam"><option value="">Todas</option><option value="Manutenção">Manutenção</option><option value="Instalação">Instalação</option></select></label>
+          <label class="span-2">Técnico<select id="tech" required></select></label>
           <label>Contrato<input id="contract" inputmode="numeric" placeholder="Nº contrato" required></label>
           <label>Tipo de serviço<select id="type" required></select></label>
           <label>Data da indicação<input id="dateIndication" type="date" required></label>
@@ -743,6 +744,16 @@
         if(!team) return list;
         return list.filter(function(name){ return technicianTeam(name) === team; });
       }
+      function syncOfferTechnicians(keepCurrent){
+        var techEl = byId("tech");
+        if(!techEl) return;
+        var current = keepCurrent ? canonicalTech(techEl.value) : "";
+        var team = byId("offerTeam") ? byId("offerTeam").value : "";
+        var offerTechs = techniciansForTeam(load().tecnicos, team);
+        if(current && offerTechs.indexOf(current) < 0) offerTechs = uniq(offerTechs.concat([current]));
+        fillSelect("tech", "Selecione", offerTechs);
+        if(current) techEl.value = current;
+      }
       function syncLists(){
         var data = load();
         var team = byId("filterOperation") ? byId("filterOperation").value : "";
@@ -755,6 +766,7 @@
         fillSelect("type", "Selecione", data.tipos);
         fillSelect("status", "Selecione", defaultStatuses());
         byId("techList").innerHTML = visibleTechs.map(function(item){ return "<option value=\"" + esc(item) + "\"></option>"; }).join("");
+        syncOfferTechnicians(true);
       }
       function applyFilters(){
         var data = load();
@@ -1251,6 +1263,8 @@
       }
       function resetForm(){
         ["recordId","tech","contract","dateInstall"].forEach(function(id){ byId(id).value = ""; });
+        if(byId("offerTeam")) byId("offerTeam").value = byId("filterOperation").value || "";
+        syncOfferTechnicians(false);
         byId("dateIndication").value = new Date().toISOString().slice(0,10);
         byId("type").value = "Migração";
         byId("value").value = serviceValue("Migração").toFixed(2);
@@ -1263,6 +1277,8 @@
         var record = load().records.find(function(item){ return item.id === id; });
         if(!record) return;
         byId("recordId").value = record.id;
+        if(byId("offerTeam")) byId("offerTeam").value = technicianTeam(record.tecnico);
+        syncOfferTechnicians(false);
         byId("tech").value = canonicalTech(record.tecnico);
         byId("contract").value = record.contrato;
         byId("type").value = serviceName(record.tipo);
@@ -1744,27 +1760,79 @@
           lines.push("<row r=\"" + row + "\" spans=\"1:10\">" + cells.join("") + "</row>");
         }
         lines.push("</sheetData>");
-        lines.push("<mergeCells count=\"2\"><mergeCell ref=\"A1:J1\"/><mergeCell ref=\"A2:J2\"/></mergeCells>");
         lines.push("<autoFilter ref=\"A4:J" + lastRow + "\"/>");
+        lines.push("<mergeCells count=\"2\"><mergeCell ref=\"A1:J1\"/><mergeCell ref=\"A2:J2\"/></mergeCells>");
         lines.push("<pageMargins left=\"0.511811024\" right=\"0.511811024\" top=\"0.78740157499999996\" bottom=\"0.78740157499999996\" header=\"0.31496062000000002\" footer=\"0.31496062000000002\"/>");
         lines.push("<ignoredErrors><ignoredError sqref=\"A1:J" + lastRow + "\" numberStoredAsText=\"1\"/></ignoredErrors>");
         lines.push("</worksheet>");
         return lines.join("");
       }
+      function removeCalcChainContentType(text){
+        return text.replace(/<Override\b[^>]*PartName="\/xl\/calcChain\.xml"[^>]*\/>/g, "");
+      }
+      function removeCalcChainRelationship(text){
+        return text.replace(/<Relationship\b[^>]*Type="http:\/\/schemas\.openxmlformats\.org\/officeDocument\/2006\/relationships\/calcChain"[^>]*\/>/g, "");
+      }
+      function launchesOnlyContentTypes(){
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
+          + "<Types xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\">"
+          + "<Default Extension=\"rels\" ContentType=\"application/vnd.openxmlformats-package.relationships+xml\"/>"
+          + "<Default Extension=\"xml\" ContentType=\"application/xml\"/>"
+          + "<Override PartName=\"/xl/workbook.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml\"/>"
+          + "<Override PartName=\"/xl/worksheets/sheet2.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml\"/>"
+          + "<Override PartName=\"/xl/styles.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml\"/>"
+          + "<Override PartName=\"/xl/theme/theme1.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.theme+xml\"/>"
+          + "<Override PartName=\"/docProps/core.xml\" ContentType=\"application/vnd.openxmlformats-package.core-properties+xml\"/>"
+          + "<Override PartName=\"/docProps/app.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.extended-properties+xml\"/>"
+          + "</Types>";
+      }
+      function launchesOnlyWorkbookRels(){
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
+          + "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">"
+          + "<Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet\" Target=\"worksheets/sheet2.xml\"/>"
+          + "<Relationship Id=\"rId2\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles\" Target=\"styles.xml\"/>"
+          + "<Relationship Id=\"rId3\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme\" Target=\"theme/theme1.xml\"/>"
+          + "</Relationships>";
+      }
+      function launchesOnlyWorkbookXml(lastRow){
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
+          + "<workbook xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\">"
+          + "<bookViews><workbookView activeTab=\"0\"/></bookViews>"
+          + "<sheets><sheet name=\"Lan\u00e7amentos\" sheetId=\"1\" r:id=\"rId1\"/></sheets>"
+          + "<definedNames><definedName name=\"_xlnm._FilterDatabase\" localSheetId=\"0\" hidden=\"1\">Lan\u00e7amentos!$A$4:$J$" + lastRow + "</definedName></definedNames>"
+          + "<calcPr calcId=\"0\" fullCalcOnLoad=\"1\" forceFullCalc=\"1\"/>"
+          + "</workbook>";
+      }
+      function launchesOnlyAppProps(){
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
+          + "<Properties xmlns=\"http://schemas.openxmlformats.org/officeDocument/2006/extended-properties\" xmlns:vt=\"http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes\">"
+          + "<Application>Controle Consultivo</Application>"
+          + "<DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>"
+          + "<LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>"
+          + "<AppVersion>12.0000</AppVersion>"
+          + "</Properties>";
+      }
       function buildLaunchesTemplateWorkbook(rows){
         var lastRow = Math.max(26, rows.length + 4);
         var entries = readZipEntries(templateBytes()).map(function(entry){
+          if(entry.name === "xl/calcChain.xml" || entry.name === "xl/sharedStrings.xml" || /^xl\/worksheets\/sheet[134]\.xml$/.test(entry.name)) return null;
+          if(entry.name === "[Content_Types].xml"){
+            return { name:entry.name, content:launchesOnlyContentTypes(), modTime:entry.modTime, modDate:entry.modDate, externalAttrs:entry.externalAttrs };
+          }
+          if(entry.name === "xl/_rels/workbook.xml.rels"){
+            return { name:entry.name, content:launchesOnlyWorkbookRels(), modTime:entry.modTime, modDate:entry.modDate, externalAttrs:entry.externalAttrs };
+          }
           if(entry.name === "xl/worksheets/sheet2.xml"){
             return { name:entry.name, content:launchesTemplateWorksheetXml(rows), modTime:entry.modTime, modDate:entry.modDate, externalAttrs:entry.externalAttrs };
           }
           if(entry.name === "xl/workbook.xml"){
-            return { name:entry.name, content:forceFullCalc(resizeTemplateRanges(zipEntryText(entry), lastRow)), modTime:entry.modTime, modDate:entry.modDate, externalAttrs:entry.externalAttrs };
+            return { name:entry.name, content:launchesOnlyWorkbookXml(lastRow), modTime:entry.modTime, modDate:entry.modDate, externalAttrs:entry.externalAttrs };
           }
-          if(/^xl\/worksheets\/sheet[134]\.xml$/.test(entry.name)){
-            return { name:entry.name, content:resizeTemplateRanges(zipEntryText(entry), lastRow), modTime:entry.modTime, modDate:entry.modDate, externalAttrs:entry.externalAttrs };
+          if(entry.name === "docProps/app.xml"){
+            return { name:entry.name, content:launchesOnlyAppProps(), modTime:entry.modTime, modDate:entry.modDate, externalAttrs:entry.externalAttrs };
           }
           return entry;
-        });
+        }).filter(Boolean);
         return createZipFromEntries(entries);
       }
       function buildLaunchesWorkbook(rows){
@@ -1897,6 +1965,7 @@
         byId("exportXlsx").addEventListener("click", exportLaunchesXlsx);
         byId("openOffer").addEventListener("click", openNewOffer);
         byId("closeOffer").addEventListener("click", cancelOffer);
+        byId("offerTeam").addEventListener("change", function(){ syncOfferTechnicians(false); });
         byId("openShare").addEventListener("click", openShareModal);
         byId("downloadShare").addEventListener("click", exportShareImage);
         byId("closeShare").addEventListener("click", closeShareModal);
