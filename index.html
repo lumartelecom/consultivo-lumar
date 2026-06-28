@@ -44,16 +44,21 @@
     input,select,textarea{width:100%;min-width:0;border:1px solid var(--border-strong);border-radius:7px;padding:7px 9px;background:#fff;color:var(--text);outline:none;font-size:12px;font-weight:700}
     input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(21,95,196,.11)}
     textarea{min-height:70px;resize:vertical}
-    .kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-bottom:14px}
-    .kpi-card{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--blue);border-radius:8px;padding:12px 14px;box-shadow:0 8px 22px rgba(18,38,63,.06);min-width:0;position:relative;overflow:hidden}
+    .kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-bottom:14px}
+    .kpi-card{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--blue);border-radius:8px;padding:10px 11px;box-shadow:0 8px 22px rgba(18,38,63,.06);min-width:0;position:relative;overflow:hidden;transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease}
+    .kpi-card[data-kpi-filter]{cursor:pointer}
+    .kpi-card[data-kpi-filter]:hover{transform:translateY(-1px);box-shadow:0 12px 26px rgba(18,38,63,.11)}
+    .kpi-card[data-kpi-filter]:focus-visible{outline:3px solid rgba(21,95,196,.22);outline-offset:2px}
+    .kpi-card.kpi-active{box-shadow:0 0 0 3px rgba(21,95,196,.14),0 12px 26px rgba(18,38,63,.1)}
     .kpi-card:nth-child(1){border-top-color:var(--cyan)}
     .kpi-card:nth-child(2){border-top-color:var(--green)}
     .kpi-card:nth-child(3){border-top-color:var(--amber)}
     .kpi-card:nth-child(4){border-top-color:var(--blue)}
-    .kpi-card:nth-child(5){border-top-color:var(--violet)}
-    .kpi-label{font-size:10px;font-weight:850;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:7px}
-    .kpi-value{font-size:23px;font-weight:850;line-height:1;color:var(--text);font-family:Consolas,Menlo,monospace}
-    .kpi-sub{font-size:11px;color:var(--muted);margin-top:6px;font-weight:650}
+    .kpi-card:nth-child(5){border-top-color:var(--red)}
+    .kpi-card:nth-child(6){border-top-color:var(--violet)}
+    .kpi-label{font-size:9px;font-weight:850;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .kpi-value{font-size:22px;font-weight:850;line-height:1;color:var(--text);font-family:Consolas,Menlo,monospace}
+    .kpi-sub{font-size:10px;color:var(--muted);margin-top:6px;font-weight:650;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .action-strip{display:flex;align-items:center;justify-content:flex-start;gap:8px;flex-wrap:wrap;margin:-2px 0 14px}
     .tab-action{border-radius:8px;padding:9px 14px;min-height:38px}
     .grid-main{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:14px;align-items:start}
@@ -233,11 +238,12 @@
     </section>
 
     <section class="kpis">
-      <div class="kpi-card"><div class="kpi-label">Indicações</div><div class="kpi-value" id="kpiQty">0</div><div class="kpi-sub">total filtrado</div></div>
-      <div class="kpi-card"><div class="kpi-label">Ofertas convertidas</div><div class="kpi-value" id="kpiInstalled">0</div><div class="kpi-sub">instalações concluídas</div></div>
-      <div class="kpi-card"><div class="kpi-label">Pendentes</div><div class="kpi-value" id="kpiPending">0</div><div class="kpi-sub">em aberto</div></div>
-      <div class="kpi-card"><div class="kpi-label">Conversão</div><div class="kpi-value" id="kpiConversion">0%</div><div class="kpi-sub">convertidas / indicações</div></div>
-      <div class="kpi-card"><div class="kpi-label">Valor gerado</div><div class="kpi-value" id="kpiValue">R$ 0</div><div class="kpi-sub">somente convertidas</div></div>
+      <div class="kpi-card" role="button" tabindex="0" data-kpi-filter="all"><div class="kpi-label">Cadastradas</div><div class="kpi-value" id="kpiQty">0</div><div class="kpi-sub">total filtrado</div></div>
+      <div class="kpi-card" role="button" tabindex="0" data-kpi-filter="installed"><div class="kpi-label">Instalado</div><div class="kpi-value" id="kpiInstalled">0</div><div class="kpi-sub">instalações concluídas</div></div>
+      <div class="kpi-card" role="button" tabindex="0" data-kpi-filter="pending"><div class="kpi-label">Pendentes</div><div class="kpi-value" id="kpiPending">0</div><div class="kpi-sub">em aberto</div></div>
+      <div class="kpi-card" role="button" tabindex="0" data-kpi-filter="installed"><div class="kpi-label">Conversão</div><div class="kpi-value" id="kpiConversion">0%</div><div class="kpi-sub">instaladas / cadastradas</div></div>
+      <div class="kpi-card" role="button" tabindex="0" data-kpi-filter="failed"><div class="kpi-label">Não concluído/Cancelado</div><div class="kpi-value" id="kpiFailed">0</div><div class="kpi-sub">sem conclusão</div></div>
+      <div class="kpi-card" role="button" tabindex="0" data-kpi-filter="installed"><div class="kpi-label">Valor gerado</div><div class="kpi-value" id="kpiValue">R$ 0</div><div class="kpi-sub">somente instaladas</div></div>
     </section>
 
     <div class="action-strip">
@@ -256,7 +262,7 @@
           </div>
           <button id="closeOffer" class="ghost modal-close" type="button" aria-label="Fechar">×</button>
         </div>
-        <div class="form-note" id="formNote">Cadastre uma nova oferta preenchendo técnico, contrato, data, tipo e status. Se o contrato já existir, o sistema avisará antes de salvar.</div>
+        <div class="form-note" id="formNote">Cadastre uma nova oferta preenchendo os campos técnico, contrato, data, tipo e status. Se o contrato já existir, o sistema avisará antes de salvar.</div>
         <form id="form" class="form-grid">
           <input id="recordId" type="hidden">
           <label class="span-2">Técnico<input id="tech" list="techList" placeholder="Nome do técnico" required></label>
@@ -279,7 +285,7 @@
         <div class="section-title modal-title">
           <div>
             <h2 id="shareTitle">Resumo por Equipe</h2>
-            <small>Distribuição por equipe e técnico</small>
+            <small>Distribuição por equipe e por técnico</small>
           </div>
           <div class="modal-actions">
             <button id="downloadShare" class="ghost ranking-download" type="button">Baixar imagem</button>
@@ -426,7 +432,7 @@
           { tipo:"Migração", valor:8.00 },
           { tipo:"Instalação Mesh", valor:54.30 },
           { tipo:"Ponto Ultra", valor:115.57 },
-          { tipo:"Mudança De Pacote", valor:8.00 }
+          { tipo:"Mudança de Pacote", valor:8.00 }
         ];
       }
       function serviceName(value){
@@ -435,7 +441,7 @@
         if(found) return found.tipo;
         if(n === "migracao") return "Migração";
         if(n.indexOf("mesh") >= 0) return "Instalação Mesh";
-        if(n.indexOf("mudanca de pacote") >= 0) return "Mudança De Pacote";
+        if(n.indexOf("mudanca de pacote") >= 0) return "Mudança de Pacote";
         if(n.indexOf("ponto ultra") >= 0 || n.indexOf("ultra") >= 0) return "Ponto Ultra";
         if(n.indexOf("ponto tv") >= 0 || n === "tv") return "Instalação Ponto TV";
         if(n === "indicacao") return "Indicação";
@@ -455,12 +461,12 @@
         return [
           "Instalado",
           "Pendente",
-          "Instalação Não Concluída - Inviabilidade Técnica",
-          "Instalação Não Concluída - Cliente Ausente",
-          "Instalação Não Concluída - Endereço Não Localizado",
-          "Instalação Não Concluída - Falta De Infraestrutura",
-          "Instalação Não Concluída - Sem Autorização Do Cliente/Condomínio",
-          "Instalação Não Concluída - Sinal Ou Rede Indisponível",
+          "Instalação não concluída - Inviabilidade técnica",
+          "Instalação não concluída - Cliente ausente",
+          "Instalação não concluída - Endereço não localizado",
+          "Instalação não concluída - Falta de infraestrutura",
+          "Instalação não concluída - Sem autorização do cliente/condomínio",
+          "Instalação não concluída - Sinal ou rede indisponível",
           "Cancelado"
         ];
       }
@@ -502,6 +508,15 @@
       function value(record){ return Number(record.valor || 0); }
       function isInstalled(record){ return statusCategory(record.status) === "Instalado"; }
       function isPending(record){ return statusCategory(record.status) === "Pendente"; }
+      function isFailed(record){
+        var category = statusCategory(record.status);
+        return category === "Não concluído" || category === "Cancelado";
+      }
+      function statusMatchesFilter(category, selected){
+        if(!selected) return true;
+        if(selected === "Não concluído/Cancelado") return category === "Não concluído" || category === "Cancelado";
+        return category === selected;
+      }
       function installedQty(record){ return isInstalled(record) ? qty(record) : 0; }
       function installedValue(record){ return isInstalled(record) ? value(record) : 0; }
       function defaultPaymentForStatus(status){
@@ -662,8 +677,8 @@
         var visibleTechs = techniciansForTeam(data.tecnicos, team);
         fillSelect("filterTech", "Todos", visibleTechs);
         fillSelect("tableTech", "Todos os técnicos", visibleTechs);
-        fillSelect("filterStatus", "Todos", ["Instalado","Pendente","Não concluído","Cancelado"]);
-        fillSelect("tableStatus", "Todos", ["Instalado","Pendente","Não concluído","Cancelado"]);
+        fillSelect("filterStatus", "Todos", ["Instalado","Pendente","Não concluído","Cancelado","Não concluído/Cancelado"]);
+        fillSelect("tableStatus", "Todos", ["Instalado","Pendente","Não concluído","Cancelado","Não concluído/Cancelado"]);
         fillSelect("filterType", "Todos", data.tipos);
         fillSelect("type", "Selecione", data.tipos);
         fillSelect("status", "Selecione", defaultStatuses());
@@ -690,8 +705,8 @@
             && (!tech || name === tech)
             && (!tableTech || name === tableTech)
             && (!tableContract || norm(record.contrato).indexOf(tableContract) >= 0)
-            && (!status || category === status)
-            && (!tableStatus || category === tableStatus)
+            && statusMatchesFilter(category, status)
+            && statusMatchesFilter(category, tableStatus)
             && (!type || service === type)
             && (!month || date.slice(0,7) === month)
             && (!start || date >= start)
@@ -710,14 +725,47 @@
         var total = filtered.length;
         var totalQty = filtered.reduce(function(sum, record){ return sum + qty(record); }, 0);
         var installed = filtered.reduce(function(sum, record){ return sum + installedQty(record); }, 0);
-        var pending = filtered.filter(isPending).length;
+        var pending = filtered.reduce(function(sum, record){ return sum + (isPending(record) ? (qty(record) || 1) : 0); }, 0);
+        var failed = filtered.reduce(function(sum, record){ return sum + (isFailed(record) ? (qty(record) || 1) : 0); }, 0);
         var totalValue = filtered.reduce(function(sum, record){ return sum + installedValue(record); }, 0);
         byId("kpiQty").textContent = integer.format(totalQty);
         byId("kpiInstalled").textContent = integer.format(installed);
         byId("kpiPending").textContent = integer.format(pending);
+        byId("kpiFailed").textContent = integer.format(failed);
         byId("kpiValue").textContent = money.format(totalValue);
         byId("kpiConversion").textContent = totalQty ? Math.round(installed / totalQty * 100) + "%" : "0%";
         byId("tableTotal").textContent = integer.format(total);
+        updateKpiActive();
+      }
+      function setKpiStatusFilter(value){
+        byId("filterStatus").value = value;
+        byId("tableStatus").value = value;
+        applyFilters();
+      }
+      function handleKpiFilter(card){
+        var filter = card.getAttribute("data-kpi-filter");
+        if(filter === "installed") setKpiStatusFilter("Instalado");
+        else if(filter === "pending") setKpiStatusFilter("Pendente");
+        else if(filter === "failed") setKpiStatusFilter("Não concluído/Cancelado");
+        else setKpiStatusFilter("");
+      }
+      function statusFilterMatchesKpi(filter, value){
+        if(filter === "all") return !value;
+        if(filter === "installed") return value === "Instalado";
+        if(filter === "pending") return value === "Pendente";
+        if(filter === "failed") return value === "Não concluído/Cancelado" || value === "Não concluído" || value === "Cancelado";
+        return false;
+      }
+      function updateKpiActive(){
+        var filterStatus = byId("filterStatus").value;
+        var tableStatus = byId("tableStatus").value;
+        document.querySelectorAll("[data-kpi-filter]").forEach(function(card){
+          var filter = card.getAttribute("data-kpi-filter");
+          var active = filter === "all"
+            ? !filterStatus && !tableStatus
+            : statusFilterMatchesKpi(filter, filterStatus) || statusFilterMatchesKpi(filter, tableStatus);
+          card.classList.toggle("kpi-active", active);
+        });
       }
       function percent(value, total){
         return total ? Math.round(value / total * 100) : 0;
@@ -812,7 +860,7 @@
         ctx.fillText("RESUMO POR EQUIPE", 48, 58);
         ctx.font = "700 18px Arial, sans-serif";
         ctx.fillStyle = "rgba(255,255,255,.84)";
-        ctx.fillText("Por equipe e participação por técnico", 50, 92);
+        ctx.fillText("Participação por equipe e por técnico", 50, 92);
         ctx.textAlign = "right";
         ctx.fillText(new Date().toLocaleDateString("pt-BR"), width - 50, 92);
         ctx.textAlign = "left";
@@ -1086,7 +1134,7 @@
         document.body.classList.toggle("editing", !!active);
         byId("formTitle").textContent = active ? "Editar Oferta" : "Nova Oferta";
         byId("formMode").textContent = active ? (record && record.contrato ? "Editando contrato " + record.contrato : "Editando lançamento") : "Cadastro diário";
-        byId("formNote").textContent = active ? "Altere os dados necessários e clique em Salvar edição. O registro será atualizado na tabela abaixo." : "Cadastre uma nova oferta preenchendo técnico, contrato, data, tipo e status. Se o contrato já existir, o sistema avisará antes de salvar.";
+        byId("formNote").textContent = active ? "Altere os dados necessários e clique em Salvar edição. O registro será atualizado na tabela abaixo." : "Cadastre uma nova oferta preenchendo os campos técnico, contrato, data, tipo e status. Se o contrato já existir, o sistema avisará antes de salvar.";
         byId("saveButton").textContent = active ? "Salvar edição" : "Cadastrar oferta";
       }
       function openModal(id){
@@ -1278,7 +1326,7 @@
         return 11;
       }
       function teamLabel(name){
-        return technicianTeam(name) === "Instalação" ? "Tec. Instalação" : "Tec. Manutenção";
+        return technicianTeam(name) === "Instalação" ? "Téc. Instalação" : "Téc. Manutenção";
       }
       function launchesWorksheetXml(rows){
         var lastRow = Math.max(5, rows.length + 4);
@@ -1430,7 +1478,7 @@
       }
       function templateBytes(){
         var node = byId("xlsxTemplate");
-        if(!node || !node.textContent) throw new Error("Modelo XLSX nao encontrado.");
+        if(!node || !node.textContent) throw new Error("Modelo XLSX não encontrado.");
         return base64Bytes(node.textContent);
       }
       function u16(bytes, offset){ return bytes[offset] | (bytes[offset + 1] << 8); }
@@ -1442,13 +1490,13 @@
         for(var i = bytes.length - 22; i >= 0 && i > bytes.length - 66000; i -= 1){
           if(u32(bytes, i) === 0x06054b50){ eocd = i; break; }
         }
-        if(eocd < 0) throw new Error("Arquivo XLSX invalido.");
+        if(eocd < 0) throw new Error("Arquivo XLSX inválido.");
         var total = u16(bytes, eocd + 10);
         var offset = u32(bytes, eocd + 16);
         var decoder = new TextDecoder();
         var entries = [];
         for(var index = 0; index < total; index += 1){
-          if(u32(bytes, offset) !== 0x02014b50) throw new Error("Indice ZIP invalido.");
+          if(u32(bytes, offset) !== 0x02014b50) throw new Error("Índice ZIP inválido.");
           var flags = u16(bytes, offset + 8);
           var method = u16(bytes, offset + 10);
           var modTime = u16(bytes, offset + 12);
@@ -1463,7 +1511,7 @@
           var localOffset = u32(bytes, offset + 42);
           var nameBytes = bytes.slice(offset + 46, offset + 46 + nameLength);
           var name = decoder.decode(nameBytes);
-          if(u32(bytes, localOffset) !== 0x04034b50) throw new Error("Entrada ZIP invalida.");
+          if(u32(bytes, localOffset) !== 0x04034b50) throw new Error("Entrada ZIP inválida.");
           var localNameLength = u16(bytes, localOffset + 26);
           var localExtraLength = u16(bytes, localOffset + 28);
           var dataOffset = localOffset + 30 + localNameLength + localExtraLength;
@@ -1484,7 +1532,7 @@
         return entries;
       }
       function zipEntryText(entry){
-        if(!entry || entry.method !== 0) throw new Error("Modelo XLSX precisa estar sem compressao interna.");
+        if(!entry || entry.method !== 0) throw new Error("Modelo XLSX precisa estar sem compressão interna.");
         return new TextDecoder().decode(entry.compressedData);
       }
       function resizeTemplateRanges(text, lastRow){
@@ -1757,6 +1805,15 @@
           applyFilters();
         });
         ["filterTech","filterStatus","filterType","filterMonth","filterStart","filterEnd","tableTech","tableStatus"].forEach(function(id){ byId(id).addEventListener("input", applyFilters); });
+        document.querySelectorAll("[data-kpi-filter]").forEach(function(card){
+          card.addEventListener("click", function(){ handleKpiFilter(card); });
+          card.addEventListener("keydown", function(event){
+            if(event.key === "Enter" || event.key === " "){
+              event.preventDefault();
+              handleKpiFilter(card);
+            }
+          });
+        });
         byId("searchContract").addEventListener("click", applyFilters);
         byId("tableContract").addEventListener("keydown", function(event){
           if(event.key === "Enter"){
