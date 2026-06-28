@@ -54,29 +54,46 @@
     .kpi-label{font-size:10px;font-weight:850;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:7px}
     .kpi-value{font-size:23px;font-weight:850;line-height:1;color:var(--text);font-family:Consolas,Menlo,monospace}
     .kpi-sub{font-size:11px;color:var(--muted);margin-top:6px;font-weight:650}
-    .grid-main{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(320px,.65fr);gap:14px;margin-bottom:14px;align-items:start}
+    .action-strip{display:flex;align-items:center;justify-content:flex-start;gap:8px;flex-wrap:wrap;margin:-2px 0 14px}
+    .tab-action{border-radius:8px;padding:9px 14px;min-height:38px}
+    .grid-main{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:14px;align-items:start}
     .card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 18px;box-shadow:var(--shadow);min-width:0}
     .section-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;flex-wrap:wrap}
     .section-title h2{margin:0;font-size:13px;color:var(--muted);font-weight:850;text-transform:uppercase;letter-spacing:.07em}
     .section-title small{color:var(--muted);font-weight:700}
     .section-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
     .section-actions button{min-height:32px;padding:6px 10px;font-size:11px}
-    .rank-list{display:grid;gap:8px}
-    .rank-item{display:grid;grid-template-columns:34px minmax(0,1fr);gap:10px;align-items:start;border:1px solid var(--border);border-radius:8px;background:linear-gradient(180deg,#fff,#f9fbff);padding:10px 11px}
-    .rank-pos{display:inline-flex;width:30px;height:30px;border-radius:999px;align-items:center;justify-content:center;background:#e6f0ff;color:#17375f;font-weight:900;font-size:12px}
-    .rank-item strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-    .rank-body{min-width:0}
-    .rank-head{display:flex;align-items:center;gap:7px;min-width:0}
-    .rank-head strong{min-width:0}
-    .rank-medal{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:999px;font-size:14px;line-height:1;flex:0 0 auto}
-    .rank-medal-1{background:#fff7d6;border:1px solid #f6d365}
-    .rank-medal-2{background:#f4f7fb;border:1px solid #cbd5e1}
-    .rank-medal-3{background:#fff0df;border:1px solid #d9a06b}
-    .rank-item small{display:block;margin-top:5px;color:var(--muted);font-size:11px;font-weight:700;line-height:1.35}
-    .rank-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:6px}
-    .rank-metrics span{border:1px solid #e5edf7;border-radius:7px;background:#fff;padding:6px 7px;color:var(--muted);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
-    .rank-metrics b{display:block;color:#10213a;font-size:12px;margin-bottom:2px;font-family:Consolas,Menlo,monospace}
-    .rank-bar{height:7px;border-radius:999px;background:#e9f0f8;overflow:hidden;margin-top:8px}
+    .ranking-panel{width:min(980px,100%);padding:0;overflow:hidden}
+    .ranking-panel .modal-title{margin:0;padding:18px 20px 15px;background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;align-items:center}
+    .ranking-panel .modal-title h2{color:#fff;font-size:16px;letter-spacing:.08em}
+    .ranking-panel .modal-title small{color:rgba(255,255,255,.78)}
+    .ranking-panel .modal-close{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.28)}
+    .modal-actions{display:flex;align-items:center;gap:8px}
+    .ranking-download{min-height:34px;padding:7px 12px;font-size:11px;background:#fff;color:var(--blue);border-color:rgba(255,255,255,.72)}
+    .rank-list{display:grid;gap:12px;padding:16px 18px 18px;background:linear-gradient(180deg,#f5f9ff,#fff)}
+    .rank-item{position:relative;overflow:hidden;border:1px solid var(--border);border-radius:8px;background:#fff;padding:14px 15px;box-shadow:0 12px 28px rgba(15,31,53,.08)}
+    .rank-item:before{content:"";position:absolute;inset:0 auto 0 0;width:5px;background:var(--blue)}
+    .rank-first{background:linear-gradient(135deg,#fff8d7 0%,#fff 48%,#f6fbff 100%);border-color:#f2cc57;box-shadow:0 14px 34px rgba(217,119,6,.16)}
+    .rank-first:before{background:linear-gradient(180deg,#f59e0b,#facc15)}
+    .rank-second:before{background:linear-gradient(180deg,#94a3b8,#dbe4ef)}
+    .rank-third:before{background:linear-gradient(180deg,#c27732,#f0b174)}
+    .rank-podium{display:grid;grid-template-columns:42px minmax(0,1fr) 40px;gap:12px;align-items:center}
+    .rank-pos{display:inline-flex;width:38px;height:38px;border-radius:999px;align-items:center;justify-content:center;background:#e6f0ff;color:#17375f;font-weight:900;font-size:15px;box-shadow:inset 0 0 0 1px rgba(21,95,196,.08)}
+    .rank-first .rank-pos{background:#fff0b8;color:#92400e}
+    .rank-second .rank-pos{background:#eef3f9;color:#475569}
+    .rank-third .rank-pos{background:#fff1e4;color:#9a4b13}
+    .rank-title{min-width:0}
+    .rank-title strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#10213a;font-size:17px;line-height:1.15}
+    .rank-label{color:var(--muted);font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+    .rank-medal{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:999px;font-size:22px;line-height:1;justify-self:end;background:#fff;border:1px solid #dce6f3;box-shadow:0 10px 18px rgba(15,31,53,.08)}
+    .rank-medal-1{background:#fff7d6;border-color:#f6d365}
+    .rank-medal-2{background:#f4f7fb;border-color:#cbd5e1}
+    .rank-medal-3{background:#fff0df;border-color:#d9a06b}
+    .rank-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
+    .rank-metric{border:1px solid #e2ebf6;border-radius:8px;background:rgba(255,255,255,.88);padding:10px 11px;color:var(--muted);font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.05em}
+    .rank-metric b{display:block;color:#10213a;font-size:17px;margin-bottom:4px;font-family:Consolas,Menlo,monospace;letter-spacing:0}
+    .rank-first .rank-metric b{font-size:19px}
+    .rank-bar{height:9px;border-radius:999px;background:#e9f0f8;overflow:hidden;margin-top:12px}
     .rank-bar span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--cyan),var(--green))}
     .rank-zero{opacity:.62}
     .rank-zero .rank-pos{background:#f1f5f9;color:#64748b}
@@ -87,11 +104,25 @@
     .span-2{grid-column:span 2}
     .span-4{grid-column:1/-1}
     .form-actions{display:flex;gap:8px;justify-content:flex-end;align-items:end}
+    #paymentField{display:none}
+    body.editing #paymentField{display:grid}
     #cancelEdit{display:none}
     body.editing #cancelEdit{display:inline-flex}
     body.editing .form-card{border-left-color:var(--amber);box-shadow:0 0 0 3px rgba(217,119,6,.08),var(--shadow)}
+    body.modal-open{overflow:hidden}
+    .modal{position:fixed;inset:0;z-index:45;display:grid;place-items:center;padding:18px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .18s ease,visibility .18s ease}
+    .modal.open{opacity:1;visibility:visible;pointer-events:auto}
+    .modal-backdrop{position:absolute;inset:0;background:rgba(8,22,40,.58);backdrop-filter:blur(2px)}
+    .modal-panel{position:relative;width:min(940px,100%);max-height:calc(100vh - 36px);overflow:auto;transform:translateY(12px) scale(.985);transition:transform .18s ease}
+    .modal.open .modal-panel{transform:translateY(0) scale(1)}
+    .modal-title{align-items:flex-start}
+    .modal-title h2{margin-bottom:4px}
+    .modal-close{width:34px;height:34px;padding:0;font-size:20px;line-height:1}
     .table-tools{display:flex;align-items:end;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}
     .table-filter{display:grid;gap:5px;min-width:220px;max-width:360px;flex:1}
+    .contract-search{display:grid;grid-template-columns:minmax(180px,1fr) auto;gap:8px;align-items:end;min-width:280px;max-width:520px;flex:1.2}
+    .contract-search label{display:grid;gap:5px}
+    .contract-search button{min-height:40px;padding:8px 18px}
     .table-wrap{border:1px solid var(--border);border-radius:8px;background:#fff;overflow:auto}
     table{width:100%;border-collapse:collapse;font-size:11px;min-width:940px}
     th{background:var(--navy);color:rgba(255,255,255,.88);padding:8px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.07em;white-space:nowrap;position:sticky;top:0;z-index:1}
@@ -128,12 +159,25 @@
       .hero-logo{width:58px;height:58px}
       .filters,.kpis,.form-grid{grid-template-columns:1fr}
       .rank-metrics{grid-template-columns:1fr}
+      .rank-list{padding:12px}
+      .rank-item{padding:12px 12px 12px 14px}
+      .rank-podium{grid-template-columns:36px minmax(0,1fr) 34px;gap:8px}
+      .rank-pos{width:32px;height:32px;font-size:13px}
+      .rank-medal{width:32px;height:32px;font-size:19px}
+      .rank-title strong{font-size:15px}
+      .ranking-panel .modal-title{align-items:flex-start}
+      .modal-actions{width:100%;justify-content:space-between}
       .span-2,.span-4{grid-column:1/-1}
+      .action-strip{display:grid;gap:8px}
+      .tab-action{width:100%}
+      .modal{padding:10px}
+      .modal-panel{max-height:calc(100vh - 20px)}
       .form-actions{flex-direction:column;align-items:stretch}
       .form-actions button{width:100%}
       .desktop-table{display:none}
       .mobile-cards{display:grid}
       .table-tools{display:grid}
+      .contract-search{grid-template-columns:1fr;min-width:0;max-width:none}
     }
   </style>
 </head>
@@ -166,27 +210,51 @@
       <div class="kpi-card"><div class="kpi-label">Valor gerado</div><div class="kpi-value" id="kpiValue">R$ 0</div><div class="kpi-sub">somente convertidas</div></div>
     </section>
 
-    <div class="grid-main">
-      <section class="card form-card">
-        <div class="section-title"><h2 id="formTitle">Nova Oferta</h2><small id="formMode">Cadastro diário</small></div>
+    <div class="action-strip">
+      <button id="openOffer" class="tab-action success" type="button">+ Nova Oferta</button>
+      <button id="openRanking" class="tab-action secondary" type="button">Ranking de Técnicos</button>
+    </div>
+
+    <div id="offerModal" class="modal" aria-hidden="true">
+      <div class="modal-backdrop" data-close-offer></div>
+      <section class="card form-card modal-panel" role="dialog" aria-modal="true" aria-labelledby="formTitle">
+        <div class="section-title modal-title">
+          <div>
+            <h2 id="formTitle">Nova Oferta</h2>
+            <small id="formMode">Cadastro diário</small>
+          </div>
+          <button id="closeOffer" class="ghost modal-close" type="button" aria-label="Fechar">×</button>
+        </div>
         <div class="form-note" id="formNote">Cadastre uma nova oferta preenchendo técnico, contrato, data, tipo e status. Se o contrato já existir, o sistema avisará antes de salvar.</div>
         <form id="form" class="form-grid">
           <input id="recordId" type="hidden">
-          <input id="note" type="hidden" value="">
           <label class="span-2">Técnico<input id="tech" list="techList" placeholder="Nome do técnico" required></label>
           <label>Contrato<input id="contract" inputmode="numeric" placeholder="Nº contrato" required></label>
           <label>Tipo de serviço<select id="type" required></select></label>
           <label>Data da indicação<input id="dateIndication" type="date" required></label>
           <label>Data da instalação<input id="dateInstall" type="date"></label>
           <label class="span-2">Status<select id="status" required></select></label>
-          <label class="span-2">Quantidade<input id="quantity" type="number" step="1" min="0" value="1"></label>
-          <label class="span-2">Valor<input id="value" type="number" step="0.01" min="0" value="8"></label>
+          <label>Quantidade<input id="quantity" type="number" step="1" min="0" value="1"></label>
+          <label>Valor<input id="value" type="number" step="0.01" min="0" value="8"></label>
+          <label id="paymentField" class="span-2">Pagamento<select id="payment"><option value="OK">OK</option><option value="Não OK">Não OK</option></select></label>
           <div class="span-4 form-actions"><button class="secondary" id="cancelEdit" type="button">Cancelar edição</button><button class="success" id="saveButton" type="submit">Cadastrar oferta</button></div>
         </form>
       </section>
+    </div>
 
-      <section class="card">
-        <div class="section-title"><h2>Ranking de Técnicos</h2><small>Vendas, instalações e valor</small></div>
+    <div id="rankingModal" class="modal" aria-hidden="true">
+      <div class="modal-backdrop" data-close-ranking></div>
+      <section class="card modal-panel ranking-panel" role="dialog" aria-modal="true" aria-labelledby="rankingTitle">
+        <div class="section-title modal-title">
+          <div>
+            <h2 id="rankingTitle">Ranking de Técnicos</h2>
+            <small>Ofertas, instalações e valor</small>
+          </div>
+          <div class="modal-actions">
+            <button id="downloadRanking" class="ghost ranking-download" type="button">Baixar imagem</button>
+            <button id="closeRanking" class="ghost modal-close" type="button" aria-label="Fechar">×</button>
+          </div>
+        </div>
         <div id="ranking" class="rank-list"><div class="empty">Sem dados.</div></div>
       </section>
     </div>
@@ -195,11 +263,12 @@
       <div class="section-title"><h2>Lançamentos</h2><div class="section-actions"><small><span id="tableTotal">0</span> registros exibidos</small><button id="exportXlsx" class="secondary" type="button">Exportar planilha</button></div></div>
       <div class="table-tools">
         <div class="table-filter"><label for="tableTech">Filtrar lançamentos por técnico</label><select id="tableTech"></select></div>
+        <div class="contract-search"><label for="tableContract">Buscar por contrato<input id="tableContract" inputmode="numeric" placeholder="Digite o contrato"></label><button id="searchContract" class="success" type="button">Buscar</button></div>
         <div class="table-filter"><label for="tableStatus">Filtrar lançamentos por status</label><select id="tableStatus"></select></div>
       </div>
       <div class="table-wrap desktop-table">
         <table>
-          <thead><tr><th>Técnico</th><th>Contrato</th><th>Indicação</th><th>Instalação</th><th>Serviço</th><th>Status</th><th>Qtd.</th><th>Valor</th><th>Observação</th><th>Ações</th></tr></thead>
+          <thead><tr><th>Técnico</th><th>Contrato</th><th>Indicação</th><th>Instalação</th><th>Serviço</th><th>Status</th><th>Qtd.</th><th>Valor</th><th>Pagamento</th><th>Ações</th></tr></thead>
           <tbody id="tableBody"><tr><td colspan="10"><div class="empty">Sem lançamentos.</div></td></tr></tbody>
         </table>
       </div>
@@ -381,6 +450,16 @@
       function isPending(record){ return statusCategory(record.status) === "Pendente"; }
       function installedQty(record){ return isInstalled(record) ? qty(record) : 0; }
       function installedValue(record){ return isInstalled(record) ? value(record) : 0; }
+      function defaultPaymentForStatus(status){
+        return "Não OK";
+      }
+      function paymentStatus(record){
+        var raw = String(record && (record.pagamento || record.payment || record.observacao || record["Pagamento"] || record["PAGAMENTO"] || "") || "").trim();
+        var n = norm(raw);
+        if(n === "ok" || n === "pago") return "OK";
+        if(n === "nao ok" || n.indexOf("aguardando") >= 0 || n.indexOf("pendente") >= 0 || n.indexOf("nao confirmado") >= 0 || n.indexOf("nao") >= 0) return "Não OK";
+        return defaultPaymentForStatus(record && record.status);
+      }
       function recordValue(record, type){
         var raw = record.valor;
         if(raw == null || raw === "") raw = record["Valor"];
@@ -400,7 +479,7 @@
           tipo: type,
           quantidade: Math.max(0, Number(String(record.quantidade != null ? record.quantidade : (record["Quantidade"] != null ? record["Quantidade"] : (record["QUANTIDADE"] != null ? record["QUANTIDADE"] : 1))).replace(",", ".")) || 0),
           status: statusName(record.status || record["Status"] || record["STATUS"] || ""),
-          observacao: String(record.observacao || record["Observação"] || record["OBSERVAÇÃO"] || record["Observacao"] || record["OBSERVACAO"] || "").trim()
+          observacao: String(record.pagamento || record.payment || record["Pagamento"] || record["PAGAMENTO"] || record.observacao || record["Observação"] || record["OBSERVAÇÃO"] || record["Observacao"] || record["OBSERVACAO"] || "").trim()
         };
       }
       function rebuildStateLists(){
@@ -541,6 +620,7 @@
         var operation = byId("filterOperation").value;
         var tech = byId("filterTech").value;
         var tableTech = byId("tableTech").value;
+        var tableContract = norm(byId("tableContract").value);
         var status = byId("filterStatus").value;
         var tableStatus = byId("tableStatus").value;
         var type = byId("filterType").value;
@@ -555,6 +635,7 @@
           return (!operation || operationArea(record) === operation)
             && (!tech || name === tech)
             && (!tableTech || name === tableTech)
+            && (!tableContract || norm(record.contrato).indexOf(tableContract) >= 0)
             && (!status || category === status)
             && (!tableStatus || category === tableStatus)
             && (!type || service === type)
@@ -606,11 +687,141 @@
         el.innerHTML = rows.length ? rows.map(function(item, index){
           var conversion = item.vendas ? Math.round(item.instaladas / item.vendas * 100) : 0;
           var bar = Math.max(0, Math.min(100, conversion));
-          var medals = ["🥇","🥈","🥉"];
-          var labels = ["Primeiro lugar","Segundo lugar","Terceiro lugar"];
-          var medal = "<span class=\"rank-medal rank-medal-" + (index + 1) + "\" title=\"" + labels[index] + "\" aria-label=\"" + labels[index] + "\">" + medals[index] + "</span>";
-          return "<div class=\"rank-item " + (item.instaladas === 0 ? "rank-zero" : "") + "\"><span class=\"rank-pos\">" + (index + 1) + "</span><div class=\"rank-body\"><div class=\"rank-head\"><strong>" + esc(item.nome) + "</strong>" + medal + "</div><div class=\"rank-metrics\"><span><b>" + integer.format(item.vendas) + "</b>vendas</span><span><b>" + integer.format(item.instaladas) + "</b>instalações</span><span><b>" + money.format(item.valor) + "</b>valor</span></div><div class=\"rank-bar\" aria-label=\"Conversão de " + conversion + "%\"><span style=\"width:" + bar + "%\"></span></div></div></div>";
+          var classes = ["rank-first","rank-second","rank-third"];
+          var medals = ["&#129351;","&#129352;","&#129353;"];
+          var labels = ["Campeão do ranking","Vice-líder","Terceiro lugar"];
+          return "<article class=\"rank-item " + classes[index] + (item.instaladas === 0 ? " rank-zero" : "") + "\">"
+            + "<div class=\"rank-podium\"><span class=\"rank-pos\">" + (index + 1) + "</span><div class=\"rank-title\"><div class=\"rank-label\">" + labels[index] + "</div><strong>" + esc(item.nome) + "</strong></div><span class=\"rank-medal rank-medal-" + (index + 1) + "\" title=\"" + labels[index] + "\" aria-label=\"" + labels[index] + "\">" + medals[index] + "</span></div>"
+            + "<div class=\"rank-metrics\"><span class=\"rank-metric\"><b>" + integer.format(item.vendas) + "</b>ofertas</span><span class=\"rank-metric\"><b>" + integer.format(item.instaladas) + "</b>instalações</span><span class=\"rank-metric\"><b>" + money.format(item.valor) + "</b>valor</span></div>"
+            + "<div class=\"rank-bar\" aria-label=\"Conversão de " + conversion + "%\"><span style=\"width:" + bar + "%\"></span></div>"
+            + "</article>";
         }).join("") : "<div class=\"empty\">Sem técnicos cadastrados.</div>";
+      }
+      function roundRect(ctx, x, y, w, h, r){
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.arcTo(x + w, y, x + w, y + h, r);
+        ctx.arcTo(x + w, y + h, x, y + h, r);
+        ctx.arcTo(x, y + h, x, y, r);
+        ctx.arcTo(x, y, x + w, y, r);
+        ctx.closePath();
+      }
+      function canvasText(ctx, text, maxWidth){
+        var value = String(text || "");
+        if(ctx.measureText(value).width <= maxWidth) return value;
+        while(value.length > 3 && ctx.measureText(value + "...").width > maxWidth) value = value.slice(0, -1);
+        return value + "...";
+      }
+      function exportRankingImage(){
+        var rows = technicianMetrics().slice(0, 3);
+        if(!rows.length){
+          toast("Sem dados para baixar o ranking.", "warn");
+          return;
+        }
+        var width = 1200, height = 760, scale = 2;
+        var canvas = document.createElement("canvas");
+        canvas.width = width * scale;
+        canvas.height = height * scale;
+        var ctx = canvas.getContext("2d");
+        ctx.scale(scale, scale);
+        ctx.fillStyle = "#f5f9ff";
+        ctx.fillRect(0, 0, width, height);
+
+        var header = ctx.createLinearGradient(0, 0, width, 130);
+        header.addColorStop(0, "#102f57");
+        header.addColorStop(1, "#155fc4");
+        ctx.fillStyle = header;
+        ctx.fillRect(0, 0, width, 135);
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "900 34px Arial, sans-serif";
+        ctx.fillText("RANKING DE TÉCNICOS", 48, 58);
+        ctx.font = "700 18px Arial, sans-serif";
+        ctx.fillStyle = "rgba(255,255,255,.82)";
+        ctx.fillText("Ofertas, instalações e valor", 50, 92);
+        ctx.textAlign = "right";
+        ctx.fillText(new Date().toLocaleDateString("pt-BR"), width - 50, 92);
+        ctx.textAlign = "left";
+
+        var labels = ["CAMPEÃO DO RANKING", "VICE-LÍDER", "TERCEIRO LUGAR"];
+        var stripe = ["#f59e0b", "#94a3b8", "#c27732"];
+        var circle = ["#fff0b8", "#eef3f9", "#fff1e4"];
+        var cardY = 165, cardH = 160, gap = 18;
+        rows.forEach(function(item, index){
+          var y = cardY + index * (cardH + gap);
+          var conversion = item.vendas ? Math.round(item.instaladas / item.vendas * 100) : 0;
+          var bar = Math.max(0, Math.min(100, conversion));
+          ctx.save();
+          ctx.shadowColor = index === 0 ? "rgba(217,119,6,.18)" : "rgba(15,31,53,.10)";
+          ctx.shadowBlur = index === 0 ? 24 : 16;
+          ctx.shadowOffsetY = 10;
+          roundRect(ctx, 44, y, width - 88, cardH, 12);
+          ctx.fillStyle = index === 0 ? "#fff8d7" : "#ffffff";
+          ctx.fill();
+          ctx.restore();
+
+          roundRect(ctx, 44, y, width - 88, cardH, 12);
+          ctx.strokeStyle = index === 0 ? "#f2cc57" : "#d9e2ee";
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          ctx.fillStyle = stripe[index];
+          ctx.fillRect(44, y, 7, cardH);
+
+          ctx.beginPath();
+          ctx.arc(88, y + 43, 24, 0, Math.PI * 2);
+          ctx.fillStyle = circle[index];
+          ctx.fill();
+          ctx.fillStyle = "#10213a";
+          ctx.font = "900 19px Arial, sans-serif";
+          ctx.textAlign = "center";
+          ctx.fillText((index + 1) + "º", 88, y + 50);
+          ctx.textAlign = "left";
+
+          ctx.fillStyle = "#60708a";
+          ctx.font = "900 13px Arial, sans-serif";
+          ctx.fillText(labels[index], 128, y + 34);
+          ctx.fillStyle = "#10213a";
+          ctx.font = "900 26px Arial, sans-serif";
+          ctx.fillText(canvasText(ctx, canonicalTech(item.nome), 520), 128, y + 66);
+
+          var metricY = y + 92;
+          var metricW = 280;
+          var metricGap = 18;
+          [
+            { label:"OFERTAS", value:integer.format(item.vendas) },
+            { label:"INSTALAÇÕES", value:integer.format(item.instaladas) },
+            { label:"VALOR", value:money.format(item.valor) }
+          ].forEach(function(metric, metricIndex){
+            var x = 128 + metricIndex * (metricW + metricGap);
+            roundRect(ctx, x, metricY, metricW, 48, 8);
+            ctx.fillStyle = "#ffffff";
+            ctx.fill();
+            ctx.strokeStyle = "#e2ebf6";
+            ctx.stroke();
+            ctx.fillStyle = "#10213a";
+            ctx.font = "900 20px Consolas, monospace";
+            ctx.fillText(metric.value, x + 14, metricY + 22);
+            ctx.fillStyle = "#60708a";
+            ctx.font = "900 12px Arial, sans-serif";
+            ctx.fillText(metric.label, x + 14, metricY + 40);
+          });
+
+          roundRect(ctx, 128, y + 146, width - 210, 9, 5);
+          ctx.fillStyle = "#e9f0f8";
+          ctx.fill();
+          roundRect(ctx, 128, y + 146, (width - 210) * bar / 100, 9, 5);
+          var grad = ctx.createLinearGradient(128, y + 146, width - 82, y + 146);
+          grad.addColorStop(0, "#23c6df");
+          grad.addColorStop(1, "#16a34a");
+          ctx.fillStyle = grad;
+          ctx.fill();
+        });
+
+        canvas.toBlob(function(blob){
+          if(!blob) return;
+          var stamp = new Date().toISOString().slice(0, 10);
+          downloadBlob("RANKING TECNICOS " + stamp + ".png", blob);
+          toast("Imagem do ranking baixada.", "ok");
+        }, "image/png");
       }
       function rowHtml(record){
         return "<tr>"
@@ -622,7 +833,7 @@
           + "<td><span class=\"status-pill " + statusClass(record.status) + "\">" + esc(statusCategory(record.status)) + "</span></td>"
           + "<td>" + integer.format(qty(record)) + "</td>"
           + "<td>" + money.format(value(record)) + "</td>"
-          + "<td>" + esc(record.observacao || "") + "</td>"
+          + "<td>" + esc(paymentStatus(record)) + "</td>"
           + "<td><div class=\"row-actions\"><button class=\"secondary\" type=\"button\" data-edit=\"" + esc(record.id) + "\">Editar</button><button class=\"danger\" type=\"button\" data-delete=\"" + esc(record.id) + "\">Excluir</button></div></td>"
           + "</tr>";
       }
@@ -636,7 +847,7 @@
           return "<article class=\"launch-card\">"
             + "<div class=\"launch-head\"><strong>" + esc(canonicalTech(record.tecnico)) + "</strong><span class=\"status-pill " + statusClass(record.status) + "\">" + esc(statusCategory(record.status)) + "</span></div>"
             + "<div class=\"launch-grid\"><div><span>Contrato</span><b>" + esc(record.contrato) + "</b></div><div><span>Serviço</span><b>" + esc(serviceName(record.tipo)) + "</b></div><div><span>Indicação</span><b>" + dateText(record.dataIndicacao) + "</b></div><div><span>Valor</span><b>" + money.format(value(record)) + "</b></div></div>"
-            + (record.observacao ? "<p>" + esc(record.observacao) + "</p>" : "")
+            + "<p>Pagamento: " + esc(paymentStatus(record)) + "</p>"
             + "<div class=\"row-actions\"><button class=\"secondary\" type=\"button\" data-edit=\"" + esc(record.id) + "\">Editar</button><button class=\"danger\" type=\"button\" data-delete=\"" + esc(record.id) + "\">Excluir</button></div>"
             + "</article>";
         }).join("") : "<div class=\"empty\">Nenhum lançamento encontrado.</div>";
@@ -648,12 +859,46 @@
         byId("formNote").textContent = active ? "Altere os dados necessários e clique em Salvar edição. O registro será atualizado na tabela abaixo." : "Cadastre uma nova oferta preenchendo técnico, contrato, data, tipo e status. Se o contrato já existir, o sistema avisará antes de salvar.";
         byId("saveButton").textContent = active ? "Salvar edição" : "Cadastrar oferta";
       }
+      function openModal(id){
+        var modal = byId(id);
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+        document.body.classList.add("modal-open");
+      }
+      function closeModal(id){
+        var modal = byId(id);
+        modal.classList.remove("open");
+        modal.setAttribute("aria-hidden", "true");
+        if(!document.querySelector(".modal.open")) document.body.classList.remove("modal-open");
+      }
+      function openOfferModal(){
+        openModal("offerModal");
+        setTimeout(function(){ byId("tech").focus(); }, 120);
+      }
+      function closeOfferModal(){
+        closeModal("offerModal");
+      }
+      function openRankingModal(){
+        openModal("rankingModal");
+      }
+      function closeRankingModal(){
+        closeModal("rankingModal");
+      }
+      function openNewOffer(){
+        resetForm();
+        openOfferModal();
+      }
+      function cancelOffer(){
+        resetForm();
+        closeOfferModal();
+      }
       function resetForm(){
-        ["recordId","tech","contract","dateInstall","note"].forEach(function(id){ byId(id).value = ""; });
+        ["recordId","tech","contract","dateInstall"].forEach(function(id){ byId(id).value = ""; });
         byId("dateIndication").value = new Date().toISOString().slice(0,10);
         byId("type").value = "Migração";
         byId("value").value = serviceValue("Migração").toFixed(2);
         byId("status").value = "Pendente";
+        byId("payment").value = "Não OK";
         byId("quantity").value = 1;
         setEditMode(false);
       }
@@ -669,10 +914,9 @@
         byId("status").value = statusName(record.status);
         byId("quantity").value = record.quantidade;
         byId("value").value = record.valor;
-        byId("note").value = record.observacao || "";
+        byId("payment").value = paymentStatus(record);
         setEditMode(true, record);
-        byId("form").scrollIntoView({ behavior:"smooth", block:"center" });
-        setTimeout(function(){ byId("tech").focus(); }, 150);
+        openOfferModal();
       }
       function deleteRecord(id){
         var record = load().records.find(function(item){ return item.id === id; });
@@ -706,6 +950,8 @@
           byId("status").value = "Instalado";
           status = "Instalado";
         }
+        var existing = data.records.find(function(item){ return item.id === id; });
+        var payment = existing ? byId("payment").value : defaultPaymentForStatus(status);
         var record = normalizeRecord({
           id:id,
           tecnico:byId("tech").value,
@@ -716,7 +962,7 @@
           status:status,
           quantidade:byId("quantity").value,
           valor:byId("value").value,
-          observacao:byId("note").value
+          observacao:payment
         }, 0);
         if(!duplicateWarning(record)) return;
         var index = data.records.findIndex(function(item){ return item.id === id; });
@@ -728,11 +974,12 @@
         save();
         syncLists();
         resetForm();
+        closeOfferModal();
         applyFilters();
         toast(index >= 0 ? "Registro atualizado." : "Registro cadastrado.", "ok");
       }
       function clearFilters(){
-        ["filterOperation","filterTech","filterStatus","filterType","filterMonth","filterStart","filterEnd","tableTech","tableStatus"].forEach(function(id){ byId(id).value = ""; });
+        ["filterOperation","filterTech","filterStatus","filterType","filterMonth","filterStart","filterEnd","tableTech","tableContract","tableStatus"].forEach(function(id){ byId(id).value = ""; });
         applyFilters();
         toast("Filtros limpos.", "ok");
       }
@@ -809,7 +1056,7 @@
           xlsxInline("F4", "TIPO DE SERVIÇO", 3),
           xlsxInline("G4", "QUANTIDADE", 3),
           xlsxInline("H4", "STATUS", 3),
-          xlsxInline("I4", "OBSERVAÇÃO", 3),
+          xlsxInline("I4", "PAGAMENTO", 3),
           xlsxInline("J4", "EQUIPE", 3)
         ].join("") + "</row>");
         rows.forEach(function(record, index){
@@ -826,7 +1073,7 @@
             xlsxInline("F" + row, serviceName(record.tipo), 8),
             xlsxFormula("G" + row, "IF(B" + row + "<>\"\",1,\"\")", record.contrato ? 1 : "", 7),
             xlsxInline("H" + row, status, xlsxStatusStyle(record.status)),
-            xlsxInline("I" + row, record.observacao || "", 4),
+            xlsxInline("I" + row, paymentStatus(record), 4),
             xlsxInline("J" + row, teamLabel(record.tecnico), 8)
           ];
           lines.push("<row r=\"" + row + "\">" + cells.join("") + "</row>");
@@ -1107,7 +1354,7 @@
           xlsxInline("F4", "TIPO DE SERVI\u00c7O", 23),
           xlsxInline("G4", "QUANTIDADE", 23),
           xlsxInline("H4", "STATUS", 23),
-          xlsxInline("I4", "OBSERVA\u00c7\u00c3O", 23),
+          xlsxInline("I4", "PAGAMENTO", 23),
           xlsxInline("J4", "EQUIPE", 23)
         ].join("") + "</row>");
         for(var row = 5; row <= lastRow; row += 1){
@@ -1125,7 +1372,7 @@
             xlsxInline("F" + row, record ? serviceName(record.tipo) : "", styles.center),
             xlsxFormula("G" + row, "IF(B" + row + "<>\"\",1,\"\")", record && record.contrato ? 1 : "", styles.qty),
             record ? xlsxInline("H" + row, status, xlsxTemplateStatusStyle(record.status)) : xlsxInline("H" + row, "", styles.center),
-            xlsxInline("I" + row, record ? (record.observacao || "") : "", styles.text),
+            xlsxInline("I" + row, record ? paymentStatus(record) : "", styles.text),
             xlsxInline("J" + row, record ? teamLabel(record.tecnico) : "", styles.center)
           ];
           lines.push("<row r=\"" + row + "\" spans=\"1:10\">" + cells.join("") + "</row>");
@@ -1186,7 +1433,10 @@
       function toCsv(rows){
         var cols = ["tecnico","contrato","dataIndicacao","dataInstalacao","valor","tipo","quantidade","status","observacao"];
         return cols.join(";") + "\n" + rows.map(function(record){
-          return cols.map(function(col){ return "\"" + String(record[col] == null ? "" : record[col]).replace(/"/g, "\"\"") + "\""; }).join(";");
+          return cols.map(function(col){
+            var cell = col === "observacao" ? paymentStatus(record) : record[col];
+            return "\"" + String(cell == null ? "" : cell).replace(/"/g, "\"\"") + "\"";
+          }).join(";");
         }).join("\n");
       }
       function parseCsv(text){
@@ -1261,22 +1511,44 @@
           applyFilters();
         });
         ["filterTech","filterStatus","filterType","filterMonth","filterStart","filterEnd","tableTech","tableStatus"].forEach(function(id){ byId(id).addEventListener("input", applyFilters); });
+        byId("searchContract").addEventListener("click", applyFilters);
+        byId("tableContract").addEventListener("keydown", function(event){
+          if(event.key === "Enter"){
+            event.preventDefault();
+            applyFilters();
+          }
+        });
         byId("clearFilters").addEventListener("click", clearFilters);
         byId("exportXlsx").addEventListener("click", exportLaunchesXlsx);
+        byId("openOffer").addEventListener("click", openNewOffer);
+        byId("closeOffer").addEventListener("click", cancelOffer);
+        byId("openRanking").addEventListener("click", openRankingModal);
+        byId("downloadRanking").addEventListener("click", exportRankingImage);
+        byId("closeRanking").addEventListener("click", closeRankingModal);
         byId("type").addEventListener("change", function(){
           var newValue = serviceValue(byId("type").value);
           if(newValue > 0) byId("value").value = newValue.toFixed(2);
         });
         byId("dateInstall").addEventListener("change", function(){
-          if(byId("dateInstall").value && statusCategory(byId("status").value) === "Pendente") byId("status").value = "Instalado";
+          if(byId("dateInstall").value && statusCategory(byId("status").value) === "Pendente"){
+            byId("status").value = "Instalado";
+          }
         });
         byId("form").addEventListener("submit", submitForm);
-        byId("cancelEdit").addEventListener("click", resetForm);
+        byId("cancelEdit").addEventListener("click", cancelOffer);
         document.addEventListener("click", function(event){
+          if(event.target.closest("[data-close-offer]")) cancelOffer();
+          if(event.target.closest("[data-close-ranking]")) closeRankingModal();
           var edit = event.target.closest("[data-edit]");
           var del = event.target.closest("[data-delete]");
           if(edit) editRecord(edit.getAttribute("data-edit"));
           if(del) deleteRecord(del.getAttribute("data-delete"));
+        });
+        document.addEventListener("keydown", function(event){
+          if(event.key === "Escape"){
+            if(byId("offerModal").classList.contains("open")) cancelOffer();
+            if(byId("rankingModal").classList.contains("open")) closeRankingModal();
+          }
         });
       }
       function init(){
