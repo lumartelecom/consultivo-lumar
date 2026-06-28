@@ -70,6 +70,30 @@
     .ranking-panel .modal-close{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.28)}
     .modal-actions{display:flex;align-items:center;gap:8px}
     .ranking-download{min-height:34px;padding:7px 12px;font-size:11px;background:#fff;color:var(--blue);border-color:rgba(255,255,255,.72)}
+    .share-panel{width:min(980px,100%);padding:0;overflow:hidden}
+    .share-panel .modal-title{margin:0;padding:18px 20px 15px;background:linear-gradient(135deg,#073b2a,#16a34a);color:#fff;align-items:center}
+    .share-panel .modal-title h2{color:#fff;font-size:16px;letter-spacing:.08em}
+    .share-panel .modal-title small{color:rgba(255,255,255,.82)}
+    .share-panel .modal-close{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.28)}
+    .share-content{display:grid;gap:14px;padding:16px 18px 18px;background:linear-gradient(180deg,#f4fbf7,#fff)}
+    .share-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+    .share-box{border:1px solid var(--border);border-radius:8px;padding:12px 13px;background:#fff;box-shadow:0 10px 24px rgba(15,31,53,.07)}
+    .share-box strong{display:block;font-size:21px;font-family:Consolas,Menlo,monospace;color:#10213a;line-height:1}
+    .share-box span{display:block;margin-top:6px;color:var(--muted);font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.06em}
+    .share-green{border-left:5px solid var(--green)}
+    .share-yellow{border-left:5px solid var(--amber)}
+    .share-red{border-left:5px solid var(--red)}
+    .team-share{border:1px solid var(--border);border-radius:8px;background:#fff;overflow:hidden}
+    .team-share-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;background:#f8fbff;border-bottom:1px solid #e6eef8}
+    .team-share-head h3{margin:0;color:#10213a;font-size:13px;text-transform:uppercase;letter-spacing:.06em}
+    .team-share-head span{color:var(--muted);font-size:11px;font-weight:900}
+    .tech-share-list{display:grid;gap:8px;padding:12px}
+    .tech-share{display:grid;grid-template-columns:minmax(0,1fr) 92px 80px;gap:10px;align-items:center;border:1px solid #e5edf7;border-radius:8px;padding:10px;background:#fff}
+    .tech-share-name{min-width:0;font-weight:850;color:#10213a;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .tech-share-count,.tech-share-percent{font-family:Consolas,Menlo,monospace;font-weight:900;text-align:right;color:#10213a}
+    .share-green-bg{background:#f0fdf4;border-color:#bbf7d0}
+    .share-yellow-bg{background:#fffbeb;border-color:#fde68a}
+    .share-red-bg{background:#fff1f2;border-color:#fecdd3}
     .rank-list{display:grid;gap:12px;padding:16px 18px 18px;background:linear-gradient(180deg,#f5f9ff,#fff)}
     .rank-item{position:relative;overflow:hidden;border:1px solid var(--border);border-radius:8px;background:#fff;padding:14px 15px;box-shadow:0 12px 28px rgba(15,31,53,.08)}
     .rank-item:before{content:"";position:absolute;inset:0 auto 0 0;width:5px;background:var(--blue)}
@@ -107,6 +131,8 @@
     .form-actions{display:flex;gap:8px;justify-content:flex-end;align-items:end}
     #paymentField{display:none}
     body.editing #paymentField{display:grid}
+    #deleteEdit{display:none}
+    body.editing #deleteEdit{display:inline-flex}
     #cancelEdit{display:none}
     body.editing #cancelEdit{display:inline-flex}
     body.editing .form-card{border-left-color:var(--amber);box-shadow:0 0 0 3px rgba(217,119,6,.08),var(--shadow)}
@@ -168,6 +194,9 @@
       .rank-title strong{font-size:15px}
       .ranking-panel .modal-title{align-items:flex-start}
       .modal-actions{width:100%;justify-content:space-between}
+      .share-summary{grid-template-columns:1fr}
+      .tech-share{grid-template-columns:1fr;gap:5px}
+      .tech-share-count,.tech-share-percent{text-align:left}
       .span-2,.span-4{grid-column:1/-1}
       .action-strip{display:grid;gap:8px}
       .tab-action{width:100%}
@@ -213,6 +242,7 @@
 
     <div class="action-strip">
       <button id="openOffer" class="tab-action success" type="button">+ Nova Oferta</button>
+      <button id="openShare" class="tab-action secondary" type="button">Resumo por Equipe</button>
       <button id="openRanking" class="tab-action secondary" type="button">Ranking de Técnicos</button>
     </div>
 
@@ -238,8 +268,25 @@
           <label>Quantidade<input id="quantity" type="number" step="1" min="0" value="1"></label>
           <label>Valor<input id="value" type="number" step="0.01" min="0" value="8"></label>
           <label id="paymentField" class="span-2">Pagamento<select id="payment"><option value="OK">OK</option><option value="Não OK">Não OK</option></select></label>
-          <div class="span-4 form-actions"><button class="secondary" id="cancelEdit" type="button">Cancelar edição</button><button class="success" id="saveButton" type="submit">Cadastrar oferta</button></div>
+          <div class="span-4 form-actions"><button class="danger" id="deleteEdit" type="button">Excluir oferta</button><button class="secondary" id="cancelEdit" type="button">Cancelar edição</button><button class="success" id="saveButton" type="submit">Cadastrar oferta</button></div>
         </form>
+      </section>
+    </div>
+
+    <div id="shareModal" class="modal" aria-hidden="true">
+      <div class="modal-backdrop" data-close-share></div>
+      <section class="card modal-panel share-panel" role="dialog" aria-modal="true" aria-labelledby="shareTitle">
+        <div class="section-title modal-title">
+          <div>
+            <h2 id="shareTitle">Resumo por Equipe</h2>
+            <small>Distribuição por equipe e técnico</small>
+          </div>
+          <div class="modal-actions">
+            <button id="downloadShare" class="ghost ranking-download" type="button">Baixar imagem</button>
+            <button id="closeShare" class="ghost modal-close" type="button" aria-label="Fechar">×</button>
+          </div>
+        </div>
+        <div id="shareContent" class="share-content"><div class="empty">Sem dados.</div></div>
       </section>
     </div>
 
@@ -654,6 +701,7 @@
       }
       function render(){
         renderKpis();
+        renderShare();
         renderRanking();
         renderTable();
         renderMobileCards();
@@ -670,6 +718,173 @@
         byId("kpiValue").textContent = money.format(totalValue);
         byId("kpiConversion").textContent = totalQty ? Math.round(installed / totalQty * 100) + "%" : "0%";
         byId("tableTotal").textContent = integer.format(total);
+      }
+      function percent(value, total){
+        return total ? Math.round(value / total * 100) : 0;
+      }
+      function shareTone(value){
+        if(value >= 50) return "share-green-bg";
+        if(value >= 20) return "share-yellow-bg";
+        return "share-red-bg";
+      }
+      function offerDistribution(){
+        var teams = {
+          "Instalação": { nome:"Instalação", total:0, tecnicos:new Map() },
+          "Manutenção": { nome:"Manutenção", total:0, tecnicos:new Map() }
+        };
+        var total = 0;
+        filtered.forEach(function(record){
+          var name = canonicalTech(record.tecnico);
+          if(!name) return;
+          var amount = qty(record) || 1;
+          var team = technicianTeam(record.tecnico);
+          if(!teams[team]) teams[team] = { nome:team, total:0, tecnicos:new Map() };
+          teams[team].total += amount;
+          total += amount;
+          if(!teams[team].tecnicos.has(name)) teams[team].tecnicos.set(name, { nome:name, ofertas:0 });
+          teams[team].tecnicos.get(name).ofertas += amount;
+        });
+        return {
+          total:total,
+          teams:["Instalação","Manutenção"].map(function(name){ return teams[name]; }).sort(function(a,b){
+            return b.total - a.total || a.nome.localeCompare(b.nome, "pt-BR");
+          })
+        };
+      }
+      function renderShare(){
+        var el = byId("shareContent");
+        if(!el) return;
+        var data = offerDistribution();
+        var firstTeam = data.teams[0], secondTeam = data.teams[1];
+        if(!data.total){
+          el.innerHTML = "<div class=\"empty\">Sem ofertas para os filtros atuais.</div>";
+          return;
+        }
+        var summary = "<div class=\"share-summary\">"
+          + "<div class=\"share-box share-green\"><strong>" + integer.format(data.total) + "</strong><span>Total de ofertas filtradas</span></div>"
+          + "<div class=\"share-box share-yellow\"><strong>" + percent(firstTeam.total, data.total) + "%</strong><span>" + esc(firstTeam.nome) + " · " + integer.format(firstTeam.total) + " ofertas</span></div>"
+          + "<div class=\"share-box share-red\"><strong>" + percent(secondTeam.total, data.total) + "%</strong><span>" + esc(secondTeam.nome) + " · " + integer.format(secondTeam.total) + " ofertas</span></div>"
+          + "</div>";
+        var groups = data.teams.map(function(team){
+          var rows = Array.from(team.tecnicos.values()).sort(function(a,b){
+            return b.ofertas - a.ofertas || a.nome.localeCompare(b.nome, "pt-BR");
+          });
+          var body = rows.length ? rows.map(function(item){
+            var share = percent(item.ofertas, team.total);
+            return "<div class=\"tech-share " + shareTone(share) + "\"><div class=\"tech-share-name\">" + esc(item.nome) + "</div><div class=\"tech-share-count\">" + integer.format(item.ofertas) + " ofertas</div><div class=\"tech-share-percent\">" + share + "%</div></div>";
+          }).join("") : "<div class=\"empty\">Sem ofertas nesta equipe.</div>";
+          return "<section class=\"team-share\"><div class=\"team-share-head\"><h3>" + esc(team.nome) + "</h3><span>" + integer.format(team.total) + " ofertas · " + percent(team.total, data.total) + "% do total</span></div><div class=\"tech-share-list\">" + body + "</div></section>";
+        }).join("");
+        el.innerHTML = summary + groups;
+      }
+      function exportShareImage(){
+        var data = offerDistribution();
+        if(!data.total){
+          toast("Sem dados para baixar a distribuição.", "warn");
+          return;
+        }
+        var teams = data.teams.map(function(team){
+          return {
+            nome:team.nome,
+            total:team.total,
+            rows:Array.from(team.tecnicos.values()).sort(function(a,b){
+              return b.ofertas - a.ofertas || a.nome.localeCompare(b.nome, "pt-BR");
+            })
+          };
+        });
+        var rowCount = teams.reduce(function(sum, team){ return sum + Math.max(1, team.rows.length); }, 0);
+        var width = 1200, height = 275 + rowCount * 50 + teams.length * 62, scale = 2;
+        var canvas = document.createElement("canvas");
+        canvas.width = width * scale;
+        canvas.height = height * scale;
+        var ctx = canvas.getContext("2d");
+        ctx.scale(scale, scale);
+        ctx.fillStyle = "#f4fbf7";
+        ctx.fillRect(0, 0, width, height);
+
+        var header = ctx.createLinearGradient(0, 0, width, 130);
+        header.addColorStop(0, "#073b2a");
+        header.addColorStop(1, "#16a34a");
+        ctx.fillStyle = header;
+        ctx.fillRect(0, 0, width, 135);
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "900 34px Arial, sans-serif";
+        ctx.fillText("RESUMO POR EQUIPE", 48, 58);
+        ctx.font = "700 18px Arial, sans-serif";
+        ctx.fillStyle = "rgba(255,255,255,.84)";
+        ctx.fillText("Por equipe e participação por técnico", 50, 92);
+        ctx.textAlign = "right";
+        ctx.fillText(new Date().toLocaleDateString("pt-BR"), width - 50, 92);
+        ctx.textAlign = "left";
+
+        var summaryY = 160;
+        [
+          { label:"TOTAL FILTRADO", value:integer.format(data.total), color:"#16a34a" },
+          { label:teams[0].nome.toLocaleUpperCase("pt-BR"), value:percent(teams[0].total, data.total) + "% · " + integer.format(teams[0].total), color:"#d97706" },
+          { label:teams[1].nome.toLocaleUpperCase("pt-BR"), value:percent(teams[1].total, data.total) + "% · " + integer.format(teams[1].total), color:"#dc2626" }
+        ].forEach(function(box, index){
+          var x = 48 + index * 368;
+          roundRect(ctx, x, summaryY, 340, 82, 10);
+          ctx.fillStyle = "#ffffff";
+          ctx.fill();
+          ctx.strokeStyle = "#d9e6f2";
+          ctx.stroke();
+          ctx.fillStyle = box.color;
+          ctx.fillRect(x, summaryY, 7, 82);
+          ctx.fillStyle = "#10213a";
+          ctx.font = "900 26px Consolas, monospace";
+          ctx.fillText(box.value, x + 22, summaryY + 36);
+          ctx.fillStyle = "#60708a";
+          ctx.font = "900 12px Arial, sans-serif";
+          ctx.fillText(box.label, x + 22, summaryY + 61);
+        });
+
+        var y = 278;
+        teams.forEach(function(team){
+          roundRect(ctx, 48, y, width - 96, 42, 9);
+          ctx.fillStyle = "#ffffff";
+          ctx.fill();
+          ctx.strokeStyle = "#d9e6f2";
+          ctx.stroke();
+          ctx.fillStyle = "#10213a";
+          ctx.font = "900 17px Arial, sans-serif";
+          ctx.fillText(team.nome.toLocaleUpperCase("pt-BR"), 66, y + 27);
+          ctx.textAlign = "right";
+          ctx.fillStyle = "#60708a";
+          ctx.font = "900 13px Arial, sans-serif";
+          ctx.fillText(integer.format(team.total) + " ofertas · " + percent(team.total, data.total) + "% do total", width - 66, y + 27);
+          ctx.textAlign = "left";
+          y += 54;
+
+          var rows = team.rows.length ? team.rows : [{ nome:"Sem ofertas nesta equipe", ofertas:0, empty:true }];
+          rows.forEach(function(item){
+            var share = percent(item.ofertas, team.total);
+            var tone = share >= 50 ? "#f0fdf4" : (share >= 20 ? "#fffbeb" : "#fff1f2");
+            var border = share >= 50 ? "#bbf7d0" : (share >= 20 ? "#fde68a" : "#fecdd3");
+            roundRect(ctx, 66, y, width - 132, 40, 8);
+            ctx.fillStyle = item.empty ? "#f7fafe" : tone;
+            ctx.fill();
+            ctx.strokeStyle = item.empty ? "#d9e6f2" : border;
+            ctx.stroke();
+            ctx.fillStyle = "#10213a";
+            ctx.font = "850 15px Arial, sans-serif";
+            ctx.fillText(canvasText(ctx, item.nome, 650), 84, y + 25);
+            ctx.textAlign = "right";
+            ctx.font = "900 15px Consolas, monospace";
+            ctx.fillText(item.empty ? "" : integer.format(item.ofertas) + " ofertas", width - 210, y + 25);
+            ctx.fillText(item.empty ? "" : share + "%", width - 84, y + 25);
+            ctx.textAlign = "left";
+            y += 50;
+          });
+          y += 12;
+        });
+
+        canvas.toBlob(function(blob){
+          if(!blob) return;
+          var stamp = new Date().toISOString().slice(0, 10);
+          downloadBlob("RESUMO POR EQUIPE " + stamp + ".png", blob);
+          toast("Imagem do resumo baixada.", "ok");
+        }, "image/png");
       }
       function technicianMetrics(){
         var map = new Map();
@@ -849,7 +1064,7 @@
           + "<td>" + integer.format(qty(record)) + "</td>"
           + "<td>" + money.format(value(record)) + "</td>"
           + "<td>" + esc(paymentStatus(record)) + "</td>"
-          + "<td><div class=\"row-actions\"><button class=\"secondary\" type=\"button\" data-edit=\"" + esc(record.id) + "\">Editar</button><button class=\"danger\" type=\"button\" data-delete=\"" + esc(record.id) + "\">Excluir</button></div></td>"
+          + "<td><div class=\"row-actions\"><button class=\"secondary\" type=\"button\" data-edit=\"" + esc(record.id) + "\">Editar</button></div></td>"
           + "</tr>";
       }
       function renderTable(){
@@ -863,7 +1078,7 @@
             + "<div class=\"launch-head\"><strong>" + esc(canonicalTech(record.tecnico)) + "</strong><span class=\"status-pill " + statusClass(record.status) + "\">" + esc(statusCategory(record.status)) + "</span></div>"
             + "<div class=\"launch-grid\"><div><span>Contrato</span><b>" + esc(record.contrato) + "</b></div><div><span>Serviço</span><b>" + esc(serviceName(record.tipo)) + "</b></div><div><span>Indicação</span><b>" + dateText(record.dataIndicacao) + "</b></div><div><span>Valor</span><b>" + money.format(value(record)) + "</b></div></div>"
             + "<p>Pagamento: " + esc(paymentStatus(record)) + "</p>"
-            + "<div class=\"row-actions\"><button class=\"secondary\" type=\"button\" data-edit=\"" + esc(record.id) + "\">Editar</button><button class=\"danger\" type=\"button\" data-delete=\"" + esc(record.id) + "\">Excluir</button></div>"
+            + "<div class=\"row-actions\"><button class=\"secondary\" type=\"button\" data-edit=\"" + esc(record.id) + "\">Editar</button></div>"
             + "</article>";
         }).join("") : "<div class=\"empty\">Nenhum lançamento encontrado.</div>";
       }
@@ -898,6 +1113,13 @@
       }
       function closeRankingModal(){
         closeModal("rankingModal");
+      }
+      function openShareModal(){
+        renderShare();
+        openModal("shareModal");
+      }
+      function closeShareModal(){
+        closeModal("shareModal");
       }
       function openNewOffer(){
         resetForm();
@@ -935,13 +1157,22 @@
       }
       function deleteRecord(id){
         var record = load().records.find(function(item){ return item.id === id; });
-        if(!record) return;
-        if(!confirm("Excluir o lançamento do contrato " + record.contrato + "?")) return;
+        if(!record) return false;
+        if(!confirm("Confirmar exclusão da oferta do contrato " + record.contrato + "? Esta ação não pode ser desfeita.")) return false;
         state.records = state.records.filter(function(item){ return item.id !== id; });
         save();
         syncLists();
         applyFilters();
         toast("Registro excluído.", "ok");
+        return true;
+      }
+      function deleteEditingRecord(){
+        var id = byId("recordId").value;
+        if(!id) return;
+        if(deleteRecord(id)){
+          resetForm();
+          closeOfferModal();
+        }
       }
       function duplicateWarning(record){
         var same = load().records.filter(function(item){
@@ -1537,6 +1768,9 @@
         byId("exportXlsx").addEventListener("click", exportLaunchesXlsx);
         byId("openOffer").addEventListener("click", openNewOffer);
         byId("closeOffer").addEventListener("click", cancelOffer);
+        byId("openShare").addEventListener("click", openShareModal);
+        byId("downloadShare").addEventListener("click", exportShareImage);
+        byId("closeShare").addEventListener("click", closeShareModal);
         byId("openRanking").addEventListener("click", openRankingModal);
         byId("downloadRanking").addEventListener("click", exportRankingImage);
         byId("closeRanking").addEventListener("click", closeRankingModal);
@@ -1550,18 +1784,19 @@
           }
         });
         byId("form").addEventListener("submit", submitForm);
+        byId("deleteEdit").addEventListener("click", deleteEditingRecord);
         byId("cancelEdit").addEventListener("click", cancelOffer);
         document.addEventListener("click", function(event){
           if(event.target.closest("[data-close-offer]")) cancelOffer();
+          if(event.target.closest("[data-close-share]")) closeShareModal();
           if(event.target.closest("[data-close-ranking]")) closeRankingModal();
           var edit = event.target.closest("[data-edit]");
-          var del = event.target.closest("[data-delete]");
           if(edit) editRecord(edit.getAttribute("data-edit"));
-          if(del) deleteRecord(del.getAttribute("data-delete"));
         });
         document.addEventListener("keydown", function(event){
           if(event.key === "Escape"){
             if(byId("offerModal").classList.contains("open")) cancelOffer();
+            if(byId("shareModal").classList.contains("open")) closeShareModal();
             if(byId("rankingModal").classList.contains("open")) closeRankingModal();
           }
         });
