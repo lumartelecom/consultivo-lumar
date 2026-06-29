@@ -303,7 +303,7 @@
       <div class="filter-card"><span>Técnico</span><select id="filterTech"></select></div>
       <div class="filter-card"><span>Status</span><select id="filterStatus"></select></div>
       <div class="filter-card"><span>Serviço</span><select id="filterType"></select></div>
-      <div class="filter-card"><span>Competência</span><input id="filterMonth" type="month"></div>
+      <div class="filter-card"><span>Pagamento</span><select id="filterPayment"><option value="">Todos</option><option value="OK">OK</option><option value="Não OK">Não OK</option></select></div>
       <div class="filter-card"><span>Início</span><input id="filterStart" type="date"></div>
       <div class="filter-card"><span>Fim</span><input id="filterEnd" type="date"></div>
       <div class="filter-card"><span>Ação</span><button id="clearFilters" class="ghost" type="button">Limpar filtros</button></div>
@@ -777,7 +777,7 @@
         var status = byId("filterStatus").value;
         var tableStatus = byId("tableStatus").value;
         var type = byId("filterType").value;
-        var month = byId("filterMonth").value;
+        var payment = byId("filterPayment").value;
         var start = byId("filterStart").value;
         var end = byId("filterEnd").value;
         filtered = data.records.filter(function(record){
@@ -792,7 +792,7 @@
             && statusMatchesFilter(category, status)
             && statusMatchesFilter(category, tableStatus)
             && (!type || service === type)
-            && (!month || date.slice(0,7) === month)
+            && (!payment || paymentStatus(record) === payment)
             && (!start || date >= start)
             && (!end || date <= end);
         });
@@ -1361,7 +1361,7 @@
         toast(index >= 0 ? "Registro atualizado." : "Registro cadastrado.", "ok");
       }
       function clearFilters(){
-        ["filterOperation","filterTech","filterStatus","filterType","filterMonth","filterStart","filterEnd","tableTech","tableContract","tableStatus"].forEach(function(id){ byId(id).value = ""; });
+        ["filterOperation","filterTech","filterStatus","filterType","filterPayment","filterStart","filterEnd","tableTech","tableContract","tableStatus"].forEach(function(id){ byId(id).value = ""; });
         applyFilters();
         toast("Filtros limpos.", "ok");
       }
@@ -1944,7 +1944,7 @@
           syncLists();
           applyFilters();
         });
-        ["filterTech","filterStatus","filterType","filterMonth","filterStart","filterEnd","tableTech","tableStatus"].forEach(function(id){ byId(id).addEventListener("input", applyFilters); });
+        ["filterTech","filterStatus","filterType","filterPayment","filterStart","filterEnd","tableTech","tableStatus"].forEach(function(id){ byId(id).addEventListener("input", applyFilters); });
         document.querySelectorAll("[data-kpi-filter]").forEach(function(card){
           card.addEventListener("click", function(){ handleKpiFilter(card); });
           card.addEventListener("keydown", function(event){
