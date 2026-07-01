@@ -378,7 +378,7 @@
         <div class="section-title modal-title">
           <div>
             <h2 id="rankingTitle">Ranking de Técnicos</h2>
-            <small>Ofertas de instalação, instalações e valor</small>
+            <small>Instalações, indicações/ofertas e valor</small>
           </div>
           <div class="modal-actions">
             <button id="downloadRanking" class="ghost ranking-download" type="button">Baixar imagem</button>
@@ -1026,38 +1026,31 @@
         filtered.forEach(function(record){
           var name = canonicalTech(record.tecnico);
           if(!name) return;
-          if(!map.has(name)) map.set(name, { nome:name, equipe:technicianTeam(record.tecnico), vendas:0, ofertasInstalacao:0, instaladas:0, valor:0 });
+          if(!map.has(name)) map.set(name, { nome:name, equipe:technicianTeam(record.tecnico), vendas:0, instaladas:0, valor:0 });
           var item = map.get(name);
           var amount = qty(record) || 1;
           item.vendas += amount;
-          if(operationArea(record) === "Instalação") item.ofertasInstalacao += amount;
           item.instaladas += installedQty(record);
           item.valor += installedValue(record);
         });
         return Array.from(map.values()).sort(function(a,b){
           var conversionA = a.vendas ? a.instaladas / a.vendas : 0;
           var conversionB = b.vendas ? b.instaladas / b.vendas : 0;
-          return b.ofertasInstalacao - a.ofertasInstalacao || b.vendas - a.vendas || b.instaladas - a.instaladas || b.valor - a.valor || conversionB - conversionA || a.nome.localeCompare(b.nome, "pt-BR");
+          return b.instaladas - a.instaladas || b.vendas - a.vendas || b.valor - a.valor || conversionB - conversionA || a.nome.localeCompare(b.nome, "pt-BR");
         });
-      }
-      function rankingUsesInstallationOffers(rows){
-        return rows.some(function(item){ return item.ofertasInstalacao > 0; });
       }
       function renderRanking(){
         var el = byId("ranking");
         var rows = technicianMetrics().slice(0, 3);
-        var useInstallationOffers = rankingUsesInstallationOffers(rows);
         el.innerHTML = rows.length ? rows.map(function(item, index){
           var conversion = item.vendas ? Math.round(item.instaladas / item.vendas * 100) : 0;
           var bar = Math.max(0, Math.min(100, conversion));
           var classes = ["rank-first","rank-second","rank-third"];
           var medals = ["&#129351;","&#129352;","&#129353;"];
           var labels = ["Campeão do ranking","Vice-líder","Terceiro lugar"];
-          var offerTotal = useInstallationOffers ? item.ofertasInstalacao : item.vendas;
-          var offerLabel = useInstallationOffers ? "ofertas de instalação" : "ofertas";
           return "<article class=\"rank-item " + classes[index] + (item.instaladas === 0 ? " rank-zero" : "") + "\">"
             + "<div class=\"rank-podium\"><span class=\"rank-pos\">" + (index + 1) + "</span><div class=\"rank-title\"><div class=\"rank-label\">" + labels[index] + "</div><strong>" + esc(item.nome) + "</strong><span class=\"rank-team\">Equipe: " + esc(item.equipe) + "</span></div><span class=\"rank-medal rank-medal-" + (index + 1) + "\" title=\"" + labels[index] + "\" aria-label=\"" + labels[index] + "\">" + medals[index] + "</span></div>"
-            + "<div class=\"rank-metrics\"><span class=\"rank-metric\"><b>" + integer.format(offerTotal) + "</b>" + offerLabel + "</span><span class=\"rank-metric\"><b>" + integer.format(item.instaladas) + "</b>instalações</span><span class=\"rank-metric\"><b>" + money.format(item.valor) + "</b>valor</span></div>"
+            + "<div class=\"rank-metrics\"><span class=\"rank-metric\"><b>" + integer.format(item.vendas) + "</b>indicações/ofertas</span><span class=\"rank-metric\"><b>" + integer.format(item.instaladas) + "</b>instalações</span><span class=\"rank-metric\"><b>" + money.format(item.valor) + "</b>valor</span></div>"
             + "<div class=\"rank-bar\" aria-label=\"Conversão de " + conversion + "%\"><span style=\"width:" + bar + "%\"></span></div>"
             + "</article>";
         }).join("") : "<div class=\"empty\">Sem técnicos cadastrados.</div>";
@@ -1079,7 +1072,6 @@
       }
       function exportRankingImage(){
         var rows = technicianMetrics().slice(0, 3);
-        var useInstallationOffers = rankingUsesInstallationOffers(rows);
         if(!rows.length){
           toast("Sem dados para baixar o ranking.", "warn");
           return;
@@ -1103,7 +1095,7 @@
         ctx.fillText("RANKING DE TÉCNICOS", 48, 58);
         ctx.font = "700 18px Arial, sans-serif";
         ctx.fillStyle = "rgba(255,255,255,.82)";
-        ctx.fillText("Ofertas de instalação, instalações e valor", 50, 92);
+        ctx.fillText("Instalações, indicações/ofertas e valor", 50, 92);
         ctx.textAlign = "right";
         ctx.fillText(new Date().toLocaleDateString("pt-BR"), width - 50, 92);
         ctx.textAlign = "left";
@@ -1116,8 +1108,6 @@
           var y = cardY + index * (cardH + gap);
           var conversion = item.vendas ? Math.round(item.instaladas / item.vendas * 100) : 0;
           var bar = Math.max(0, Math.min(100, conversion));
-          var offerTotal = useInstallationOffers ? item.ofertasInstalacao : item.vendas;
-          var offerLabel = useInstallationOffers ? "OFERTAS INST." : "OFERTAS";
           ctx.save();
           ctx.shadowColor = index === 0 ? "rgba(217,119,6,.18)" : "rgba(15,31,53,.10)";
           ctx.shadowBlur = index === 0 ? 24 : 16;
@@ -1163,7 +1153,7 @@
           var metricW = 280;
           var metricGap = 18;
           [
-            { label:offerLabel, value:integer.format(offerTotal) },
+            { label:"INDICAÇÕES/OFERTAS", value:integer.format(item.vendas) },
             { label:"INSTALAÇÕES", value:integer.format(item.instaladas) },
             { label:"VALOR", value:money.format(item.valor) }
           ].forEach(function(metric, metricIndex){
