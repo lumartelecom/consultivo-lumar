@@ -593,6 +593,9 @@
         if(selected === "Não concluído/Cancelado") return category === "Não concluído" || category === "Cancelado";
         return category === selected;
       }
+      function filterDate(record){
+        return record.dataInstalacao || record.dataIndicacao || "";
+      }
       function installedQty(record){ return isInstalled(record) ? qty(record) : 0; }
       function installedValue(record){ return isInstalled(record) ? value(record) : 0; }
       function defaultPaymentForStatus(status){
@@ -787,7 +790,7 @@
           var name = canonicalTech(record.tecnico);
           var category = statusCategory(record.status);
           var service = serviceName(record.tipo);
-          var date = record.dataIndicacao || record.dataInstalacao || "";
+          var date = filterDate(record);
           return (!operation || operationArea(record) === operation)
             && (!tech || name === tech)
             && (!tableTech || name === tableTech)
