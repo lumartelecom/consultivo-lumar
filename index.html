@@ -39,31 +39,33 @@
     .hero p{margin:0;color:rgba(255,255,255,.78);font-size:12px;font-weight:650}
     .hero-logo{width:74px;height:74px;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.18);box-shadow:0 12px 26px rgba(0,0,0,.2);background:#06245f;flex:0 0 auto;display:flex;align-items:center;justify-content:center}
     .hero-logo img{width:100%;height:100%;object-fit:cover;display:block}
-    .filters{position:sticky;top:0;z-index:10;display:grid;grid-template-columns:minmax(104px,.76fr) minmax(148px,1.08fr) minmax(130px,.95fr) minmax(142px,1fr) minmax(112px,.82fr) minmax(118px,.76fr) minmax(118px,.76fr) minmax(116px,.78fr);gap:8px;margin-bottom:10px;padding:0;background:transparent;border:0;border-radius:0;box-shadow:none;backdrop-filter:none}
-    .filter-card{display:flex;align-items:center;gap:0;min-width:0;min-height:38px;position:relative;background:var(--surface);border:1px solid var(--border);border-radius:8px;box-shadow:0 8px 22px rgba(18,38,63,.06)}
+    .filters{position:sticky;top:0;z-index:20;display:grid;grid-template-columns:minmax(122px,.82fr) minmax(170px,1.16fr) minmax(142px,1fr) minmax(160px,1.08fr) minmax(130px,.88fr) minmax(130px,.82fr) minmax(130px,.82fr) minmax(128px,.82fr);gap:8px;margin-bottom:12px;padding:8px;background:rgba(243,247,251,.96);border:1px solid var(--border);border-radius:10px;box-shadow:0 10px 28px rgba(18,38,63,.09);backdrop-filter:blur(8px)}
+    .filter-card{display:flex;align-items:center;gap:0;min-width:0;min-height:40px;position:relative;background:var(--surface);border:1px solid var(--border);border-radius:8px;box-shadow:0 8px 22px rgba(18,38,63,.06)}
     label,.filter-card span{font-size:10px;font-weight:850;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
     input,select,textarea{width:100%;min-width:0;border:1px solid var(--border-strong);border-radius:7px;padding:7px 9px;background:#fff;color:var(--text);outline:none;font-size:12px;font-weight:700}
     input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(21,95,196,.11)}
     .filters .filter-card > span{flex:0 0 auto;max-width:72px;padding:0 8px 0 10px;font-size:9px;font-weight:850;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);line-height:1.05;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .filters input,.filters select{flex:1 1 auto;min-height:36px;border:0;border-left:1px solid #e2ebf6;border-radius:0 8px 8px 0;background:transparent;color:#10213a;font-size:11px;font-weight:800;padding:7px 9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:none}
+    .filters .filter-card:nth-child(5) > span{max-width:86px}
+    .filters input,.filters select{flex:1 1 auto;min-height:38px;border:0;border-left:1px solid #e2ebf6;border-radius:0 8px 8px 0;background:transparent;color:#10213a;font-size:11px;font-weight:800;padding:7px 9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:none}
     .filters input:focus,.filters select:focus{border-color:#e2ebf6;box-shadow:inset 0 0 0 2px rgba(21,95,196,.12)}
-    .filters button{min-height:38px;padding:8px 10px;border-radius:8px;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .filters button{min-height:40px;padding:8px 10px;border-radius:8px;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .filters .filter-card:last-child{border:0;background:transparent;box-shadow:none}
     .filters .filter-card:last-child > span{display:none}
-    .filters .filter-card:last-child button{width:100%;height:38px}
+    .filters .filter-card:last-child button{width:100%;height:40px}
     select.check-filter-source{display:none}
     .check-filter{position:relative;min-width:0;flex:1 1 auto;align-self:stretch;display:flex}
-    .check-filter-trigger{width:100%;min-height:36px;padding:7px 28px 7px 9px;border:0;border-left:1px solid #e2ebf6;border-radius:0 8px 8px 0;background:transparent;color:#10213a;box-shadow:none;font-size:11px;font-weight:800;justify-content:flex-start;text-align:left;position:relative}
+    .check-filter-trigger{width:100%;min-height:38px;padding:7px 28px 7px 9px;border:0;border-left:1px solid #e2ebf6;border-radius:0 8px 8px 0;background:transparent;color:#10213a;box-shadow:none;font-size:11px;font-weight:800;justify-content:flex-start;text-align:left;position:relative}
     .check-filter-trigger:hover{filter:none;background:#f8fbff}
     .check-filter-trigger:focus-visible{outline:none;box-shadow:inset 0 0 0 2px rgba(21,95,196,.15)}
     .check-filter-trigger:after{content:"";position:absolute;right:9px;top:50%;margin-top:-2px;border-left:4px solid transparent;border-right:4px solid transparent;border-top:5px solid #374151}
     .check-filter-label{display:block;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-    .check-filter-menu{position:absolute;z-index:35;left:0;top:calc(100% + 6px);width:100%;min-width:190px;max-width:min(330px,calc(100vw - 24px));background:#fff;border:1px solid var(--border-strong);border-radius:8px;box-shadow:0 12px 28px rgba(15,23,42,.18);padding:4px 0 0;overflow:hidden}
+    .check-filter-menu{position:absolute;z-index:100;left:0;top:calc(100% + 6px);width:100%;min-width:190px;max-width:min(330px,calc(100vw - 24px));background:#fff;border:1px solid var(--border-strong);border-radius:8px;box-shadow:0 12px 28px rgba(15,23,42,.18);padding:4px 0 0;overflow:hidden}
+    .check-filter-options{max-height:260px;overflow:auto;padding-bottom:2px}
     .check-filter-option{display:grid;grid-template-columns:22px minmax(0,1fr);align-items:center;gap:5px;padding:4px 8px;color:#111827;font-size:12px;font-weight:700;text-transform:none;letter-spacing:0;cursor:pointer}
     .check-filter-option:hover{background:#f3f4f6}
     .check-filter-option input{flex:0 0 auto;width:15px;height:15px;min-height:0;margin:0;padding:0;border:1px solid var(--border-strong);border-radius:0;background:#fff;box-shadow:none}
     .check-filter-option span{font-size:12px;color:#111827;font-weight:700;text-transform:none;letter-spacing:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-    .check-filter-actions{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:4px;border-top:1px solid #d1d5db}
+    .check-filter-actions{position:sticky;bottom:0;display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:4px;border-top:1px solid #d1d5db;background:#fff}
     .check-filter-actions button{min-height:30px;border:0;border-radius:0;background:#fff;color:#6b7280;font-size:12px;font-weight:750;padding:5px 8px}
     .check-filter-actions button:last-child{color:#374151}
     textarea{min-height:70px;resize:vertical}
@@ -228,17 +230,20 @@
       .hero h2{font-size:14px;margin-bottom:3px}
       .hero p{font-size:11px;line-height:1.25}
       .hero-logo{position:absolute;right:12px;top:13px;width:56px;height:56px;border-radius:8px}
-      .filters{display:none}
+      .filters{display:grid;position:static;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-bottom:10px;padding:8px;background:#fff;border:1px solid var(--border);border-radius:8px;box-shadow:0 8px 22px rgba(18,38,63,.07);backdrop-filter:none}
       .filter-card:nth-child(2),.filter-card:nth-child(4),.filter-card:nth-child(8){grid-column:1/-1}
+      .filters .filter-card > span{max-width:78px;padding-left:8px}
+      .check-filter-menu{min-width:100%;max-width:calc(100vw - 36px)}
+      .check-filter-options{max-height:42vh}
       .kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:12px}
       .kpi-card{padding:10px;min-height:78px}
       .kpi-label{font-size:8px;letter-spacing:.02em}
       .kpi-value{font-size:21px}
       .kpi-sub{font-size:9px}
-      .action-strip{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+      .action-strip{display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:12px}
       .tab-action{width:100%;min-height:42px}
-      .tab-action:first-child{grid-column:1/-1}
-      .mobile-clear-filter{display:inline-flex;grid-column:1/-1}
+      .tab-action:first-child{grid-column:auto}
+      .mobile-clear-filter{display:none}
       .card{border-radius:8px;padding:12px;box-shadow:0 8px 22px rgba(18,38,63,.07)}
       .section-title{align-items:flex-start;gap:8px;margin-bottom:10px}
       .section-title h2{font-size:12px}
@@ -876,14 +881,15 @@
         var el = byId(id);
         if(el) el.value = values[0] || "";
       }
-      function checkFilterLabel(widget){
-        if(!widget.values.length) return widget.label;
-        if(widget.values.length === 1) return widget.values[0];
-        return widget.values.length + " selecionados";
+      function checkFilterLabel(widget, values){
+        values = values || widget.values;
+        if(!values.length) return widget.label;
+        if(values.length === 1) return values[0];
+        return values.length + " selecionados";
       }
       function updateCheckFilter(widget){
         if(!widget) return;
-        widget.labelEl.textContent = checkFilterLabel(widget);
+        widget.labelEl.textContent = checkFilterLabel(widget, widget.open ? widget.draft : widget.values);
         widget.trigger.setAttribute("aria-expanded", widget.open ? "true" : "false");
         widget.menu.hidden = !widget.open;
         var all = widget.menu.querySelector("[data-filter-all]");
@@ -920,6 +926,7 @@
         widget.options = (values || []).map(function(item){ return String(item); });
         widget.values = cleanSelectedValues(selected != null ? selected : widget.values, widget.options);
         widget.draft = widget.values.slice();
+        widget.startValues = widget.values.slice();
         widget.optionsBox.innerHTML = widget.options.map(function(item){
           return "<label class=\"check-filter-option\"><input type=\"checkbox\" data-filter-option value=\"" + esc(item) + "\"><span>" + esc(item) + "</span></label>";
         }).join("");
@@ -933,7 +940,7 @@
           source.classList.add("check-filter-source");
           var widgetEl = document.createElement("div");
           widgetEl.className = "check-filter";
-          widgetEl.innerHTML = "<button class=\"check-filter-trigger\" type=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\"><span class=\"check-filter-label\"></span></button><div class=\"check-filter-menu\" hidden><label class=\"check-filter-option\"><input type=\"checkbox\" data-filter-all><span>(Tudo)</span></label><div class=\"check-filter-options\"></div><div class=\"check-filter-actions\"><button type=\"button\" data-filter-cancel>Cancelar</button><button type=\"button\" data-filter-apply>Aplicar</button></div></div>";
+          widgetEl.innerHTML = "<button class=\"check-filter-trigger\" type=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\"><span class=\"check-filter-label\"></span></button><div class=\"check-filter-menu\" hidden><label class=\"check-filter-option\"><input type=\"checkbox\" data-filter-all><span>(Tudo)</span></label><div class=\"check-filter-options\"></div><div class=\"check-filter-actions\"><button type=\"button\" data-filter-cancel>Desfazer</button><button type=\"button\" data-filter-apply>Fechar</button></div></div>";
           source.insertAdjacentElement("afterend", widgetEl);
           var widget = {
             id:id,
@@ -941,6 +948,7 @@
             options:Array.prototype.slice.call(source.options).filter(function(option){ return option.value; }).map(function(option){ return option.value; }),
             values:source.value ? [source.value] : [],
             draft:source.value ? [source.value] : [],
+            startValues:source.value ? [source.value] : [],
             open:false,
             root:widgetEl,
             trigger:widgetEl.querySelector(".check-filter-trigger"),
@@ -953,24 +961,25 @@
             widget.open = !widget.open;
             if(widget.open) closeCheckFilters(id);
             widget.draft = widget.values.slice();
+            widget.startValues = widget.values.slice();
             updateCheckFilter(widget);
           });
           widget.menu.addEventListener("change", function(event){
             var input = event.target;
             if(input.matches("[data-filter-all]")){
               widget.draft = [];
-              updateCheckFilter(widget);
+              setCheckFilterValues(id, widget.draft);
               return;
             }
             if(input.matches("[data-filter-option]")){
               if(input.checked && widget.draft.indexOf(input.value) < 0) widget.draft.push(input.value);
               if(!input.checked) widget.draft = widget.draft.filter(function(item){ return item !== input.value; });
               widget.draft = cleanSelectedValues(widget.draft, widget.options);
-              updateCheckFilter(widget);
+              setCheckFilterValues(id, widget.draft);
             }
           });
           widget.menu.querySelector("[data-filter-cancel]").addEventListener("click", function(){
-            widget.draft = widget.values.slice();
+            setCheckFilterValues(id, widget.startValues || []);
             widget.open = false;
             updateCheckFilter(widget);
           });
