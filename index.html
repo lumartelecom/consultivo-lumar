@@ -107,7 +107,7 @@
     .share-panel .modal-title small{color:rgba(255,255,255,.82)}
     .share-panel .modal-close{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.28)}
     .share-content{display:grid;gap:14px;padding:16px 18px 18px;background:linear-gradient(180deg,#f4fbf7,#fff)}
-    .share-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+    .share-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
     .share-box{border:1px solid var(--border);border-radius:8px;padding:12px 13px;background:#fff;box-shadow:0 10px 24px rgba(15,31,53,.07)}
     .share-box strong{display:block;font-size:21px;font-family:Consolas,Menlo,monospace;color:#10213a;line-height:1}
     .share-box span{display:block;margin-top:6px;color:var(--muted);font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.06em}
@@ -119,9 +119,9 @@
     .team-share-head h3{margin:0;color:#10213a;font-size:13px;text-transform:uppercase;letter-spacing:.06em}
     .team-share-head span{color:var(--muted);font-size:11px;font-weight:900}
     .tech-share-list{display:grid;gap:8px;padding:12px}
-    .tech-share{display:grid;grid-template-columns:minmax(0,1fr) 92px 80px;gap:10px;align-items:center;border:1px solid #e5edf7;border-radius:8px;padding:10px;background:#fff}
+    .tech-share{display:grid;grid-template-columns:minmax(0,1fr) 92px 92px 74px;gap:10px;align-items:center;border:1px solid #e5edf7;border-radius:8px;padding:10px;background:#fff}
     .tech-share-name{min-width:0;font-weight:850;color:#10213a;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-    .tech-share-count,.tech-share-percent{font-family:Consolas,Menlo,monospace;font-weight:900;text-align:right;color:#10213a}
+    .tech-share-count,.tech-share-installed,.tech-share-percent{font-family:Consolas,Menlo,monospace;font-weight:900;text-align:right;color:#10213a}
     .share-green-bg{background:#f0fdf4;border-color:#bbf7d0}
     .share-yellow-bg{background:#fffbeb;border-color:#fde68a}
     .share-red-bg{background:#fff1f2;border-color:#fecdd3}
@@ -269,7 +269,7 @@
       .share-content{padding:10px;gap:10px}
       .team-share-head{display:grid;padding:10px}
       .tech-share{grid-template-columns:1fr;gap:5px}
-      .tech-share-count,.tech-share-percent{text-align:left}
+      .tech-share-count,.tech-share-installed,.tech-share-percent{text-align:left}
       .span-2,.span-4{grid-column:1/-1}
       .modal{padding:0;place-items:end}
       .modal-backdrop{background:rgba(8,22,40,.48)}
@@ -398,7 +398,7 @@
         <div class="section-title modal-title">
           <div>
             <h2 id="shareTitle">Resumo por Equipe</h2>
-            <small>Distribuição por equipe e por técnico</small>
+            <small>Ofertas e instalados por equipe e por técnico</small>
           </div>
           <div class="modal-actions">
             <button id="downloadShare" class="ghost ranking-download" type="button">Baixar imagem</button>
@@ -1132,6 +1132,9 @@
       function percent(value, total){
         return total ? Math.round(value / total * 100) : 0;
       }
+      function countLabel(value, singular, plural){
+        return integer.format(value) + " " + (value === 1 ? singular : plural);
+      }
       function shareTone(value){
         if(value >= 50) return "share-green-bg";
         if(value >= 20) return "share-yellow-bg";
@@ -1139,25 +1142,32 @@
       }
       function offerDistribution(){
         var teams = {
-          "Instalação": { nome:"Instalação", total:0, tecnicos:new Map() },
-          "Manutenção": { nome:"Manutenção", total:0, tecnicos:new Map() }
+          "Instalação": { nome:"Instalação", ofertas:0, instaladas:0, tecnicos:new Map() },
+          "Manutenção": { nome:"Manutenção", ofertas:0, instaladas:0, tecnicos:new Map() }
         };
-        var total = 0;
+        var totalOfertas = 0;
+        var totalInstaladas = 0;
         filtered.forEach(function(record){
           var name = canonicalTech(record.tecnico);
           if(!name) return;
           var amount = qty(record) || 1;
+          var installed = installedQty(record);
           var team = technicianTeam(record.tecnico);
-          if(!teams[team]) teams[team] = { nome:team, total:0, tecnicos:new Map() };
-          teams[team].total += amount;
-          total += amount;
-          if(!teams[team].tecnicos.has(name)) teams[team].tecnicos.set(name, { nome:name, ofertas:0 });
+          if(!teams[team]) teams[team] = { nome:team, ofertas:0, instaladas:0, tecnicos:new Map() };
+          teams[team].ofertas += amount;
+          teams[team].instaladas += installed;
+          totalOfertas += amount;
+          totalInstaladas += installed;
+          if(!teams[team].tecnicos.has(name)) teams[team].tecnicos.set(name, { nome:name, ofertas:0, instaladas:0 });
           teams[team].tecnicos.get(name).ofertas += amount;
+          teams[team].tecnicos.get(name).instaladas += installed;
         });
         return {
-          total:total,
+          total:totalOfertas,
+          totalOfertas:totalOfertas,
+          totalInstaladas:totalInstaladas,
           teams:["Instalação","Manutenção"].map(function(name){ return teams[name]; }).sort(function(a,b){
-            return b.total - a.total || a.nome.localeCompare(b.nome, "pt-BR");
+            return b.ofertas - a.ofertas || b.instaladas - a.instaladas || a.nome.localeCompare(b.nome, "pt-BR");
           })
         };
       }
@@ -1171,19 +1181,20 @@
           return;
         }
         var summary = "<div class=\"share-summary\">"
-          + "<div class=\"share-box share-green\"><strong>" + integer.format(data.total) + "</strong><span>Total de ofertas filtradas</span></div>"
-          + "<div class=\"share-box share-yellow\"><strong>" + percent(firstTeam.total, data.total) + "%</strong><span>" + esc(firstTeam.nome) + " · " + integer.format(firstTeam.total) + " ofertas</span></div>"
-          + "<div class=\"share-box share-red\"><strong>" + percent(secondTeam.total, data.total) + "%</strong><span>" + esc(secondTeam.nome) + " · " + integer.format(secondTeam.total) + " ofertas</span></div>"
+          + "<div class=\"share-box share-green\"><strong>" + integer.format(data.totalOfertas) + "</strong><span>Total de ofertas filtradas</span></div>"
+          + "<div class=\"share-box share-green\"><strong>" + integer.format(data.totalInstaladas) + "</strong><span>Total de instalados filtrados</span></div>"
+          + "<div class=\"share-box share-yellow\"><strong>" + integer.format(firstTeam.ofertas) + " / " + integer.format(firstTeam.instaladas) + "</strong><span>" + esc(firstTeam.nome) + " · ofertas / instalados</span></div>"
+          + "<div class=\"share-box share-red\"><strong>" + integer.format(secondTeam.ofertas) + " / " + integer.format(secondTeam.instaladas) + "</strong><span>" + esc(secondTeam.nome) + " · ofertas / instalados</span></div>"
           + "</div>";
         var groups = data.teams.map(function(team){
           var rows = Array.from(team.tecnicos.values()).sort(function(a,b){
-            return b.ofertas - a.ofertas || a.nome.localeCompare(b.nome, "pt-BR");
+            return b.ofertas - a.ofertas || b.instaladas - a.instaladas || a.nome.localeCompare(b.nome, "pt-BR");
           });
           var body = rows.length ? rows.map(function(item){
-            var share = percent(item.ofertas, team.total);
-            return "<div class=\"tech-share " + shareTone(share) + "\"><div class=\"tech-share-name\">" + esc(item.nome) + "</div><div class=\"tech-share-count\">" + integer.format(item.ofertas) + " ofertas</div><div class=\"tech-share-percent\">" + share + "%</div></div>";
+            var conversion = percent(item.instaladas, item.ofertas);
+            return "<div class=\"tech-share " + shareTone(conversion) + "\"><div class=\"tech-share-name\">" + esc(item.nome) + "</div><div class=\"tech-share-count\">" + countLabel(item.ofertas, "oferta", "ofertas") + "</div><div class=\"tech-share-installed\">" + countLabel(item.instaladas, "instalado", "instalados") + "</div><div class=\"tech-share-percent\">" + conversion + "%</div></div>";
           }).join("") : "<div class=\"empty\">Sem ofertas nesta equipe.</div>";
-          return "<section class=\"team-share\"><div class=\"team-share-head\"><h3>" + esc(team.nome) + "</h3><span>" + integer.format(team.total) + " ofertas · " + percent(team.total, data.total) + "% do total</span></div><div class=\"tech-share-list\">" + body + "</div></section>";
+          return "<section class=\"team-share\"><div class=\"team-share-head\"><h3>" + esc(team.nome) + "</h3><span>" + countLabel(team.ofertas, "oferta", "ofertas") + " · " + countLabel(team.instaladas, "instalado", "instalados") + " · " + percent(team.instaladas, team.ofertas) + "% conversão</span></div><div class=\"tech-share-list\">" + body + "</div></section>";
         }).join("");
         el.innerHTML = summary + groups;
       }
@@ -1196,9 +1207,10 @@
         var teams = data.teams.map(function(team){
           return {
             nome:team.nome,
-            total:team.total,
+            ofertas:team.ofertas,
+            instaladas:team.instaladas,
             rows:Array.from(team.tecnicos.values()).sort(function(a,b){
-              return b.ofertas - a.ofertas || a.nome.localeCompare(b.nome, "pt-BR");
+              return b.ofertas - a.ofertas || b.instaladas - a.instaladas || a.nome.localeCompare(b.nome, "pt-BR");
             })
           };
         });
@@ -1222,19 +1234,20 @@
         ctx.fillText("RESUMO POR EQUIPE", 48, 58);
         ctx.font = "700 18px Arial, sans-serif";
         ctx.fillStyle = "rgba(255,255,255,.84)";
-        ctx.fillText("Participação por equipe e por técnico", 50, 92);
+        ctx.fillText("Ofertas e instalados por equipe e por técnico", 50, 92);
         ctx.textAlign = "right";
         ctx.fillText(new Date().toLocaleDateString("pt-BR"), width - 50, 92);
         ctx.textAlign = "left";
 
         var summaryY = 160;
         [
-          { label:"TOTAL FILTRADO", value:integer.format(data.total), color:"#16a34a" },
-          { label:teams[0].nome.toLocaleUpperCase("pt-BR"), value:percent(teams[0].total, data.total) + "% · " + integer.format(teams[0].total), color:"#d97706" },
-          { label:teams[1].nome.toLocaleUpperCase("pt-BR"), value:percent(teams[1].total, data.total) + "% · " + integer.format(teams[1].total), color:"#dc2626" }
+          { label:"OFERTAS FILTRADAS", value:integer.format(data.totalOfertas), color:"#16a34a" },
+          { label:"INSTALADOS FILTRADOS", value:integer.format(data.totalInstaladas), color:"#16a34a" },
+          { label:teams[0].nome.toLocaleUpperCase("pt-BR"), value:integer.format(teams[0].ofertas) + " / " + integer.format(teams[0].instaladas), color:"#d97706" },
+          { label:teams[1].nome.toLocaleUpperCase("pt-BR"), value:integer.format(teams[1].ofertas) + " / " + integer.format(teams[1].instaladas), color:"#dc2626" }
         ].forEach(function(box, index){
-          var x = 48 + index * 368;
-          roundRect(ctx, x, summaryY, 340, 82, 10);
+          var x = 48 + index * 276;
+          roundRect(ctx, x, summaryY, 252, 82, 10);
           ctx.fillStyle = "#ffffff";
           ctx.fill();
           ctx.strokeStyle = "#d9e6f2";
@@ -1242,7 +1255,7 @@
           ctx.fillStyle = box.color;
           ctx.fillRect(x, summaryY, 7, 82);
           ctx.fillStyle = "#10213a";
-          ctx.font = "900 26px Consolas, monospace";
+          ctx.font = "900 24px Consolas, monospace";
           ctx.fillText(box.value, x + 22, summaryY + 36);
           ctx.fillStyle = "#60708a";
           ctx.font = "900 12px Arial, sans-serif";
@@ -1262,15 +1275,15 @@
           ctx.textAlign = "right";
           ctx.fillStyle = "#60708a";
           ctx.font = "900 13px Arial, sans-serif";
-          ctx.fillText(integer.format(team.total) + " ofertas · " + percent(team.total, data.total) + "% do total", width - 66, y + 27);
+          ctx.fillText(countLabel(team.ofertas, "oferta", "ofertas") + " · " + countLabel(team.instaladas, "instalado", "instalados") + " · " + percent(team.instaladas, team.ofertas) + "% conversão", width - 66, y + 27);
           ctx.textAlign = "left";
           y += 54;
 
-          var rows = team.rows.length ? team.rows : [{ nome:"Sem ofertas nesta equipe", ofertas:0, empty:true }];
+          var rows = team.rows.length ? team.rows : [{ nome:"Sem ofertas nesta equipe", ofertas:0, instaladas:0, empty:true }];
           rows.forEach(function(item){
-            var share = percent(item.ofertas, team.total);
-            var tone = share >= 50 ? "#f0fdf4" : (share >= 20 ? "#fffbeb" : "#fff1f2");
-            var border = share >= 50 ? "#bbf7d0" : (share >= 20 ? "#fde68a" : "#fecdd3");
+            var conversion = percent(item.instaladas, item.ofertas);
+            var tone = conversion >= 50 ? "#f0fdf4" : (conversion >= 20 ? "#fffbeb" : "#fff1f2");
+            var border = conversion >= 50 ? "#bbf7d0" : (conversion >= 20 ? "#fde68a" : "#fecdd3");
             roundRect(ctx, 66, y, width - 132, 40, 8);
             ctx.fillStyle = item.empty ? "#f7fafe" : tone;
             ctx.fill();
@@ -1281,8 +1294,9 @@
             ctx.fillText(canvasText(ctx, item.nome, 650), 84, y + 25);
             ctx.textAlign = "right";
             ctx.font = "900 15px Consolas, monospace";
-            ctx.fillText(item.empty ? "" : integer.format(item.ofertas) + " ofertas", width - 210, y + 25);
-            ctx.fillText(item.empty ? "" : share + "%", width - 84, y + 25);
+            ctx.fillText(item.empty ? "" : countLabel(item.ofertas, "oferta", "ofertas"), width - 350, y + 25);
+            ctx.fillText(item.empty ? "" : countLabel(item.instaladas, "instalado", "instalados"), width - 185, y + 25);
+            ctx.fillText(item.empty ? "" : conversion + "%", width - 84, y + 25);
             ctx.textAlign = "left";
             y += 50;
           });
