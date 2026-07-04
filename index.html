@@ -111,17 +111,30 @@
     .share-box{border:1px solid var(--border);border-radius:8px;padding:12px 13px;background:#fff;box-shadow:0 10px 24px rgba(15,31,53,.07)}
     .share-box strong{display:block;font-size:21px;font-family:Consolas,Menlo,monospace;color:#10213a;line-height:1}
     .share-box span{display:block;margin-top:6px;color:var(--muted);font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.06em}
+    .share-box-title{font-size:13px;font-weight:950;color:#10213a;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .share-box-split{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px}
+    .share-mini{border:1px solid #e0e8f3;border-radius:7px;background:#f8fbff;padding:8px 9px;min-width:0}
+    .share-mini b{display:block;color:#10213a;font-family:Consolas,Menlo,monospace;font-size:17px;line-height:1}
+    .share-mini span{margin-top:5px;font-size:9px;letter-spacing:.05em}
     .share-green{border-left:5px solid var(--green)}
     .share-yellow{border-left:5px solid var(--amber)}
     .share-red{border-left:5px solid var(--red)}
-    .team-share{border:1px solid var(--border);border-radius:8px;background:#fff;overflow:hidden}
-    .team-share-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;background:#f8fbff;border-bottom:1px solid #e6eef8}
+    .team-share{border:1px solid var(--border);border-radius:8px;background:#fff;overflow:hidden;box-shadow:0 12px 26px rgba(15,31,53,.07)}
+    .team-share-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,.72fr);align-items:center;gap:12px;padding:13px 14px;background:linear-gradient(180deg,#f8fbff,#eef7ff);border-bottom:1px solid #dce8f5}
     .team-share-head h3{margin:0;color:#10213a;font-size:13px;text-transform:uppercase;letter-spacing:.06em}
-    .team-share-head span{color:var(--muted);font-size:11px;font-weight:900}
+    .team-share-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+    .team-metric{border:1px solid #d7e4f3;border-radius:7px;background:#fff;padding:8px 9px;min-width:0}
+    .team-metric strong{display:block;color:#10213a;font-family:Consolas,Menlo,monospace;font-size:16px;line-height:1}
+    .team-metric span{display:block;margin-top:5px;color:var(--muted);font-size:9px;font-weight:950;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .tech-share-list{display:grid;gap:8px;padding:12px}
-    .tech-share{display:grid;grid-template-columns:minmax(0,1fr) 92px 92px 74px;gap:10px;align-items:center;border:1px solid #e5edf7;border-radius:8px;padding:10px;background:#fff}
+    .tech-share{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,.72fr);gap:12px;align-items:center;border:1px solid #e5edf7;border-radius:8px;padding:10px;background:#fff}
     .tech-share-name{min-width:0;font-weight:850;color:#10213a;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-    .tech-share-count,.tech-share-installed,.tech-share-percent{font-family:Consolas,Menlo,monospace;font-weight:900;text-align:right;color:#10213a}
+    .tech-share-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+    .tech-share-stat{border:1px solid rgba(15,31,53,.08);border-left:4px solid var(--blue);border-radius:7px;background:rgba(255,255,255,.82);padding:7px 8px;min-width:0}
+    .tech-share-stat strong{display:block;font-family:Consolas,Menlo,monospace;font-size:14px;font-weight:950;color:#10213a;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .tech-share-stat span{display:block;margin-top:5px;color:var(--muted);font-size:8px;font-weight:950;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .tech-share-stat.installed{border-left-color:var(--green)}
+    .tech-share-stat.conversion{border-left-color:var(--amber)}
     .share-green-bg{background:#f0fdf4;border-color:#bbf7d0}
     .share-yellow-bg{background:#fffbeb;border-color:#fde68a}
     .share-red-bg{background:#fff1f2;border-color:#fecdd3}
@@ -267,9 +280,17 @@
       .modal-actions{width:100%;justify-content:space-between}
       .share-summary{grid-template-columns:1fr}
       .share-content{padding:10px;gap:10px}
-      .team-share-head{display:grid;padding:10px}
-      .tech-share{grid-template-columns:1fr;gap:5px}
-      .tech-share-count,.tech-share-installed,.tech-share-percent{text-align:left}
+      .share-box-split{grid-template-columns:1fr 1fr}
+      .team-share-head{grid-template-columns:1fr;padding:10px}
+      .team-share-metrics{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+      .team-metric{padding:7px 6px}
+      .team-metric strong{font-size:14px}
+      .team-metric span{font-size:8px;letter-spacing:.02em}
+      .tech-share{grid-template-columns:1fr;gap:8px}
+      .tech-share-metrics{grid-template-columns:repeat(3,minmax(0,1fr))}
+      .tech-share-stat{padding:7px 6px}
+      .tech-share-stat strong{font-size:12px}
+      .tech-share-stat span{font-size:8px;letter-spacing:.02em}
       .span-2,.span-4{grid-column:1/-1}
       .modal{padding:0;place-items:end}
       .modal-backdrop{background:rgba(8,22,40,.48)}
@@ -1183,8 +1204,8 @@
         var summary = "<div class=\"share-summary\">"
           + "<div class=\"share-box share-green\"><strong>" + integer.format(data.totalOfertas) + "</strong><span>Total de ofertas filtradas</span></div>"
           + "<div class=\"share-box share-green\"><strong>" + integer.format(data.totalInstaladas) + "</strong><span>Total de instalados filtrados</span></div>"
-          + "<div class=\"share-box share-yellow\"><strong>" + integer.format(firstTeam.ofertas) + " / " + integer.format(firstTeam.instaladas) + "</strong><span>" + esc(firstTeam.nome) + " · ofertas / instalados</span></div>"
-          + "<div class=\"share-box share-red\"><strong>" + integer.format(secondTeam.ofertas) + " / " + integer.format(secondTeam.instaladas) + "</strong><span>" + esc(secondTeam.nome) + " · ofertas / instalados</span></div>"
+          + "<div class=\"share-box share-yellow\"><div class=\"share-box-title\">" + esc(firstTeam.nome) + "</div><div class=\"share-box-split\"><div class=\"share-mini\"><b>" + integer.format(firstTeam.ofertas) + "</b><span>Ofertas</span></div><div class=\"share-mini\"><b>" + integer.format(firstTeam.instaladas) + "</b><span>Instalados</span></div></div></div>"
+          + "<div class=\"share-box share-red\"><div class=\"share-box-title\">" + esc(secondTeam.nome) + "</div><div class=\"share-box-split\"><div class=\"share-mini\"><b>" + integer.format(secondTeam.ofertas) + "</b><span>Ofertas</span></div><div class=\"share-mini\"><b>" + integer.format(secondTeam.instaladas) + "</b><span>Instalados</span></div></div></div>"
           + "</div>";
         var groups = data.teams.map(function(team){
           var rows = Array.from(team.tecnicos.values()).sort(function(a,b){
@@ -1192,9 +1213,9 @@
           });
           var body = rows.length ? rows.map(function(item){
             var conversion = percent(item.instaladas, item.ofertas);
-            return "<div class=\"tech-share " + shareTone(conversion) + "\"><div class=\"tech-share-name\">" + esc(item.nome) + "</div><div class=\"tech-share-count\">" + countLabel(item.ofertas, "oferta", "ofertas") + "</div><div class=\"tech-share-installed\">" + countLabel(item.instaladas, "instalado", "instalados") + "</div><div class=\"tech-share-percent\">" + conversion + "%</div></div>";
+            return "<div class=\"tech-share " + shareTone(conversion) + "\"><div class=\"tech-share-name\">" + esc(item.nome) + "</div><div class=\"tech-share-metrics\"><div class=\"tech-share-stat offers\"><strong>" + integer.format(item.ofertas) + "</strong><span>Ofertas</span></div><div class=\"tech-share-stat installed\"><strong>" + integer.format(item.instaladas) + "</strong><span>Instalados</span></div><div class=\"tech-share-stat conversion\"><strong>" + conversion + "%</strong><span>Conversão</span></div></div></div>";
           }).join("") : "<div class=\"empty\">Sem ofertas nesta equipe.</div>";
-          return "<section class=\"team-share\"><div class=\"team-share-head\"><h3>" + esc(team.nome) + "</h3><span>" + countLabel(team.ofertas, "oferta", "ofertas") + " · " + countLabel(team.instaladas, "instalado", "instalados") + " · " + percent(team.instaladas, team.ofertas) + "% conversão</span></div><div class=\"tech-share-list\">" + body + "</div></section>";
+          return "<section class=\"team-share\"><div class=\"team-share-head\"><h3>" + esc(team.nome) + "</h3><div class=\"team-share-metrics\"><div class=\"team-metric\"><strong>" + integer.format(team.ofertas) + "</strong><span>Ofertas</span></div><div class=\"team-metric\"><strong>" + integer.format(team.instaladas) + "</strong><span>Instalados</span></div><div class=\"team-metric\"><strong>" + percent(team.instaladas, team.ofertas) + "%</strong><span>Conversão</span></div></div></div><div class=\"tech-share-list\">" + body + "</div></section>";
         }).join("");
         el.innerHTML = summary + groups;
       }
@@ -1243,8 +1264,8 @@
         [
           { label:"OFERTAS FILTRADAS", value:integer.format(data.totalOfertas), color:"#16a34a" },
           { label:"INSTALADOS FILTRADOS", value:integer.format(data.totalInstaladas), color:"#16a34a" },
-          { label:teams[0].nome.toLocaleUpperCase("pt-BR"), value:integer.format(teams[0].ofertas) + " / " + integer.format(teams[0].instaladas), color:"#d97706" },
-          { label:teams[1].nome.toLocaleUpperCase("pt-BR"), value:integer.format(teams[1].ofertas) + " / " + integer.format(teams[1].instaladas), color:"#dc2626" }
+          { label:teams[0].nome.toLocaleUpperCase("pt-BR"), ofertas:teams[0].ofertas, instaladas:teams[0].instaladas, color:"#d97706" },
+          { label:teams[1].nome.toLocaleUpperCase("pt-BR"), ofertas:teams[1].ofertas, instaladas:teams[1].instaladas, color:"#dc2626" }
         ].forEach(function(box, index){
           var x = 48 + index * 276;
           roundRect(ctx, x, summaryY, 252, 82, 10);
@@ -1254,6 +1275,29 @@
           ctx.stroke();
           ctx.fillStyle = box.color;
           ctx.fillRect(x, summaryY, 7, 82);
+          if(box.ofertas != null){
+            ctx.fillStyle = "#10213a";
+            ctx.font = "900 13px Arial, sans-serif";
+            ctx.fillText(canvasText(ctx, box.label, 204), x + 22, summaryY + 22);
+            [
+              { label:"OFERTAS", value:integer.format(box.ofertas) },
+              { label:"INSTAL.", value:integer.format(box.instaladas) }
+            ].forEach(function(mini, miniIndex){
+              var miniX = x + 22 + miniIndex * 105;
+              roundRect(ctx, miniX, summaryY + 32, 94, 36, 7);
+              ctx.fillStyle = "#f8fbff";
+              ctx.fill();
+              ctx.strokeStyle = "#e0e8f3";
+              ctx.stroke();
+              ctx.fillStyle = "#10213a";
+              ctx.font = "900 16px Consolas, monospace";
+              ctx.fillText(mini.value, miniX + 9, summaryY + 51);
+              ctx.fillStyle = "#60708a";
+              ctx.font = "900 8px Arial, sans-serif";
+              ctx.fillText(mini.label, miniX + 9, summaryY + 64);
+            });
+            return;
+          }
           ctx.fillStyle = "#10213a";
           ctx.font = "900 24px Consolas, monospace";
           ctx.fillText(box.value, x + 22, summaryY + 36);
