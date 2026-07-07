@@ -395,7 +395,7 @@
           </div>
           <button id="closeOffer" class="ghost modal-close" type="button" aria-label="Fechar">×</button>
         </div>
-        <div class="form-note" id="formNote">Cadastre uma nova oferta preenchendo os campos técnico, contrato, data, tipo e status. Se o contrato já existir, o sistema avisará antes de salvar.</div>
+        <div class="form-note" id="formNote">Cadastre uma nova oferta preenchendo os campos técnico, contrato, data, tipo e status. Se já existir lançamento igual, o sistema avisará antes de salvar.</div>
         <form id="form" class="form-grid">
           <input id="recordId" type="hidden">
           <label>Equipe<select id="offerTeam"><option value="">Todas</option><option value="Manutenção">Manutenção</option><option value="Instalação">Instalação</option></select></label>
@@ -1555,7 +1555,7 @@
         document.body.classList.toggle("editing", !!active);
         byId("formTitle").textContent = active ? "Editar Oferta" : "Nova Oferta";
         byId("formMode").textContent = active ? (record && record.contrato ? "Editando contrato " + record.contrato : "Editando lançamento") : "Cadastro diário";
-        byId("formNote").textContent = active ? "Altere os dados necessários e clique em Salvar edição. O registro será atualizado na tabela abaixo." : "Cadastre uma nova oferta preenchendo os campos técnico, contrato, data, tipo e status. Se o contrato já existir, o sistema avisará antes de salvar.";
+        byId("formNote").textContent = active ? "Altere os dados necessários e clique em Salvar edição. O registro será atualizado na tabela abaixo." : "Cadastre uma nova oferta preenchendo os campos técnico, contrato, data, tipo e status. Se já existir lançamento igual, o sistema avisará antes de salvar.";
         byId("saveButton").textContent = active ? "Salvar edição" : "Cadastrar oferta";
       }
       function openModal(id){
@@ -1653,10 +1653,14 @@
       }
       function duplicateWarning(record){
         var same = load().records.filter(function(item){
-          return item.id !== record.id && norm(item.contrato) === norm(record.contrato) && norm(canonicalTech(item.tecnico)) === norm(canonicalTech(record.tecnico));
+          return item.id !== record.id
+            && norm(item.contrato) === norm(record.contrato)
+            && norm(canonicalTech(item.tecnico)) === norm(canonicalTech(record.tecnico))
+            && norm(serviceName(item.tipo)) === norm(serviceName(record.tipo))
+            && norm(statusCategory(item.status)) === norm(statusCategory(record.status));
         });
         if(!same.length) return true;
-        return confirm("Já existe lançamento para este contrato e técnico. Deseja salvar mesmo assim?");
+        return confirm("Já existe lançamento igual para este contrato, técnico, serviço e status. Deseja salvar mesmo assim?");
       }
       async function submitForm(event){
         event.preventDefault();
