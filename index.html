@@ -1674,10 +1674,6 @@
           byId("dateInstall").focus();
           return;
         }
-        if(installDate && statusCategory(status) !== "Instalado" && confirm("Este lançamento tem data de instalação. Deseja alterar o status para Instalado?")){
-          byId("status").value = "Instalado";
-          status = "Instalado";
-        }
         var existing = data.records.find(function(item){ return item.id === id; });
         var payment = existing ? byId("payment").value : defaultPaymentForStatus(status);
         var record = normalizeRecord({
@@ -2348,11 +2344,6 @@
         byId("type").addEventListener("change", function(){
           var newValue = serviceValue(byId("type").value);
           if(newValue > 0) byId("value").value = newValue.toFixed(2);
-        });
-        byId("dateInstall").addEventListener("change", function(){
-          if(byId("dateInstall").value && statusCategory(byId("status").value) === "Pendente"){
-            byId("status").value = "Instalado";
-          }
         });
         byId("form").addEventListener("submit", submitForm);
         byId("deleteEdit").addEventListener("click", deleteEditingRecord);
