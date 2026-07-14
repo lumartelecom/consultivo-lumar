@@ -632,7 +632,8 @@
           { tipo:"Migração", valor:8.00 },
           { tipo:"Instalação Mesh", valor:54.30 },
           { tipo:"Ponto Ultra", valor:115.57 },
-          { tipo:"Mudança de Pacote", valor:8.00 }
+          { tipo:"Upgrade", valor:8.00 },
+          { tipo:"Instalação Ponto TV", valor:104.71 }
         ];
       }
       function serviceName(value){
@@ -641,7 +642,7 @@
         if(found) return found.tipo;
         if(n === "migracao") return "Migração";
         if(n.indexOf("mesh") >= 0) return "Instalação Mesh";
-        if(n.indexOf("mudanca de pacote") >= 0) return "Mudança de Pacote";
+        if(n.indexOf("mudanca de pacote") >= 0 || n === "upgrade") return "Upgrade";
         if(n.indexOf("ponto ultra") >= 0 || n.indexOf("ultra") >= 0) return "Ponto Ultra";
         if(n.indexOf("ponto tv") >= 0 || n === "tv") return "Instalação Ponto TV";
         if(n === "indicacao") return "Indicação";
