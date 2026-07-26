@@ -39,24 +39,32 @@
     .hero p{margin:0;color:rgba(255,255,255,.78);font-size:12px;font-weight:650}
     .hero-logo{width:74px;height:74px;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.18);box-shadow:0 12px 26px rgba(0,0,0,.2);background:#06245f;flex:0 0 auto;display:flex;align-items:center;justify-content:center}
     .hero-logo img{width:100%;height:100%;object-fit:cover;display:block}
-    .filters{position:sticky;top:0;z-index:20;display:grid;grid-template-columns:minmax(122px,.82fr) minmax(170px,1.16fr) minmax(142px,1fr) minmax(160px,1.08fr) minmax(130px,.88fr) minmax(130px,.82fr) minmax(130px,.82fr) minmax(128px,.82fr);gap:8px;margin-bottom:12px;padding:8px;background:rgba(243,247,251,.96);border:1px solid var(--border);border-radius:10px;box-shadow:0 10px 28px rgba(18,38,63,.09);backdrop-filter:blur(8px)}
-    .filter-card{display:flex;align-items:center;gap:0;min-width:0;min-height:40px;position:relative;background:var(--surface);border:1px solid var(--border);border-radius:8px;box-shadow:0 8px 22px rgba(18,38,63,.06)}
+    .filters{position:sticky;top:0;z-index:20;display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;grid-template-rows:repeat(2,1fr);gap:6px;margin-bottom:12px;padding:6px;background:rgba(243,247,251,.96);border:1px solid var(--border);border-radius:10px;box-shadow:0 10px 28px rgba(18,38,63,.09);backdrop-filter:blur(8px)}
+    .filter-card:nth-child(1){grid-column:1;grid-row:1}
+    .filter-card:nth-child(2){grid-column:1;grid-row:2}
+    .filter-card:nth-child(3){grid-column:2;grid-row:1}
+    .filter-card:nth-child(4){grid-column:2;grid-row:2}
+    .filter-card:nth-child(5){grid-column:3;grid-row:1}
+    .filter-card:nth-child(6){grid-column:3;grid-row:2}
+    .filter-card:nth-child(7){grid-column:4;grid-row:1}
+    .filter-card:nth-child(8){grid-column:4;grid-row:2}
+    .filter-card:nth-child(9){grid-column:5;grid-row:1/3;align-self:center}
+    .filter-card{display:flex;flex-direction:column;justify-content:center;gap:2px;min-width:0;min-height:44px;position:relative;background:var(--surface);border:1px solid var(--border);border-radius:7px;box-shadow:0 8px 22px rgba(18,38,63,.06);padding:5px 8px}
     label,.filter-card span{font-size:10px;font-weight:850;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
     input,select,textarea{width:100%;min-width:0;border:1px solid var(--border-strong);border-radius:7px;padding:7px 9px;background:#fff;color:var(--text);outline:none;font-size:12px;font-weight:700}
     input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(21,95,196,.11)}
-    .filters .filter-card > span{flex:0 0 auto;max-width:72px;padding:0 8px 0 10px;font-size:9px;font-weight:850;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);line-height:1.05;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .filters .filter-card:nth-child(5) > span{max-width:86px}
-    .filters input,.filters select{flex:1 1 auto;min-height:38px;border:0;border-left:1px solid #e2ebf6;border-radius:0 8px 8px 0;background:transparent;color:#10213a;font-size:11px;font-weight:800;padding:7px 9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:none}
-    .filters input:focus,.filters select:focus{border-color:#e2ebf6;box-shadow:inset 0 0 0 2px rgba(21,95,196,.12)}
-    .filters button{min-height:40px;padding:8px 10px;border-radius:8px;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .filters .filter-card:last-child{border:0;background:transparent;box-shadow:none}
+    .filters .filter-card > span{flex:0 0 auto;padding:0 1px;font-size:8.5px;font-weight:850;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .filters input,.filters select{flex:0 0 auto;min-height:28px;border:1px solid var(--border-strong);border-radius:6px;background:#fff;color:var(--text);font-size:10.5px;font-weight:700;padding:4px 7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:none}
+    .filters input:focus,.filters select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(21,95,196,.11)}
+    .filters button{min-height:34px;padding:6px 9px;border-radius:7px;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .filters .filter-card:last-child{border:0;background:transparent;box-shadow:none;padding:0;justify-content:stretch}
     .filters .filter-card:last-child > span{display:none}
-    .filters .filter-card:last-child button{width:100%;height:40px}
+    .filters .filter-card:last-child button{width:100%;height:100%;min-height:44px}
     select.check-filter-source{display:none}
-    .check-filter{position:relative;min-width:0;flex:1 1 auto;align-self:stretch;display:flex}
-    .check-filter-trigger{width:100%;min-height:38px;padding:7px 28px 7px 9px;border:0;border-left:1px solid #e2ebf6;border-radius:0 8px 8px 0;background:transparent;color:#10213a;box-shadow:none;font-size:11px;font-weight:800;justify-content:flex-start;text-align:left;position:relative}
-    .check-filter-trigger:hover{filter:none;background:#f8fbff}
-    .check-filter-trigger:focus-visible{outline:none;box-shadow:inset 0 0 0 2px rgba(21,95,196,.15)}
+    .check-filter{position:relative;min-width:0;flex:0 0 auto;align-self:stretch;display:flex}
+    .check-filter-trigger{width:100%;min-height:25px;padding:4px 24px 4px 7px;border:1px solid var(--border-strong);border-radius:6px;background:#fff;color:var(--text);box-shadow:none;font-size:10.5px;font-weight:700;justify-content:flex-start;text-align:left;position:relative}
+    .check-filter-trigger:hover{filter:none;background:#f8fbff;border-color:var(--border-strong)}
+    .check-filter-trigger:focus-visible{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(21,95,196,.11)}
     .check-filter-trigger:after{content:"";position:absolute;right:9px;top:50%;margin-top:-2px;border-left:4px solid transparent;border-right:4px solid transparent;border-top:5px solid #374151}
     .check-filter-label{display:block;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
     .check-filter-menu{position:absolute;z-index:100;left:0;top:calc(100% + 6px);width:100%;min-width:190px;max-width:min(330px,calc(100vw - 24px));background:#fff;border:1px solid var(--border-strong);border-radius:8px;box-shadow:0 12px 28px rgba(15,23,42,.18);padding:4px 0 0;overflow:hidden}
@@ -230,7 +238,8 @@
     .auth-error{min-height:18px;margin-top:8px;color:#b91c1c;font-size:11px;font-weight:850}
     .auth-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:12px}
     @media(max-width:900px){
-      .filters{position:static;grid-template-columns:repeat(2,minmax(0,1fr))}
+      .filters{position:static;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none}
+      .filter-card:nth-child(n){grid-column:auto;grid-row:auto;align-self:stretch}
       .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
       .grid-main{grid-template-columns:1fr}
     }
@@ -244,8 +253,7 @@
       .hero p{font-size:11px;line-height:1.25}
       .hero-logo{position:absolute;right:12px;top:13px;width:56px;height:56px;border-radius:8px}
       .filters{display:grid;position:static;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-bottom:10px;padding:8px;background:#fff;border:1px solid var(--border);border-radius:8px;box-shadow:0 8px 22px rgba(18,38,63,.07);backdrop-filter:none}
-      .filter-card:nth-child(2),.filter-card:nth-child(4),.filter-card:nth-child(8){grid-column:1/-1}
-      .filters .filter-card > span{max-width:78px;padding-left:8px}
+      .filter-card:nth-child(2),.filter-card:nth-child(4),.filter-card:nth-child(9){grid-column:1/-1}
       .check-filter-menu{min-width:100%;max-width:calc(100vw - 36px)}
       .check-filter-options{max-height:42vh}
       .kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:12px}
@@ -335,7 +343,7 @@
       .container{padding-left:8px;padding-right:8px}
       .hero p{display:none}
       .filters{grid-template-columns:1fr}
-      .filter-card{grid-column:1/-1}
+      .filter-card:nth-child(n){grid-column:1/-1}
       .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
       .kpi-card{min-height:72px;padding:9px}
       .kpi-value{font-size:19px}
@@ -364,6 +372,7 @@
       <div class="filter-card"><span>Status</span><select id="filterStatus"></select></div>
       <div class="filter-card"><span>Serviço</span><select id="filterType"></select></div>
       <div class="filter-card"><span>Pagamento</span><select id="filterPayment"><option value="">Todos</option><option value="OK">OK</option><option value="Não OK">Não OK</option></select></div>
+      <div class="filter-card"><span>Contar por</span><select id="filterCountMode"><option value="produtos">Quantidade de Produtos</option><option value="contratos">Quantidade de Contratos</option></select></div>
       <div class="filter-card"><span>Início</span><input id="filterStart" type="date"></div>
       <div class="filter-card"><span>Fim</span><input id="filterEnd" type="date"></div>
       <div class="filter-card"><span>Ação</span><button id="clearFilters" class="ghost" type="button">Limpar filtros</button></div>
@@ -448,7 +457,7 @@
     </div>
 
     <section class="card launches-card">
-      <div class="section-title launches-title"><h2>Lançamentos</h2><div class="section-actions launches-actions"><small><span id="tableTotal">0</span> registros exibidos</small><button id="exportXlsx" class="secondary" type="button">Exportar planilha</button></div></div>
+      <div class="section-title launches-title"><h2>Lançamentos</h2><div class="section-actions launches-actions"><small><span id="tableTotal">0</span> <span id="tableTotalLabel">registros exibidos</span></small><button id="exportXlsx" class="secondary" type="button">Exportar planilha</button></div></div>
       <div class="table-tools launches-tools">
         <div class="table-filter"><label for="tableTech" data-mobile-label="Técnico"><span>Filtrar lançamentos por técnico</span></label><select id="tableTech"></select></div>
         <div class="contract-search"><label for="tableContract" data-mobile-label="Contrato"><span>Buscar por contrato</span><input id="tableContract" inputmode="numeric" placeholder="Digite o contrato"></label><button id="searchContract" class="success" type="button">Buscar</button></div>
@@ -1105,12 +1114,29 @@
         renderTable();
         renderMobileCards();
       }
+      function countMode(){
+        var el = byId("filterCountMode");
+        return el && el.value === "contratos" ? "contratos" : "produtos";
+      }
+      function distinctContractCount(records){
+        return uniq(records.map(function(record){ return record.contrato; })).length;
+      }
       function renderKpis(){
-        var total = filtered.length;
-        var totalQty = filtered.reduce(function(sum, record){ return sum + qty(record); }, 0);
-        var installed = filtered.reduce(function(sum, record){ return sum + installedQty(record); }, 0);
-        var pending = filtered.reduce(function(sum, record){ return sum + (isPending(record) ? (qty(record) || 1) : 0); }, 0);
-        var failed = filtered.reduce(function(sum, record){ return sum + (isFailed(record) ? (qty(record) || 1) : 0); }, 0);
+        var mode = countMode();
+        var total, totalQty, installed, pending, failed;
+        if(mode === "contratos"){
+          total = distinctContractCount(filtered);
+          totalQty = total;
+          installed = distinctContractCount(filtered.filter(isInstalled));
+          pending = distinctContractCount(filtered.filter(isPending));
+          failed = distinctContractCount(filtered.filter(isFailed));
+        } else {
+          total = filtered.length;
+          totalQty = filtered.reduce(function(sum, record){ return sum + qty(record); }, 0);
+          installed = filtered.reduce(function(sum, record){ return sum + installedQty(record); }, 0);
+          pending = filtered.reduce(function(sum, record){ return sum + (isPending(record) ? (qty(record) || 1) : 0); }, 0);
+          failed = filtered.reduce(function(sum, record){ return sum + (isFailed(record) ? (qty(record) || 1) : 0); }, 0);
+        }
         var totalValue = filtered.reduce(function(sum, record){ return sum + installedValue(record); }, 0);
         byId("kpiQty").textContent = integer.format(totalQty);
         byId("kpiInstalled").textContent = integer.format(installed);
@@ -1119,6 +1145,8 @@
         byId("kpiValue").textContent = money.format(totalValue);
         byId("kpiConversion").textContent = totalQty ? Math.round(installed / totalQty * 100) + "%" : "0%";
         byId("tableTotal").textContent = integer.format(total);
+        var tableTotalLabel = byId("tableTotalLabel");
+        if(tableTotalLabel) tableTotalLabel.textContent = mode === "contratos" ? "contratos exibidos" : "registros exibidos";
         updateKpiActive();
       }
       function setKpiStatusFilter(value){
@@ -2306,6 +2334,7 @@
           applyFilters();
         });
         ["filterTech","filterStatus","filterType","filterPayment","filterStart","filterEnd","tableTech","tableStatus"].forEach(function(id){ byId(id).addEventListener("input", applyFilters); });
+        byId("filterCountMode").addEventListener("input", renderKpis);
         document.querySelectorAll("[data-kpi-filter]").forEach(function(card){
           card.addEventListener("click", function(){ handleKpiFilter(card); });
           card.addEventListener("keydown", function(event){
