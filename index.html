@@ -819,6 +819,7 @@
           };
         }
         rebuildStateLists();
+        autoFixPendingValues();
         save({ localOnly:true });
         return state;
       }
@@ -850,9 +851,11 @@
         state.records = (records || []).map(normalizedRecordWithAudit).filter(function(record){ return record.tecnico || record.contrato || record.tipo || record.status; });
         if(Array.isArray(auditLog)) state.auditLog = auditLog;
         rebuildStateLists();
-        save({ localOnly:true });
+        var fixedCount = autoFixPendingValues();
+        save({ localOnly: fixedCount === 0 });
         syncLists();
         applyFilters();
+        if(fixedCount > 0) toast(fixedCount + " lançamento(s) pendente(s) atualizado(s) para o novo valor.", "ok");
       }
       function initFirebaseSync(){
         if(!window.firebase){
@@ -869,6 +872,7 @@
             if(remote && Array.isArray(remote.records)){
               if(firebaseFirstSnapshot && load().records.length > remote.records.length){
                 firebaseFirstSnapshot = false;
+                autoFixPendingValues();
                 publishRemote();
                 toast("Base local enviada para o Firebase.", "ok");
                 return;
@@ -2306,6 +2310,22 @@
         }catch(error){
           toast("Falha na importação: " + error.message, "err");
         }
+      }
+      function autoFixPendingValues(){
+        var targets = ["Ponto Ultra", "Instalação Ponto TV"];
+        var updated = 0;
+        (state.records || []).forEach(function(record){
+          if(targets.indexOf(record.tipo) === -1) return;
+          if(paymentStatus(record) === "OK") return;
+          var newValue = serviceValue(record.tipo);
+          if(newValue > 0 && Number(record.valor) !== newValue){
+            record.valor = newValue;
+            record.alteradoEm = new Date().toISOString();
+            updated++;
+          }
+        });
+        if(updated > 0) addAudit("ajuste_valor_pendente", { contrato: updated + " registro(s)", tecnico:"" });
+        return updated;
       }
       async function restoreSeed(){
         if(!await requestEditAuthorization("Restaurar base inicial")) return;
